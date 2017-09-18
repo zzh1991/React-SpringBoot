@@ -31,7 +31,9 @@
     "babel-preset-react": "^6.24.1",
     "babel-runtime": "^6.26.0",
     "clipboard": "^1.7.1",
+    "css-loader": "^0.28.7",
     "eslint": "^4.7.0",
+    "image-loader": "0.0.1",
     "immutable": "^3.8.1",
     "material-ui": "^0.19.1",
     "prop-types": "^15.5.10",
@@ -45,6 +47,7 @@
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
     "redux-thunk": "^2.2.0",
+    "style-loader": "^0.18.2",
     "underscore": "^1.8.3",
     "webpack": "^3.6.0"
   }
