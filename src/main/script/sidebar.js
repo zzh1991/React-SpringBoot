@@ -15,6 +15,9 @@ import IconButton from 'material-ui/IconButton';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import {withRouter} from 'react-router-dom';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import Main from './main';
+import style from './style.css';
+
 injectTapEventPlugin();
 
 const styles = {
@@ -26,12 +29,13 @@ const styles = {
     marginTop: '64px',
   },
   toolbar: {
-    position: 'flex',
+    position: 'fixed',
+    marginTop: '64px',
     marginLeft: '256px',
 
   },
   navbar: {
-    position: 'flex',
+    position: 'fixed',
   },
 };
 
@@ -88,18 +92,21 @@ class SideBar extends React.Component {
           </Drawer>
         </MuiThemeProvider>
         <MuiThemeProvider>
-          <Toolbar style={styles.toolbar}>
-            <ToolbarGroup firstChild={true}>
+          <div className={this.state.open ? 'container-normal' : 'container-expand'} >
+            <Toolbar>
+              <ToolbarGroup firstChild={true}>
 
-            </ToolbarGroup>
-            <ToolbarGroup lastChild>
-              <ToolbarTitle text="Options" />
+              </ToolbarGroup>
+              <ToolbarGroup lastChild>
+                <ToolbarTitle text="Options" />
 
-              <ToolbarSeparator />
-              <RaisedButton label="Create Broadcast" primary={true} />
+                <ToolbarSeparator />
+                <RaisedButton label="Create Broadcast" primary={true} />
 
-            </ToolbarGroup>
-          </Toolbar>
+              </ToolbarGroup>
+            </Toolbar>
+            <Main />
+          </div>
         </MuiThemeProvider>
       </div>
     );
