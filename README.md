@@ -1,5 +1,11 @@
 # React-SpringBoot
 
+## Install
+- npm install
+- webpack
+- start the web app in IDE
+- open browser: http://localhost:8080
+
 ## Config
 ### hot deploy for Intellij IDEA
 ```xml

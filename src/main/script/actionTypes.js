@@ -1,0 +1,4 @@
+export const ActionTypes = {
+  FETCH_DATA_REQUEST: 'FETCH_DATA_REQUEST',
+  FETCH_DATA_SUCCESS: 'FETCH_DATA_SUCCESS',
+};

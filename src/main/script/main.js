@@ -1,16 +1,17 @@
 import React from 'react';
 import { Table, Icon } from 'antd';
-import style from './style.css';
-
-
-
-
-
+import { connect } from 'react-redux';
+import './style.css';
+import { fetchData } from './actions';
 
 class Main extends React.Component {
   state = {
     current: 1,
     index: -1,
+  };
+
+  componentDidMount = () => {
+      this.props.dispatch(fetchData());
   };
 
   onChange = (pagination, filters, sorter) => {
@@ -40,34 +41,23 @@ class Main extends React.Component {
   render () {
 
     const columns = [{
-      title: 'Name',
-      dataIndex: 'name',
+      title: 'Id',
+      key: 'id',
+      dataIndex: 'id',
       // sorter: (a, b) => a.name < b.name,
     }, {
-      title: 'Age',
-      dataIndex: 'age',
-      render: this.renderColumn,
+      title: 'Name',
+      key: 'name',
+      dataIndex: 'name',
       // sorter: (a, b) => a.age - b.age,
-    }, {
-      title: 'Address',
-      dataIndex: 'address',
-      // sorter: (a, b) => a.address < b.address,
     }];
 
-    const data = [];
-    for (let i = 0; i < 46; i++) {
-      data.push({
-        key: i,
-        name: `Edward King ${i}`,
-        age: i,
-        address: `London, Park Lane no. ${i}`,
-      });
-    }
+    const { data } = this.props;
 
     return (
       <div>
           <Table columns={columns} dataSource={data} pagination={{
-            pageSize: 10,
+            pageSize: 2,
             current: this.state.current,
             defaultCurrent: 1,
             total: data.length,
@@ -91,4 +81,18 @@ class Main extends React.Component {
   }
 };
 
-export default Main;
+function mapStateToProps(state) {
+  return {
+    data: state.data,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
+

@@ -15,7 +15,7 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           cacheDirectory: true,
-          presets: ['es2015', 'react'],
+          presets: ['env', 'react', 'stage-2'],
           plugins: [
             ['transform-class-properties'],
             ["transform-runtime", {
