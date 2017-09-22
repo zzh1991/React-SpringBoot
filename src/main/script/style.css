@@ -1,0 +1,23 @@
+.container-normal {
+    position: fixed;
+    top: 64px;
+    left: 260px;
+    right: 0;
+    flex-direction: column;
+}
+
+.container-expand {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+}
+
+.clicked {
+    color: cyan;
+}
+
+.failed {
+    color: red;
+}
