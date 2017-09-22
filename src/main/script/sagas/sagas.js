@@ -1,9 +1,9 @@
 import { call, put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga';
-import Api from './api';
-import { ActionTypes } from './actionTypes';
-import { fetchStudentData } from './actions';
-import { fetchStudent, requestStudent, fetchStudentError } from './miniAction';
+import Api from '../services/api';
+import { ActionTypes } from '../actions/actionTypes';
+import { fetchStudentData } from '../actions/actions';
+import { fetchStudent, requestStudent, fetchStudentError } from '../actions/miniAction';
 
 
 function* fetchDataSage(action) {

@@ -9,6 +9,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+import app.vo.Greeting;
+import app.vo.HelloMessage;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,5 +1,8 @@
-package hello;
+package app.websocket;
 
+import app.dao.StudentRepository;
+import app.vo.Greeting;
+import app.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;

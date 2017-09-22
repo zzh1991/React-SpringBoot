@@ -3,10 +3,10 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 import {Provider} from 'react-redux';
 
 import store from './store';
-import App from './app';
-import Main from  './main'
-import NotFound from './notFound';
-import SideBarContainer from './sidebarContainer';
+import App from './containers/app';
+import Main from  './containers/main'
+import NotFound from './containers/notFound';
+import SideBarContainer from './containers/sidebarContainer';
 
 const Routes = () => (
   <Provider store={store}>

@@ -15,8 +15,8 @@ import IconButton from 'material-ui/IconButton';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import {withRouter} from 'react-router-dom';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import Main from './main';
-import style from './style.css';
+import Main from '../containers/main';
+import style from '../styles/style.css';
 
 injectTapEventPlugin();
 

@@ -6,6 +6,25 @@
 - start the web app in IDE
 - open browser: http://localhost:8080
 
+## Dependency
+### front-end
+- react
+- react-router
+- react-redux
+- redux-thunk
+- redux-saga
+- material-ui
+- ant design
+- webpack
+- babel dependency
+
+### backend
+- Spring Boot
+- PostgreSQL
+- Guava
+- Swagger2
+- flyway
+
 ## Config
 ### hot deploy for Intellij IDEA
 ```xml

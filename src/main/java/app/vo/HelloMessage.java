@@ -1,4 +1,4 @@
-package hello;
+package app.vo;
 
 
 import lombok.AllArgsConstructor;
@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Greeting {
-    private String content;
+public class HelloMessage {
+    private String name;
 }

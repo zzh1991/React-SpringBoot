@@ -1,5 +1,5 @@
 import React from 'react';
-import SideBar from './sidebar.js'
+import SideBar from '../components/sidebar.js'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 

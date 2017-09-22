@@ -1,10 +1,10 @@
 import React from 'react';
 import { Table, Icon } from 'antd';
 import { connect } from 'react-redux';
-import './style.css';
-import { fetchData } from './actions';
-import { fetchStudentData } from './actions';
-import { requestStudent } from './miniAction';
+import '../styles/style.css';
+import { fetchData } from '../actions/actions';
+import { fetchStudentData } from '../actions/actions';
+import { requestStudent } from '../actions/miniAction';
 
 class Main extends React.Component {
   state = {
