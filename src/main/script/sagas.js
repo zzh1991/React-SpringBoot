@@ -1,21 +1,27 @@
 import { call, put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga';
-import Api from './app';
+import Api from './api';
+import { ActionTypes } from './actionTypes';
+import { fetchStudentData } from './actions';
+import { fetchStudent, requestStudent, fetchStudentError } from './miniAction';
 
 
-export function* fetchData(request) {
+function* fetchDataSage(action) {
+  // const { request } = action.payload;
   try {
-    const data = yield call(Api.fetchUser, request);
-    yield put({type: "FETCH_SUCCEEDED", data});
+    const payload = yield call(Api.fetchUser);
+    yield put(fetchStudent(payload));
   } catch (error) {
-    yield put({type: "FETCH_FAILED", error});
+    yield put(fetchStudentError(error.message));
   }
 }
 
 function* watchFetchData() {
-  yield* takeLatest('FETCH_REQUESTED', fetchData)
+  yield* takeLatest(ActionTypes.FETCH_DATA_REQUEST, fetchDataSage)
 }
 
-export const HelloSage={
-  watchFetchData,
-};
+export default function* HelloSaga() {
+  yield [
+    watchFetchData(),
+  ]
+}

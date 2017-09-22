@@ -12,3 +12,10 @@ export const fetchStudent = (data) => {
     data,
   };
 };
+
+export const fetchStudentError = (error) => {
+  return {
+    type: ActionTypes.FETCH_DATA_FAILURE,
+    error,
+  };
+};

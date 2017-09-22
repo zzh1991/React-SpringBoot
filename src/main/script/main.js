@@ -3,6 +3,8 @@ import { Table, Icon } from 'antd';
 import { connect } from 'react-redux';
 import './style.css';
 import { fetchData } from './actions';
+import { fetchStudentData } from './actions';
+import { requestStudent } from './miniAction';
 
 class Main extends React.Component {
   state = {
@@ -11,11 +13,12 @@ class Main extends React.Component {
   };
 
   componentDidMount = () => {
-      this.props.dispatch(fetchData());
+      // this.props.dispatch(fetchData());
+    this.props.dispatch(requestStudent());
   };
 
   onChange = (pagination, filters, sorter) => {
-    console.log('params', pagination, sorter);
+    // console.log('params', pagination, sorter);
   };
 
   onRowClick = (record, index, event) => {
@@ -60,7 +63,7 @@ class Main extends React.Component {
             pageSize: 2,
             current: this.state.current,
             defaultCurrent: 1,
-            total: data.length,
+            total: data ? data.length : 0,
             showSizeChanger: true,
             onShowSizeChange: (current, pageSize) => {
               console.log(current, pageSize);

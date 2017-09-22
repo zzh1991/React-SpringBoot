@@ -1,5 +1,10 @@
-export default Api = {
-  fetchUser: (request) => {
-    return request;
+import CommonApi from './commonApi';
+
+export default {
+  fetchUser () {
+    const url = '/data';
+    return CommonApi(url, {
+      method: 'GET',
+    });
   },
-};
+}
