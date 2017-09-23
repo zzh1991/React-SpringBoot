@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import '../styles/style.css';
 import { fetchData } from '../actions/actions';
 import { fetchStudentData } from '../actions/actions';
-import { requestStudent } from '../actions/miniAction';
+import { requestStudent, fetchStudentInfoRequest } from '../actions/miniAction';
 
 class Main extends React.Component {
   state = {
@@ -25,6 +25,7 @@ class Main extends React.Component {
     // console.log(index);
     // console.log(JSON.stringify(record));
     this.setState({ index, });
+    this.props.dispatch(fetchStudentInfoRequest(record.id));
   };
 
   rowClassName = (record, index) => {

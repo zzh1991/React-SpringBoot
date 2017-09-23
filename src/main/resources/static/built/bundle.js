@@ -3138,7 +3138,7 @@ var DOMPropertyInjection = {
   HAS_OVERLOADED_BOOLEAN_VALUE: 0x20,
 
   /**
-   * Inject some specialized knowledge about the DOM. This takes a app object
+   * Inject some specialized knowledge about the DOM. This takes a config object
    * with the following properties:
    *
    * isCustomAttribute: function that given an attribute name will return true
@@ -3163,7 +3163,7 @@ var DOMPropertyInjection = {
    * DOMMutationMethods: Properties that require special mutation methods. If
    * `value` is undefined, the mutation method should unset the property.
    *
-   * @param {object} domPropertyConfig the app as described above.
+   * @param {object} domPropertyConfig the config as described above.
    */
   injectDOMPropertyConfig: function (domPropertyConfig) {
     var Injection = DOMPropertyInjection;
@@ -3178,7 +3178,7 @@ var DOMPropertyInjection = {
     }
 
     for (var propName in Properties) {
-      !!DOMProperty.properties.hasOwnProperty(propName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'injectDOMPropertyConfig(...): You\'re trying to inject DOM property \'%s\' which has already been injected. You may be accidentally injecting the same DOM property app twice, or you may be injecting two configs that have conflicting property names.', propName) : _prodInvariant('48', propName) : void 0;
+      !!DOMProperty.properties.hasOwnProperty(propName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'injectDOMPropertyConfig(...): You\'re trying to inject DOM property \'%s\' which has already been injected. You may be accidentally injecting the same DOM property config twice, or you may be injecting two configs that have conflicting property names.', propName) : _prodInvariant('48', propName) : void 0;
 
       var lowerCased = propName.toLowerCase();
       var propConfig = Properties[propName];
@@ -7317,7 +7317,7 @@ var EventPluginRegistry = {
   plugins: [],
 
   /**
-   * Mapping from event name to dispatch app
+   * Mapping from event name to dispatch config
    */
   eventNameDispatchConfigs: {},
 
@@ -8775,7 +8775,11 @@ Object.defineProperty(exports, "__esModule", {
 var ActionTypes = exports.ActionTypes = {
   FETCH_DATA_REQUEST: 'FETCH_DATA_REQUEST',
   FETCH_DATA_SUCCESS: 'FETCH_DATA_SUCCESS',
-  FETCH_DATA_FAILURE: 'FETCH_DATA_FAILURE'
+  FETCH_DATA_FAILURE: 'FETCH_DATA_FAILURE',
+
+  FETCH_STUDENT_INFO_REQUEST: 'FETCH_STUDENT_INFO_REQUEST',
+  FETCH_STUDENT_INFO_SUCCESS: 'FETCH_STUDENT_INFO_SUCCESS',
+  FETCH_STUDENT_INFO_FAILURE: 'FETCH_STUDENT_INFO_FAILURE'
 };
 
 /***/ }),
@@ -12214,7 +12218,7 @@ exports.f = Object.getOwnPropertySymbols;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchStudentError = exports.fetchStudent = exports.requestStudent = undefined;
+exports.fetchStudentInfoFailure = exports.fetchStudentInfoSuccess = exports.fetchStudentInfoRequest = exports.fetchStudentError = exports.fetchStudent = exports.requestStudent = undefined;
 
 var _actionTypes = __webpack_require__(97);
 
@@ -12235,6 +12239,27 @@ var fetchStudentError = exports.fetchStudentError = function fetchStudentError(e
   return {
     type: _actionTypes.ActionTypes.FETCH_DATA_FAILURE,
     error: error
+  };
+};
+
+var fetchStudentInfoRequest = exports.fetchStudentInfoRequest = function fetchStudentInfoRequest(data) {
+  return {
+    type: _actionTypes.ActionTypes.FETCH_STUDENT_INFO_REQUEST,
+    data: data
+  };
+};
+
+var fetchStudentInfoSuccess = exports.fetchStudentInfoSuccess = function fetchStudentInfoSuccess(data) {
+  return {
+    type: _actionTypes.ActionTypes.FETCH_STUDENT_INFO_SUCCESS,
+    data: data
+  };
+};
+
+var fetchStudentInfoFailure = exports.fetchStudentInfoFailure = function fetchStudentInfoFailure(data) {
+  return {
+    type: _actionTypes.ActionTypes.FETCH_STUDENT_INFO_FAILURE,
+    data: data
   };
 };
 
@@ -22910,6 +22935,7 @@ var Main = function (_React$Component) {
       // console.log(index);
       // console.log(JSON.stringify(record));
       _this.setState({ index: index });
+      _this.props.dispatch((0, _miniAction.fetchStudentInfoRequest)(record.id));
     }, _this.rowClassName = function (record, index) {
       if (index === _this.state.index) {
         return 'clicked';
@@ -34723,7 +34749,7 @@ var NS = {
 
 // We use attributes for everything SVG so let's avoid some duplication and run
 // code instead.
-// The following are all specified in the HTML app already so we exclude here.
+// The following are all specified in the HTML config already so we exclude here.
 // - class (as className)
 // - color
 // - height
@@ -40954,30 +40980,9 @@ var _actionTypes = __webpack_require__(97);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// redux
-// export default (state = {data: []}, action) => {
-//   switch (action.type) {
-//     case ActionTypes.FETCH_DATA_REQUEST:
-//       return {
-//         ...state,
-//         data: [],
-//       };
-//     case ActionTypes.FETCH_DATA_SUCCESS:
-//       return {
-//         ...state,
-//         data: action.data,
-//       };
-//     default:
-//       return state;
-//   }
-// }
-
-
-// sages
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { data: [] };
   var action = arguments[1];
-  var payload = action.payload;
 
   console.log(JSON.stringify(action));
   switch (action.type) {
@@ -40988,6 +40993,10 @@ exports.default = function () {
     case _actionTypes.ActionTypes.FETCH_DATA_SUCCESS:
       return (0, _extends3.default)({}, state, {
         data: action.data
+      });
+    case _actionTypes.ActionTypes.FETCH_STUDENT_INFO_SUCCESS:
+      return (0, _extends3.default)({}, state, {
+        data: [action.data]
       });
     default:
       return state;
@@ -41139,8 +41148,10 @@ var _miniAction = __webpack_require__(140);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _marked = /*#__PURE__*/_regenerator2.default.mark(fetchDataSage),
-    _marked2 = /*#__PURE__*/_regenerator2.default.mark(watchFetchData),
-    _marked3 = /*#__PURE__*/_regenerator2.default.mark(HelloSaga);
+    _marked2 = /*#__PURE__*/_regenerator2.default.mark(fetchStudentInfoSage),
+    _marked3 = /*#__PURE__*/_regenerator2.default.mark(watchFetchData),
+    _marked4 = /*#__PURE__*/_regenerator2.default.mark(watchFetchStudentInfo),
+    _marked5 = /*#__PURE__*/_regenerator2.default.mark(HelloSaga);
 
 function fetchDataSage(action) {
   var payload;
@@ -41175,35 +41186,87 @@ function fetchDataSage(action) {
   }, _marked, this, [[0, 8]]);
 }
 
-function watchFetchData() {
-  return _regenerator2.default.wrap(function watchFetchData$(_context2) {
+function fetchStudentInfoSage(action) {
+  var request, payload;
+  return _regenerator2.default.wrap(function fetchStudentInfoSage$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          return _context2.delegateYield((0, _reduxSaga.takeLatest)(_actionTypes.ActionTypes.FETCH_DATA_REQUEST, fetchDataSage), 't0', 1);
+          console.log(JSON.stringify(action));
+          request = action.data;
 
-        case 1:
+          console.log(request);
+          _context2.prev = 3;
+          _context2.next = 6;
+          return (0, _effects.call)(_api2.default.fetchStudentInfo, request);
+
+        case 6:
+          payload = _context2.sent;
+          _context2.next = 9;
+          return (0, _effects.put)((0, _miniAction.fetchStudentInfoSuccess)(payload));
+
+        case 9:
+          _context2.next = 15;
+          break;
+
+        case 11:
+          _context2.prev = 11;
+          _context2.t0 = _context2['catch'](3);
+          _context2.next = 15;
+          return (0, _effects.put)((0, _miniAction.fetchStudentInfoFailure)(_context2.t0.message));
+
+        case 15:
         case 'end':
           return _context2.stop();
       }
     }
-  }, _marked2, this);
+  }, _marked2, this, [[3, 11]]);
 }
 
-function HelloSaga() {
-  return _regenerator2.default.wrap(function HelloSaga$(_context3) {
+function watchFetchData() {
+  return _regenerator2.default.wrap(function watchFetchData$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          _context3.next = 2;
-          return [watchFetchData()];
+          return _context3.delegateYield((0, _reduxSaga.takeLatest)(_actionTypes.ActionTypes.FETCH_DATA_REQUEST, fetchDataSage), 't0', 1);
 
-        case 2:
+        case 1:
         case 'end':
           return _context3.stop();
       }
     }
   }, _marked3, this);
+}
+
+function watchFetchStudentInfo() {
+  return _regenerator2.default.wrap(function watchFetchStudentInfo$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          return _context4.delegateYield((0, _reduxSaga.takeLatest)(_actionTypes.ActionTypes.FETCH_STUDENT_INFO_REQUEST, fetchStudentInfoSage), 't0', 1);
+
+        case 1:
+        case 'end':
+          return _context4.stop();
+      }
+    }
+  }, _marked4, this);
+}
+
+function HelloSaga() {
+  return _regenerator2.default.wrap(function HelloSaga$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.next = 2;
+          return [watchFetchData(), watchFetchStudentInfo()];
+
+        case 2:
+        case 'end':
+          return _context5.stop();
+      }
+    }
+  }, _marked5, this);
 }
 
 /***/ }),
@@ -42003,6 +42066,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
   fetchUser: function fetchUser() {
     var url = '/data';
+    return (0, _commonApi2.default)(url, {
+      method: 'GET'
+    });
+  },
+  fetchStudentInfo: function fetchStudentInfo(request) {
+    var url = '/student/' + request;
     return (0, _commonApi2.default)(url, {
       method: 'GET'
     });

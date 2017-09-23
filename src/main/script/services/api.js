@@ -7,4 +7,10 @@ export default {
       method: 'GET',
     });
   },
+  fetchStudentInfo (request) {
+    const url = `/student/${request}`;
+    return CommonApi(url, {
+      method: 'GET',
+    });
+  }
 }

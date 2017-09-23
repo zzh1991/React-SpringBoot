@@ -19,3 +19,25 @@ export const fetchStudentError = (error) => {
     error,
   };
 };
+
+export const fetchStudentInfoRequest = (data) => {
+  return {
+    type: ActionTypes.FETCH_STUDENT_INFO_REQUEST,
+    data,
+  };
+};
+
+export const fetchStudentInfoSuccess = (data) => {
+  return {
+    type: ActionTypes.FETCH_STUDENT_INFO_SUCCESS,
+    data,
+  };
+};
+
+export const fetchStudentInfoFailure = (data) => {
+  return {
+    type: ActionTypes.FETCH_STUDENT_INFO_FAILURE,
+    data,
+  };
+};
+

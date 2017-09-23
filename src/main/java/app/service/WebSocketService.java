@@ -1,4 +1,4 @@
-package app.websocket;
+package app.service;
 
 import app.dao.StudentRepository;
 import app.vo.Greeting;
@@ -30,5 +30,9 @@ public class WebSocketService {
 
     public List<Student> getStudents() {
         return studentRepository.findAll();
+    }
+
+    public Student getStudentInfo(Long id) {
+        return studentRepository.findOne(id);
     }
 }
