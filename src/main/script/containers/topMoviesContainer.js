@@ -5,12 +5,12 @@ import Main from '../containers/main';
 import '../styles/style.css';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import { connect } from 'react-redux';
-import { fetchMovieRecent } from '../actions/actions';
+import { fetchMovieTop } from '../actions/actions';
 
 class SideBarContainer extends Component {
 
   componentDidMount = () => {
-    this.props.dispatch(fetchMovieRecent.request())
+    this.props.dispatch(fetchMovieTop.request())
   };
 
   render() {
@@ -21,7 +21,7 @@ class SideBarContainer extends Component {
           <SideBar>
             <Toolbar>
               <ToolbarGroup firstChild={true}>
-                <h2 className={'toolbar-title'}>{'上映电影'}</h2>
+                <h2 className={'toolbar-title'}>{'电影 TOP 100'}</h2>
               </ToolbarGroup>
             </Toolbar>
             <Main
@@ -36,7 +36,7 @@ class SideBarContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.info.movieRecentList.data,
+    data: state.info.movieTopList.data,
   }
 }
 

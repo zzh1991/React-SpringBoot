@@ -21,3 +21,24 @@
 .failed {
     color: red;
 }
+
+.extra-info {
+    display: flex;
+    flex-direction: row;
+    margin: 12px;
+}
+
+.casts-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.table-content {
+    text-align: left;
+}
+
+.toolbar-title {
+    margin-left: 20px;
+    color: grey;
+}

@@ -13,10 +13,14 @@ import Home from 'material-ui/svg-icons/action/home';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import Menu from 'material-ui/svg-icons/navigation/menu';
+import MapsLocalMovies from 'material-ui/svg-icons/maps/local-movies';
+import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import {withRouter} from 'react-router-dom';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import Main from '../containers/main';
-import style from '../styles/style.css';
+import '../styles/style.css';
+import { white, cyan500 } from 'material-ui/styles/colors';
+
 
 injectTapEventPlugin();
 
@@ -28,11 +32,14 @@ const styles = {
     position: 'fixed',
     marginTop: '64px',
   },
+  listStyle: {
+    backgroundColor: 'cyan',
+    color: 'white',
+  },
   toolbar: {
     position: 'fixed',
     marginTop: '64px',
     marginLeft: '256px',
-
   },
   navbar: {
     position: 'fixed',
@@ -55,8 +62,12 @@ class SideBar extends React.Component {
 
   toHome = () => {
     let { router } = this.context;
-    console.log(JSON.stringify(router));
-    router.history.push('/404')
+    router.history.push('/')
+  };
+
+  toTop = () => {
+    let { router } = this.context;
+    router.history.push('/top')
   };
 
   render() {
@@ -64,7 +75,7 @@ class SideBar extends React.Component {
       <div>
         <MuiThemeProvider>
           <AppBar style={styles.navbar}
-                  title="Title"
+                  title="电影助手"
                   iconElementLeft={<IconButton><Menu /></IconButton>}
                   onLeftIconButtonTouchTap={this.handleToggle}
           />
@@ -72,40 +83,41 @@ class SideBar extends React.Component {
         <MuiThemeProvider>
           <Drawer containerStyle={styles.cardStyle} open={this.state.open}>
             <List>
-              <ListItem primaryText="Home" onTouchTap={this.toHome} leftIcon= {<Home/>} />
-              <ListItem primaryText="Sent mail" leftIcon={<ContentSend />} />
-              <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
-              <ListItem
-                primaryText="Inbox"
-                leftIcon={<ContentInbox />}
-                initiallyOpen={true}
-                primaryTogglesNestedList={true}
-                nestedItems={[
-                  <ListItem
-                    key={1}
-                    primaryText="Starred"
-                    leftIcon={<ActionGrade />}
-                  />,
-                ]}
-              />
+              <ListItem primaryText="上映电影" onTouchTap={this.toHome} leftIcon= {<MapsLocalMovies color={cyan500} />} />
+              <ListItem primaryText="Top 100" onTouchTap={this.toTop} leftIcon={<ActionFavorite color={cyan500}  />} />
+              {/*<ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />*/}
+              {/*<ListItem*/}
+                {/*primaryText="Inbox"*/}
+                {/*leftIcon={<ContentInbox />}*/}
+                {/*initiallyOpen={true}*/}
+                {/*primaryTogglesNestedList={true}*/}
+                {/*nestedItems={[*/}
+                  {/*<ListItem*/}
+                    {/*key={1}*/}
+                    {/*primaryText="Starred"*/}
+                    {/*leftIcon={<ActionGrade />}*/}
+                  {/*/>,*/}
+                {/*]}*/}
+              {/*/>*/}
             </List>
           </Drawer>
         </MuiThemeProvider>
         <MuiThemeProvider>
           <div className={this.state.open ? 'container-normal' : 'container-expand'} >
-            <Toolbar>
-              <ToolbarGroup firstChild={true}>
+            {/*<Toolbar>*/}
+              {/*<ToolbarGroup firstChild={true}>*/}
+                {/*<h2>{'电影列表'}</h2>*/}
+              {/*</ToolbarGroup>*/}
+              {/*<ToolbarGroup lastChild>*/}
+                {/*/!*<ToolbarTitle text="Options" />*!/*/}
 
-              </ToolbarGroup>
-              <ToolbarGroup lastChild>
-                <ToolbarTitle text="Options" />
+                {/*/!*<ToolbarSeparator />*!/*/}
+                {/*/!*<RaisedButton label="Create Broadcast" primary={true} />*!/*/}
 
-                <ToolbarSeparator />
-                <RaisedButton label="Create Broadcast" primary={true} />
-
-              </ToolbarGroup>
-            </Toolbar>
-            <Main />
+              {/*</ToolbarGroup>*/}
+            {/*</Toolbar>*/}
+            {/*<Main />*/}
+            {this.props.children}
           </div>
         </MuiThemeProvider>
       </div>

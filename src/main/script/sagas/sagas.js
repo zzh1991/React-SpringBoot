@@ -2,14 +2,13 @@ import { call, put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga';
 import Api from '../services/api';
 import { ActionTypes } from '../actions/actionTypes';
-import { fetchStudentData } from '../actions/actions';
+import { fetchMovieRecent, fetchMovieTop, fetchMovieViewed } from '../actions/actions';
 import { fetchStudent, fetchStudentError, fetchStudentInfoSuccess,
 fetchStudentInfoFailure,
 } from '../actions/miniAction';
 
 
 function* fetchDataSage(action) {
-  // const { request } = action.payload;
   try {
     const payload = yield call(Api.fetchUser);
     yield put(fetchStudent(payload));
@@ -19,14 +18,40 @@ function* fetchDataSage(action) {
 }
 
 function* fetchStudentInfoSage(action) {
-  console.log(JSON.stringify(action));
   const request = action.data;
-  console.log(request);
   try {
     const payload = yield call(Api.fetchStudentInfo, request);
     yield put(fetchStudentInfoSuccess(payload));
   } catch (error) {
     yield put(fetchStudentInfoFailure(error.message));
+  }
+}
+
+function* fetchMovieRecentSage(action) {
+  try {
+    const payload = yield call(Api.fetchMovieRecent);
+    yield put(fetchMovieRecent.success(payload));
+  } catch (error) {
+    yield put(fetchMovieRecent.error(error.message));
+  }
+}
+
+function* fetchMovieTopSage(action) {
+  try {
+    const payload = yield call(Api.fetchMovieTop);
+    yield put(fetchMovieTop.success(payload));
+  } catch (error) {
+    yield put(fetchMovieTop.error(error.message));
+  }
+}
+
+function* fetchMovieViewedSage(action) {
+  const request = action.data;
+  try {
+    const payload = yield call(Api.fetchMovieViewed, request);
+    yield put(fetchMovieViewed.success(payload));
+  } catch (error) {
+    yield put(fetchMovieViewed.error(error.message));
   }
 }
 
@@ -38,9 +63,24 @@ function* watchFetchStudentInfo() {
   yield* takeLatest(ActionTypes.FETCH_STUDENT_INFO_REQUEST, fetchStudentInfoSage)
 }
 
+function* watchFetchMovieRecent() {
+  yield* takeLatest(ActionTypes.FETCH_MOVIE_RECENT_REQUEST, fetchMovieRecentSage)
+}
+
+function* watchFetchMovieTop() {
+  yield* takeLatest(ActionTypes.FETCH_MOVIE_TOP_REQUEST, fetchMovieTopSage)
+}
+
+function* watchFetchMovieViewed() {
+  yield* takeLatest(ActionTypes.FETCH_MOVIE_VIEWED_REQUEST, fetchMovieViewedSage)
+}
+
 export default function* HelloSaga() {
   yield [
     watchFetchData(),
     watchFetchStudentInfo(),
+    watchFetchMovieRecent(),
+    watchFetchMovieTop(),
+    watchFetchMovieViewed(),
   ]
 }

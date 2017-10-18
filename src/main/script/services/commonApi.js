@@ -8,6 +8,7 @@ export default function(url, request) {
   const RequestHeader = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
   };
 
   request = {

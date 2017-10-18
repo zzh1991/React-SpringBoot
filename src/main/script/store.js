@@ -5,9 +5,9 @@ import logger from 'redux-logger';
 import reducer from './reducers/reducer';
 import HelloSaga from './sagas/sagas'
 
-// const reducer = combineReducers({
-//   info: reducer,
-// });
+const combinedReducer = combineReducers({
+  info: reducer,
+});
 
 const middlewares = [];
 const sagaMiddleware = createSagaMiddleware();
@@ -15,7 +15,7 @@ middlewares.push(sagaMiddleware);
 middlewares.push(thunkMiddleware);
 middlewares.push(logger);
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, composeEnhancers(
+const store = createStore(combinedReducer, composeEnhancers(
   applyMiddleware(...middlewares))
 );
 
