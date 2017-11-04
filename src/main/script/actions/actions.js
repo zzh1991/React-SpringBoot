@@ -53,3 +53,41 @@ export const fetchMovieViewed = createAction([
   ActionTypes.FETCH_MOVIE_VIEWED_SUCCESS,
   ActionTypes.FETCH_MOVIE_VIEWED_FAILURE,
 ]);
+
+export const fetchViewdMovieList = createAction([
+  ActionTypes.FETCH_VIEWED_MOVIE_LIST_REQUEST,
+  ActionTypes.FETCH_VIEWED_MOVIE_LIST_SUCCESS,
+  ActionTypes.FETCH_VIEWED_MOVIE_LIST_FAILURE,
+]);
+
+export const fetchStarMovieList = createAction([
+  ActionTypes.FETCH_STAR_MOVIE_LIST_REQUEST,
+  ActionTypes.FETCH_STAR_MOVIE_LIST_SUCCESS,
+  ActionTypes.FETCH_STAR_MOVIE_LIST_FAILURE,
+]);
+
+export const saveMovieToLocal = (movieId, movieListName) => {
+  let movieIds = localStorage.getItem(movieListName);
+  if (movieIds !== null) {
+    const movieSet = new Set(JSON.parse(movieIds));
+    movieSet.add(movieId);
+    localStorage.setItem(movieListName, JSON.stringify(Array.from(movieSet)));
+  } else {
+    localStorage.setItem(movieListName, JSON.stringify([movieId]));
+  }
+};
+
+export const deleteMovieToLocal = (movieId, movieListName) => {
+  const movieSet = new Set(JSON.parse(localStorage.getItem(movieListName)));
+  movieSet.delete(movieId);
+  localStorage.setItem(movieListName, JSON.stringify(Array.from(movieSet)));
+};
+
+export const getMovieList = (movieListName) => {
+  const movieIds = localStorage.getItem(movieListName);
+  if (movieIds !== null) {
+    return new Set(JSON.parse(movieIds));
+  } else {
+    return null;
+  }
+};

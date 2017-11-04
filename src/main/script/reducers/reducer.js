@@ -67,8 +67,54 @@ function movieTopList (state = {data: []}, action) {
   }
 };
 
+function movieViewedList (state = {data: []}, action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_VIEWED_MOVIE_LIST_REQUEST:
+      return {
+        ...state,
+        data: [],
+      };
+    case ActionTypes.FETCH_VIEWED_MOVIE_LIST_SUCCESS:
+      return {
+        ...state,
+        data: action.data,
+      };
+    case ActionTypes.FETCH_VIEWED_MOVIE_LIST_FAILURE:
+      return {
+        ...state,
+        data: [],
+      };
+    default:
+      return state;
+  }
+};
+
+function movieStarList (state = {data: []}, action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_STAR_MOVIE_LIST_REQUEST:
+      return {
+        ...state,
+        data: [],
+      };
+    case ActionTypes.FETCH_STAR_MOVIE_LIST_SUCCESS:
+      return {
+        ...state,
+        data: action.data,
+      };
+    case ActionTypes.FETCH_STAR_MOVIE_LIST_FAILURE:
+      return {
+        ...state,
+        data: [],
+      };
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   studentData,
   movieRecentList,
   movieTopList,
+  movieViewedList,
+  movieStarList,
 });

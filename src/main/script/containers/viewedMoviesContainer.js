@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import SideBar from '../components/sidebar.js'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
 import Main from '../containers/main';
 import '../styles/style.css';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import { connect } from 'react-redux';
-import { fetchMovieRecent } from '../actions/actions';
+import { fetchViewdMovieList, getMovieList } from '../actions/actions';
 
-class SideBarContainer extends Component {
+const watchedMovieName = 'watchedMovieList';
+
+class ViewedMoviesContainer extends Component {
 
   componentDidMount = () => {
-    this.props.dispatch(fetchMovieRecent.request())
-  };
-
-  onSync = () => {
-    console.log('hello');
+    let list = getMovieList(watchedMovieName);
+    list = list === null ? [] : Array.from(list);
+    this.props.dispatch(fetchViewdMovieList.request(list));
   };
 
   render() {
@@ -26,10 +25,7 @@ class SideBarContainer extends Component {
           <SideBar>
             <Toolbar>
               <ToolbarGroup firstChild={true}>
-                <h2 className={'toolbar-title'}>{'上映电影'}</h2>
-              </ToolbarGroup>
-              <ToolbarGroup lastChild>
-                {<RaisedButton label="SYNC" primary={true} onTouchTap={this.onSync} />}
+                <h2 className={'toolbar-title'}>{'已观影'}</h2>
               </ToolbarGroup>
             </Toolbar>
             <Main
@@ -44,7 +40,7 @@ class SideBarContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.info.movieRecentList.data,
+    data: state.info.movieViewedList.data,
   }
 }
 
@@ -55,4 +51,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideBarContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ViewedMoviesContainer);

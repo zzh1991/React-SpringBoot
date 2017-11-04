@@ -7,7 +7,7 @@ import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import { connect } from 'react-redux';
 import { fetchMovieTop } from '../actions/actions';
 
-class SideBarContainer extends Component {
+class TopMoviesContainer extends Component {
 
   componentDidMount = () => {
     this.props.dispatch(fetchMovieTop.request())
@@ -47,4 +47,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideBarContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TopMoviesContainer);

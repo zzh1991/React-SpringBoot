@@ -2,8 +2,13 @@ import React from 'react';
 import { Table, Icon } from 'antd';
 import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
+import ToggleStar from 'material-ui/svg-icons/toggle/star';
+import ToggleStarBorder from 'material-ui/svg-icons/toggle/star-border';
+import Visibility from 'material-ui/svg-icons/action/visibility';
+import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import '../styles/style.css';
-import { fetchMovieViewed } from '../actions/actions';
+import { fetchMovieViewed, saveMovieToLocal, deleteMovieToLocal, getMovieList } from '../actions/actions';
+import MovieDetail from '../components/movieDetail';
 
 const movieType = [
   {
@@ -39,11 +44,15 @@ const movieType = [
     value: '动画',
   },
 ];
+const watchedMovieName = 'watchedMovieList';
+const starMovieName = 'starMovieList';
 
 class Main extends React.Component {
   state = {
     current: 1,
     index: -1,
+    watchedMovieSet: getMovieList(watchedMovieName),
+    starMovieSet: getMovieList(starMovieName),
   };
 
   onChange = (pagination, filters, sorter) => {
@@ -60,15 +69,20 @@ class Main extends React.Component {
     return '';
   };
 
-  updateCheck = (event, isChecked, id) => {
+  updateCheck = (event, isChecked, id, movieListName) => {
     this.props.dispatch(fetchMovieViewed.request({
       id,
       viewed: isChecked,
     }));
+
+    if (isChecked) {
+      saveMovieToLocal(id, movieListName);
+    } else {
+      deleteMovieToLocal(id, movieListName);
+    }
   };
 
   render () {
-
     const columns = [
       {
         title: '电影名称',
@@ -89,8 +103,8 @@ class Main extends React.Component {
       {
         title: '上映年份',
         key: 'year',
-        dataIndex: 'movie_year',
-        sorter: (a, b) => a.movie_year - b.movie_year,
+        dataIndex: 'movieYear',
+        sorter: (a, b) => a.movieYear - b.movieYear,
         width: 150,
       },
       {
@@ -110,7 +124,9 @@ class Main extends React.Component {
         render: (text, record) => {
           return <Checkbox
             defaultChecked={text}
-            onCheck={(event, isChecked) => {this.updateCheck(event, isChecked, record.movieid) }}
+            checkedIcon={<Visibility />}
+            uncheckedIcon={<VisibilityOff />}
+            onCheck={(event, isChecked) => {this.updateCheck(event, isChecked, record.movieId, watchedMovieName) }}
           />;
         },
         width: 100,
@@ -127,12 +143,52 @@ class Main extends React.Component {
         filterMultiple: false,
         onFilter: (value, record) => record.viewed,
       },
+      {
+        title: '想看',
+        key: 'star',
+        dataIndex: 'star',
+        render: (text, record) => {
+          return <Checkbox
+            defaultChecked={text}
+            checkedIcon={<ToggleStar />}
+            uncheckedIcon={<ToggleStarBorder />}
+            onCheck={(event, isChecked) => {this.updateCheck(event, isChecked, record.movieId, starMovieName) }}
+          />;
+        },
+        width: 100,
+        filters: [
+          {
+            text: '想看',
+            value: true
+          },
+        ],
+        filterMultiple: false,
+        onFilter: (value, record) => record.star,
+      },
     ];
 
     let { data } = this.props;
-    data.map((item, index) => {
+    {data && data.map((item, index) => {
       item['key'] = index;
     });
+    }
+
+    const { watchedMovieSet, starMovieSet } = this.state;
+    if (watchedMovieSet) {
+      data.map((item) => {
+        if (watchedMovieSet.has(item.movieId)) {
+          item.viewed = true;
+        }
+      });
+    }
+
+    if (starMovieSet) {
+      data.map((item) => {
+        if (starMovieSet.has(item.movieId)) {
+          item.star = true;
+        }
+      });
+    }
 
     return (
       <div>
@@ -159,32 +215,7 @@ class Main extends React.Component {
             // onRowClick={this.onRowClick}
 
            // rowClassName={'table-content'}
-           expandedRowRender={record => {
-             return (
-               <div className={'extra-info'}>
-                 <img src={record.image_large} />
-                 <div className={'casts-info'}>
-                   <h2>{'主演'}</h2>
-                   {
-                     record.casts.split(',').map((cast) => {
-                       return <h3 key={cast} >{cast}</h3>
-                     })
-                   }
-                   <h2>{'导演'}</h2>
-                   {
-                     record.directors.split(',').map((director) => {
-                       return <h3 key={director} >{director}</h3>
-                     })
-                   }
-                   <hr/>
-                   <h2>{'简介'}</h2>
-                   <h3>{record.summary}</h3>
-                   <h2>{'国家'}</h2>
-                   <h3>{record.countries}</h3>
-                 </div>
-               </div>
-             );
-           }}
+           expandedRowRender={record => <MovieDetail record={record} />}
            scroll={{ y: '65vh' }}
           />
       </div>

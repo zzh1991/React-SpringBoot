@@ -18,7 +18,7 @@ public class ViewFilm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long movieid;
+    private Long movieId;
 
     private String time;
     private boolean viewed;

@@ -12,13 +12,23 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "movie_detail")
-public class FilmDetail {
+@Table(name = "movie_list")
+public class FilmList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long movieId;
-
+    private String title;
+    private double rating;
+    private int movieYear;
+    private String url;
+    private String imageLarge;
+    private String casts;
+    private String directors;
+    private String genres;
     private String summary;
     private String countries;
+
+    private Boolean viewed;
+    private Boolean star;
 }

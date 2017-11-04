@@ -6,6 +6,8 @@ import store from './store';
 import App from './containers/app';
 import Main from  './containers/main';
 import TopMoviesContainer from  './containers/topMoviesContainer';
+import ViewedMoviesContainer from './containers/viewedMoviesContainer';
+import StarMoviesContainer from './containers/starMoviesContainer';
 import NotFound from './containers/notFound';
 import SideBarContainer from './containers/sidebarContainer';
 
@@ -17,6 +19,8 @@ const Routes = () => (
         <Route path="/app" component={App} />
         <Route path="/main" component={Main} />
         <Route path="/top" component={TopMoviesContainer} />
+        <Route path="/view" component={ViewedMoviesContainer} />
+        <Route path="/star" component={StarMoviesContainer} />
         <Route path="/404" component={NotFound} />
       </div>
 

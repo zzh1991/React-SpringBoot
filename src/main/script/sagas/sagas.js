@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga';
 import Api from '../services/api';
 import { ActionTypes } from '../actions/actionTypes';
-import { fetchMovieRecent, fetchMovieTop, fetchMovieViewed } from '../actions/actions';
+import { fetchMovieRecent, fetchMovieTop, fetchMovieViewed, fetchViewdMovieList, fetchStarMovieList } from '../actions/actions';
 import { fetchStudent, fetchStudentError, fetchStudentInfoSuccess,
 fetchStudentInfoFailure,
 } from '../actions/miniAction';
@@ -55,6 +55,26 @@ function* fetchMovieViewedSage(action) {
   }
 }
 
+function* fetchViewedMovieListSage(action) {
+  const request = action.data;
+  try {
+    const payload = yield call(Api.fetchViewedMovieList, request);
+    yield put(fetchViewdMovieList.success(payload));
+  } catch (error) {
+    yield put(fetchViewdMovieList.error(error.message));
+  }
+}
+
+function* fetchStarMovieListSage(action) {
+  const request = action.data;
+  try {
+    const payload = yield call(Api.fetchStarMovieList, request);
+    yield put(fetchStarMovieList.success(payload));
+  } catch (error) {
+    yield put(fetchStarMovieList.error(error.message));
+  }
+}
+
 function* watchFetchData() {
   yield* takeLatest(ActionTypes.FETCH_DATA_REQUEST, fetchDataSage)
 }
@@ -75,6 +95,14 @@ function* watchFetchMovieViewed() {
   yield* takeLatest(ActionTypes.FETCH_MOVIE_VIEWED_REQUEST, fetchMovieViewedSage)
 }
 
+function* watchFetchViewedMovieList() {
+  yield* takeLatest(ActionTypes.FETCH_VIEWED_MOVIE_LIST_REQUEST, fetchViewedMovieListSage)
+}
+
+function* watchFetchStarMovieList() {
+  yield* takeLatest(ActionTypes.FETCH_STAR_MOVIE_LIST_REQUEST, fetchStarMovieListSage)
+}
+
 export default function* HelloSaga() {
   yield [
     watchFetchData(),
@@ -82,5 +110,7 @@ export default function* HelloSaga() {
     watchFetchMovieRecent(),
     watchFetchMovieTop(),
     watchFetchMovieViewed(),
+    watchFetchViewedMovieList(),
+    watchFetchStarMovieList(),
   ]
 }

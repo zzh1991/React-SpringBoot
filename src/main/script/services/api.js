@@ -29,10 +29,29 @@ export default {
   },
   fetchMovieViewed(request) {
     const url = `movie/viewed/${request.id}/${request.viewed}`;
-    console.log(url);
     return CommonApi(url, {
       method: 'GET',
       mode: 'cors',
     });
+  },
+  fetchViewedMovieList(request) {
+    const url = `movie/viewed`;
+    console.log(JSON.stringify(request));
+    return CommonApi(url, {
+      method: 'POST',
+      mode: 'cors',
+      body: request,
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // }
+    }); 
+  },
+  fetchStarMovieList(request) {
+    const url = `movie/star`;
+    return CommonApi(url, {
+      method: 'POST',
+      mode: 'cors',
+      body: request,
+    }); 
   },
 }

@@ -5,21 +5,21 @@ export default function(url, request) {
     request.body = JSON.stringify(request.body);
   }
 
-  const RequestHeader = {
+  const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
   };
-
+  
   request = {
-    ...{RequestHeader},
+    ...{headers},
     ...request,
   };
 
   return fetch(url, request)
-    .then(response => response.json())
-    .then((json) => {
-      return json;
+  	.then(response => response.json().then(body => ({ response, body })))
+    .then(({ response, body }) => {
+      return body;
     });
 }
 

@@ -12,6 +12,8 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 import Home from 'material-ui/svg-icons/action/home';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
+import ToggleStar from 'material-ui/svg-icons/toggle/star';
+import Visibility from 'material-ui/svg-icons/action/visibility';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import MapsLocalMovies from 'material-ui/svg-icons/maps/local-movies';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
@@ -60,14 +62,9 @@ class SideBar extends React.Component {
     this.setState({open: !this.state.open});
   };
 
-  toHome = () => {
+  toPath = (path) => {
     let { router } = this.context;
-    router.history.push('/')
-  };
-
-  toTop = () => {
-    let { router } = this.context;
-    router.history.push('/top')
+    router.history.push(path)
   };
 
   render() {
@@ -83,9 +80,10 @@ class SideBar extends React.Component {
         <MuiThemeProvider>
           <Drawer containerStyle={styles.cardStyle} open={this.state.open}>
             <List>
-              <ListItem primaryText="上映电影" onTouchTap={this.toHome} leftIcon= {<MapsLocalMovies color={cyan500} />} />
-              <ListItem primaryText="Top 100" onTouchTap={this.toTop} leftIcon={<ActionFavorite color={cyan500}  />} />
-              {/*<ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />*/}
+              <ListItem primaryText="上映电影" onTouchTap={() => this.toPath('/')} leftIcon= {<MapsLocalMovies color={cyan500} />} />
+              <ListItem primaryText="Top 100" onTouchTap={() => this.toPath('/top')} leftIcon={<ActionFavorite color={cyan500}  />} />
+              <ListItem primaryText="已观影" onTouchTap={() => this.toPath('/view')} leftIcon={<Visibility color={cyan500} />} />
+              <ListItem primaryText="想看" onTouchTap={() => this.toPath('/star')} leftIcon={<ToggleStar color={cyan500} />} />
               {/*<ListItem*/}
                 {/*primaryText="Inbox"*/}
                 {/*leftIcon={<ContentInbox />}*/}

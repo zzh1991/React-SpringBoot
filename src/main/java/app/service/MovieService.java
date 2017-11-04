@@ -1,9 +1,11 @@
 package app.service;
 
+import app.dao.FilmListRepository;
 import app.dao.FilmRepository;
 import app.dao.TopFilmRepository;
 import app.dao.ViewFilmRepository;
 import app.entity.Film;
+import app.entity.FilmList;
 import app.entity.TopFilm;
 import app.entity.ViewFilm;
 import app.vo.movie.Avatar;
@@ -30,6 +32,7 @@ import java.util.Map;
 public class MovieService {
 
     private static final String SEPARATOR = ",";
+    public static final String LARGE = "large";
 
     @Autowired
     private FilmRepository filmRepository;
@@ -40,6 +43,9 @@ public class MovieService {
     @Autowired
     private ViewFilmRepository viewFilmRepository;
 
+    @Autowired
+    private FilmListRepository filmListRepository;
+
     public void sync() throws IOException {
         deleteOutDataMovie();
         saveMovie();
@@ -47,7 +53,7 @@ public class MovieService {
         saveTopMovie();
         saveDetailToMovie();
         saveDetailToTopMovie();
-        syncViewData();
+//        syncViewData();
     }
 
     public List<Movie> getMovies(String url) throws IOException {
@@ -74,18 +80,38 @@ public class MovieService {
         List<Movie> movieList = getMovies(url);
         movieList.forEach(movie -> {
             filmRepository.save(Film.builder()
-                    .movieid(movie.getId())
+                    .movieId(movie.getId())
                     .title(movie.getTitle())
                     .rating(movie.getRating().getAverage())
                     .url(movie.getAlt())
-                    .movie_year(movie.getYear())
-                    .image_large(movie.getImages().get("large"))
+                    .movieYear(movie.getYear())
+                    .imageLarge(movie.getImages().get(LARGE))
                     .casts(getNames(movie.getCasts()))
                     .directors(getNames(movie.getDirectors()))
                     .genres(StringUtils.join(movie.getGenres(), SEPARATOR))
                     .current(true)
                     .build());
+            saveToMovieListDatabase(movie);
         });
+    }
+
+    private void saveToMovieListDatabase(Movie movie) {
+        FilmList filmList = FilmList.builder()
+                .movieId(movie.getId())
+                .title(movie.getTitle())
+                .rating(movie.getRating().getAverage())
+                .url(movie.getAlt())
+                .movieYear(movie.getYear())
+                .imageLarge(movie.getImages().get(LARGE))
+                .casts(getNames(movie.getCasts()))
+                .directors(getNames(movie.getDirectors()))
+                .genres(StringUtils.join(movie.getGenres(), SEPARATOR))
+                .build();
+        FilmList originFilm = filmListRepository.findFirstByMovieId(movie.getId());
+        if (originFilm != null) {
+            filmList.setId(originFilm.getId());
+        }
+        filmListRepository.save(filmList);
     }
 
     private void saveTopMovie() throws IOException {
@@ -95,17 +121,18 @@ public class MovieService {
 
         movieList.forEach(movie -> {
             topFilmRepository.save(TopFilm.builder()
-                    .movieid(movie.getId())
+                    .movieId(movie.getId())
                     .title(movie.getTitle())
                     .rating(movie.getRating().getAverage())
                     .url(movie.getAlt())
-                    .movie_year(movie.getYear())
-                    .image_large(movie.getImages().get("large"))
+                    .movieYear(movie.getYear())
+                    .imageLarge(movie.getImages().get(LARGE))
                     .casts(getNames(movie.getCasts()))
                     .directors(getNames(movie.getDirectors()))
                     .genres(StringUtils.join(movie.getGenres(), SEPARATOR))
                     .current(true)
                     .build());
+            saveToMovieListDatabase(movie);
         });
     }
 
@@ -157,11 +184,24 @@ public class MovieService {
     private void saveDetailToMovie() throws IOException {
         List<Film> filmList = filmRepository.findByCurrentIsTrueOrderByRatingDesc();
         for (Film film : filmList) {
-            MovieSubject movieSubject = getMovieSubject(film.getMovieid());
+            MovieSubject movieSubject = getMovieSubject(film.getMovieId());
             if (movieSubject != null) {
                 film.setSummary(movieSubject.getSummary());
                 film.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
                 filmRepository.save(film);
+            }
+        }
+        saveDetailToMovieList();
+    }
+
+    private void saveDetailToMovieList() throws IOException {
+        List<FilmList> filmList = filmListRepository.findByOrderByRatingDesc();
+        for (FilmList film : filmList) {
+            MovieSubject movieSubject = getMovieSubject(film.getMovieId());
+            if (movieSubject != null) {
+                film.setSummary(movieSubject.getSummary());
+                film.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
+                filmListRepository.save(film);
             }
         }
     }
@@ -169,7 +209,7 @@ public class MovieService {
     private void saveDetailToTopMovie() throws IOException {
         List<TopFilm> topFilmList = topFilmRepository.findByCurrentIsTrueOrderByRatingDesc();
         for (TopFilm topFilm : topFilmList) {
-            MovieSubject movieSubject = getMovieSubject(topFilm.getMovieid());
+            MovieSubject movieSubject = getMovieSubject(topFilm.getMovieId());
             if (movieSubject != null) {
                 topFilm.setSummary(movieSubject.getSummary());
                 topFilm.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
@@ -179,25 +219,25 @@ public class MovieService {
     }
 
     public void setViewedState(Long id, Boolean viewed) {
-        ViewFilm viewFilm = viewFilmRepository.findOneByMovieid(id);
+        ViewFilm viewFilm = viewFilmRepository.findOneByMovieId(id);
         if (viewFilm != null) {
             viewFilm.setViewed(viewed);
             viewFilmRepository.save(viewFilm);
         } else {
             viewFilmRepository.save(ViewFilm.builder()
-                    .movieid(id)
+                    .movieId(id)
                     .time(new Date().toString())
                     .viewed(viewed)
                     .build());
         }
 
-        Film film = filmRepository.findOneByMovieid(id);
+        Film film = filmRepository.findOneByMovieId(id);
         if (film != null) {
             film.setViewed(viewed);
             filmRepository.save(film);
         }
 
-        TopFilm topFilm = topFilmRepository.findOneByMovieid(id);
+        TopFilm topFilm = topFilmRepository.findOneByMovieId(id);
         if (topFilm != null) {
             topFilm.setViewed(viewed);
             topFilmRepository.save(topFilm);
@@ -210,22 +250,34 @@ public class MovieService {
         List<ViewFilm> viewFilmList = viewFilmRepository.findAll();
         Map<Long, Boolean> movieIdMap = Maps.newHashMap();
         viewFilmList.forEach(viewFilm -> {
-            movieIdMap.put(viewFilm.getMovieid(), viewFilm.isViewed());
+            movieIdMap.put(viewFilm.getMovieId(), viewFilm.isViewed());
         });
 
 
         filmList.forEach(film -> {
-            if (movieIdMap.containsKey(film.getMovieid())) {
-                film.setViewed(movieIdMap.get(film.getMovieid()));
+            if (movieIdMap.containsKey(film.getMovieId())) {
+                film.setViewed(movieIdMap.get(film.getMovieId()));
                 filmRepository.save(film);
             }
         });
 
         topFilmList.forEach(topFilm -> {
-            if (movieIdMap.containsKey(topFilm.getMovieid())) {
-                topFilm.setViewed(movieIdMap.get(topFilm.getMovieid()));
+            if (movieIdMap.containsKey(topFilm.getMovieId())) {
+                topFilm.setViewed(movieIdMap.get(topFilm.getMovieId()));
                 topFilmRepository.save(topFilm);
             }
         });
+    }
+
+    public FilmList getFilmListById(Long id) {
+        return filmListRepository.findFirstByMovieId(id);
+    }
+
+    public List<FilmList> getStarList(List<Long> movieIdList) {
+        return filmListRepository.findByMovieIdIsIn(movieIdList);
+    }
+
+    public List<FilmList> getViewedList(List<Long> movieIdList) {
+        return filmListRepository.findByMovieIdIsIn(movieIdList);
     }
 }

@@ -17,13 +17,13 @@ public class TopFilm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long movieid;
+    private Long movieId;
 
     private String title;
     private double rating;
-    private int movie_year;
+    private int movieYear;
     private String url;
-    private String image_large;
+    private String imageLarge;
     private String casts;
     private String directors;
     private String genres;
@@ -31,4 +31,6 @@ public class TopFilm {
     private String countries;
     private boolean current;
     private boolean viewed;
+    private boolean star;
+    private Long updateTime;
 }

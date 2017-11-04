@@ -1,8 +1,10 @@
 package app.controller;
 
 import app.entity.Film;
+import app.entity.FilmList;
 import app.entity.TopFilm;
 import app.service.MovieService;
+import app.vo.movie.MovieIdsForm;
 import app.vo.movie.MovieSubject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,8 +40,23 @@ public class MovieController {
 
     @GetMapping("movie/viewed/{id}/{viewed}")
     public Boolean updateMovieViewedState(@PathVariable Long id, @PathVariable Boolean viewed) {
-        movieService.setViewedState(id, viewed);
+//        movieService.setViewedState(id, viewed);
         return true;
+    }
+
+    @GetMapping("list/{id}")
+    public FilmList getFilmListById(@PathVariable Long id) {
+        return movieService.getFilmListById(id);
+    }
+
+    @PostMapping("movie/star")
+    public List<FilmList> getStarList(@RequestBody List<Long> movieIdList) {
+        return movieService.getStarList(movieIdList);
+    }
+
+    @PostMapping("movie/viewed")
+    public List<FilmList> getViewedList(@RequestBody List<Long> movieIdList) {
+        return movieService.getViewedList(movieIdList);
     }
 
 }
