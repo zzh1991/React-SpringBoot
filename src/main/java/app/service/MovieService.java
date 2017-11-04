@@ -49,9 +49,9 @@ public class MovieService {
     public void sync() throws IOException {
         deleteOutDataMovie();
         saveMovie();
-        deleteOutDataTopMovie();
-        saveTopMovie();
-        saveDetailToMovie();
+//        deleteOutDataTopMovie();
+//        saveTopMovie();
+//        saveDetailToMovie();
         saveDetailToTopMovie();
 //        syncViewData();
     }
@@ -189,20 +189,17 @@ public class MovieService {
                 film.setSummary(movieSubject.getSummary());
                 film.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
                 filmRepository.save(film);
+                saveDetailToMovieList(film.getMovieId(), movieSubject);
             }
         }
-        saveDetailToMovieList();
     }
 
-    private void saveDetailToMovieList() throws IOException {
-        List<FilmList> filmList = filmListRepository.findByOrderByRatingDesc();
-        for (FilmList film : filmList) {
-            MovieSubject movieSubject = getMovieSubject(film.getMovieId());
-            if (movieSubject != null) {
-                film.setSummary(movieSubject.getSummary());
-                film.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
-                filmListRepository.save(film);
-            }
+    private void saveDetailToMovieList(Long id, MovieSubject movieSubject) throws IOException {
+        FilmList filmList = filmListRepository.findOne(id);
+        if (filmList != null) {
+            filmList.setSummary(movieSubject.getSummary());
+            filmList.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
+            filmListRepository.save(filmList);
         }
     }
 
@@ -214,6 +211,7 @@ public class MovieService {
                 topFilm.setSummary(movieSubject.getSummary());
                 topFilm.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
                 topFilmRepository.save(topFilm);
+                saveDetailToMovieList(topFilm.getMovieId(), movieSubject);
             }
         }
     }

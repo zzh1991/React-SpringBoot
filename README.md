@@ -3,8 +3,23 @@
 ## Install
 - npm install
 - webpack
+- configure you database name (an empty database)
 - start the web app in IDE
 - open browser: http://localhost:8080
+
+## Demo: Movie Helper
+### Recent Movies
+![Recent](./pictures/recent-movie.png)
+### Top 100 Movies
+![Top](./pictures/top-movie.png)
+### Viewed Movies
+
+### Movies to watch
+
+## TO DO LIST
+### login page
+    - sign in / sign up
+### data bind with user id
 
 ## Dependency
 ### front-end

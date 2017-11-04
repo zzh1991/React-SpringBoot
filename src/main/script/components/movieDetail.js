@@ -12,7 +12,7 @@ class MovieDetail extends Component {
         return (
           <div className={'extra-info'}>
             <img src={record.imageLarge} />
-            <a href={record.imageLarge}>{record.title}</a>
+            <p><a href={record.imageLarge}>{record.title}</a></p>
             <div className={'casts-info'}>
               <h2>{'主演'}</h2>
               {

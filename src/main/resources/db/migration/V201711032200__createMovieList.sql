@@ -10,7 +10,9 @@ CREATE TABLE IF NOT EXISTS public.movie_list (
   directors TEXT,
   genres TEXT,
   summary TEXT,
-  countries TEXT
+  countries TEXT,
+  viewed BOOLEAN DEFAULT FALSE,
+  star BOOLEAN DEFAULT FALSE
 );
 
 CREATE SEQUENCE public.movie_list_id_seq START 1 NO MINVALUE NO MAXVALUE NO CYCLE;

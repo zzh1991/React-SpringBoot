@@ -4,3 +4,9 @@ node_modules
 .idea
 .mvn
 gradle
+gradlew
+gradlew.bat
+gs-messaging-stomp-websocket.iml
+mvnw
+mnvw.cmd
+build.gradle
