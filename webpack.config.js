@@ -30,9 +30,27 @@ module.exports = {
         loader: 'style-loader!css-loader'
       },
       {
-        test: /\.(png|jpg)$/,
-        loader: 'url-loader?limit=8192'
-      }
+        test:/\.(png|jpg|gif)$/ ,
+        use:[{
+          loader:'url-loader',
+          options:{
+            limit:5000,
+            outputPath:'./src/main/resources/static/images/',
+          }
+        }]
+      },
+      // {
+      //   test: /\.(htm|html)$/i,
+      //   use:[ 'html-withimg-loader']
+      // }
       ]
+  },
+  watchOptions: {
+    //检测修改的时间，以毫秒为单位
+    poll:1000,
+    //防止重复保存而发生重复编译错误。这里设置的500是半秒内重复保存，不进行打包操作
+    aggregeateTimeout:500,
+    //不监听的目录
+    ignored:/node_modules/,
   }
 };

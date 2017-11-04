@@ -22,3 +22,16 @@ export default (state = {data: []}, action) => {
       return state;
   }
 };
+
+// getStudentInfo = (state = {data: []}, action) => {
+//   switch (action.type) {
+//     case ActionTypes.FETCH_STUDENT_INFO_SUCCESS:
+//       return {
+//         ...state,
+//         data: [action.data],
+//       };
+//     default:
+//       return state;
+//   }
+// };
+

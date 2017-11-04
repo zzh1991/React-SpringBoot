@@ -1,0 +1,73 @@
+.personal-card {
+    position: fixed;
+    top: 5vh;
+    left: 5vw;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #edf2fd;
+    min-height: 80vh;
+}
+
+.personal-name {
+    font-size: 24px;
+    font-family: Monospaced;
+    margin-bottom: 12px;
+}
+
+.personal-position {
+    font-size: 20px;
+    font-family: Monospaced;
+    margin-bottom: 12px;
+    color: #7b7579;
+}
+
+.personal-info {
+    position: fixed;
+    top: 5vh;
+    left: 35vw;
+    margin-left: 20px;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    background: #edf2fd;
+    min-height: 80vh;
+}
+
+.tab-space {
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+.education-timeline {
+    margin: 12px;
+    font-size: 18px;
+    font-family: Monospaced;
+}
+
+.personal-link {
+    font-size: 16px;
+    margin: 8px;
+}
+
+.icon-space {
+    margin-right: 4px;
+}
+
+.education-detail {
+    font-size: 16px;
+    font-family: Monospaced;
+    color: #7b7579;
+    margin-left: 8px;
+}
+
+.skill-tag {
+    margin: 12px;
+    align-items: center;
+}
+
+.global-container {
+    /*background-color: antiquewhite;*/
+    background-image: url("tianchi.jpg");
+}
