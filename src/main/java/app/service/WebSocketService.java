@@ -22,7 +22,7 @@ public class WebSocketService {
     private SimpMessagingTemplate messagingTemplate;
 
     public Greeting sendMessage(String name) {
-        Greeting greeting = new Greeting(name);
+        Greeting greeting = Greeting.builder().content(name).build();
         messagingTemplate.convertAndSend("/topic/greetings",
                 greeting);
         return greeting;

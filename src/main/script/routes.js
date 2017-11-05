@@ -13,9 +13,11 @@ const Routes = () => (
   <Provider store={store}>
     <Router>
       <div>
-        <Route exact path="/" component={SideBarContainer} />
+        <Route exact path="/" component={ResumeContainer} />
         <Route path="/app" component={App} />
         <Route path="/main" component={Main} />
+        <Route path="/app" component={App} />
+        <Route path="/menu" component={SideBarContainer} />
         <Route path="/404" component={NotFound} />
         <Route path={'/me'} component={ResumeContainer} />
       </div>

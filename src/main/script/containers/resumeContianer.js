@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PersonalCard from '../components/personalCard';
 import PersonalInfo from '../components/personalInfo';
-import '../styles/resume.css';
 
 class ResumeContainer extends Component {
   constructor(props) {
@@ -10,7 +9,7 @@ class ResumeContainer extends Component {
 
   render() {
     return (
-      <div className="global-container">
+      <div>
         <PersonalCard />
         <PersonalInfo />
       </div>

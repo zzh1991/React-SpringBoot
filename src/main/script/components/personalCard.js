@@ -31,7 +31,10 @@ class PersonalCard extends Component {
           <span className="icon-space"><Icon type="mail" /></span>{' zhihaozhangv5@gmail.com '}
         </div>
         <div className="personal-link">
-          <span className="icon-space"><Icon type="github" /></span><a href="https://github.com/zzh1991">
+          <span className="icon-space"><Icon type="github" /></span><a
+          href="https://github.com/zzh1991"
+          target={'_blank'}
+        >
           {' https://github.com/zzh1991 '}
           </a>
         </div>
