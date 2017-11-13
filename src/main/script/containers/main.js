@@ -89,7 +89,7 @@ class Main extends React.Component {
         key: 'name',
         dataIndex: 'title',
         render: (text, record) => {
-          return <a href={record.url}>{text}</a>
+          return <a href={record.url} target={'_blank'}>{text}</a>
         },
         width: 200,
       },

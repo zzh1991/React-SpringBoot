@@ -9,7 +9,8 @@
     "start": "webpack-dev-server --devtool eval --progress --colors --hot",
     "deploy": "NODE_ENV=production webpack -p",
     "deploy-windows": "SET NODE_ENV=production & webpack -p ",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "server": "webpack-dev-server --open"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "babel-preset-env": "^1.6.0",
     "redux-devtools": "^3.4.0",
     "redux-logger": "^3.0.6",
+    "url-loader": "^0.6.2",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2"
   },
@@ -37,6 +39,7 @@
     "css-loader": "^0.28.7",
     "es6-promise": "^4.1.1",
     "eslint": "^4.7.0",
+    "html-withimg-loader": "^0.1.16",
     "image-loader": "0.0.1",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",

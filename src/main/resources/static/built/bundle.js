@@ -5969,7 +5969,7 @@ var Main = function (_React$Component) {
         render: function render(text, record) {
           return _react2.default.createElement(
             'a',
-            { href: record.url },
+            { href: record.url, target: '_blank' },
             text
           );
         },
@@ -68871,7 +68871,7 @@ var MovieDetail = function (_Component) {
           null,
           _react2.default.createElement(
             'a',
-            { href: record.imageLarge },
+            { href: record.imageLarge, target: '_blank' },
             record.title
           )
         ),
