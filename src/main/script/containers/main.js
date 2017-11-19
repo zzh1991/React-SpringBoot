@@ -216,7 +216,7 @@ class Main extends React.Component {
 
            // rowClassName={'table-content'}
            expandedRowRender={record => <MovieDetail record={record} />}
-           scroll={{ y: '65vh' }}
+           scroll={{ y: '75vh' }}
           />
       </div>
     );

@@ -9,9 +9,9 @@
 
 ## Demo: Movie Helper
 ### Recent Movies
-![Recent](./pictures/recent-movie.png)
+![Recent](./pictures/recent-movie-antd.png)
 ### Top 100 Movies
-![Top](./pictures/top-movie.png)
+![Top](./pictures/top-movie-antd.png)
 ### Viewed Movies
 
 ### Movies to watch
@@ -22,7 +22,9 @@
 
 ## TO DO LIST
 ### login page
-    - sign in / sign up
+    - [x] sign in / sign up
+    - less render
+    - update time
 ### data bind with user id
 
 ## Dependency
