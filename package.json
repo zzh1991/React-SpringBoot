@@ -20,6 +20,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
+    "file-loader": "^1.1.5",
     "redux-devtools": "^3.4.0",
     "redux-logger": "^3.0.6",
     "url-loader": "^0.6.2",
@@ -46,8 +47,11 @@
     "material-ui": "^0.19.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-copy-to-clipboard": "^5.0.0",
     "react-dom": "^15.6.1",
+    "react-icons": "^2.2.7",
+    "react-motion": "^0.5.2",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
@@ -57,6 +61,7 @@
     "redux-saga": "^0.15.6",
     "redux-thunk": "^2.2.0",
     "style-loader": "^0.18.2",
+    "styled-components": "^2.2.3",
     "underscore": "^1.8.3",
     "webpack": "^3.6.0"
   }

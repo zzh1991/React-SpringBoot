@@ -1,9 +1,14 @@
 import React from 'react';
 
-const NotFound = () => {
-  return (
-    <div>404: Not Found</div>
-  );
+class NotFound extends React.Component {
+
+  render() {
+    return (
+      <div>
+        <h1>404</h1>
+      </div>
+    );
+  }
 };
 
 export default NotFound;

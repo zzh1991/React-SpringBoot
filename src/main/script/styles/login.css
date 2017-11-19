@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
+html {
+  font-family: "Roboto Condensed", sans-serif;
+}
+body {
+  /*background-image: url('https://ws3.sinaimg.cn/large/006tKfTcgy1flgwjaz91ej31kw0w0hdu.jpg');*/
+  /*background-position: center;*/
+  /*background-repeat: no-repeat;*/
+  /*background-size: cover;*/
+  /*color: #3E363F;*/
+  /*font-family: "Roboto Condensed", sans-serif;*/
+  /*height: 100vh;*/
+  /*overflow: hidden;*/
+}
+
+.App {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.App_test {
+  display: flex;
+  flex-direction: row-reverse;
+  box-shadow: 0 6px 10px 0px rgba(0, 0, 0, 0.5);
+  justify-content: flex-start;
+}
+.Modal {
+  width: 700px;
+  height: 500px;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 6px 10px 0px rgba(0, 0, 0, 0.5);
+  flex-grow: 5;
+}
+.NavigationPanel {
+  background-color: rgba(244, 246, 248, 0.98);
+  width: 80px;
+  color: rgb(64, 70, 86);
+  font-size: 30px;
+  order: 1;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.back {
+  flex: 2;
+}
+.dots {
+  display: flex;
+  flex: 5;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.dot {
+  font-size: 5px;
+  color: rgba(64, 70, 86, 0.5);
+  padding-top: 15px;
+}
+.dotSelected {
+  font-size: 5px;
+  color: rgba(64, 70, 86, 1);
+  padding-top: 15px;
+}
+.signIn {
+  background-color: rgba(151, 105, 245, 0.98);
+  color: rgb(218, 231, 241);
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 20px;
+  order: 1;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: flex-grow .3s ease;
+  -moz-transition: flex-grow .3s ease;
+  -webkit-transition: flex-grow .3s ease;
+  -o-transition: flex-grow .3s ease;
+}
+.signIn:hover {
+  flex-grow: 1.2;
+  cursor: pointer;
+}
+.signInCollapsed {
+  background-color: rgba(151, 105, 245, 0.98);
+  color: rgb(218, 231, 241);
+  font-size: 20px;
+  order: 1;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  transition: flex-grow .2s linear;
+  -moz-transition: flex-grow .2s linear;
+  -webkit-transition: flex-grow .2s linear;
+  -o-transition: flex-grow .2s linear;
+}
+.signInCollapsed:hover {
+  flex-grow: 1.4;
+}
+.signInExpanded {
+  background-color: rgba(151, 105, 245, 0.98);
+  color: rgb(218, 231, 241);
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 20px;
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: flex-grow .5s ease-out;
+  -moz-transition: flex-grow .5s ease-out;
+  -webkit-transition: flex-grow .5s ease-out;
+  -o-transition: flex-grow .5s ease-out;
+}
+.signUp {
+  background-color: rgba(64, 70, 86, 0.98);
+  color: rgb(218, 231, 241);
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 20px;
+  order: 1;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: flex-grow .3s ease;
+  -moz-transition: flex-grow .3s ease;
+  -webkit-transition: flex-grow .3s ease;
+  -o-transition: flex-grow .3s ease;
+}
+.signUpCollapsed {
+  background-color: rgba(64, 70, 86, 0.98);
+  color: rgb(218, 231, 241);
+  font-size: 20px;
+  order: 1;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  transition: flex-grow .2s linear;
+  -moz-transition: flex-grow .2s linear;
+  -webkit-transition: flex-grow .2s linear;
+  -o-transition: flex-grow .2s linear;
+}
+.signUpCollapsed:hover {
+  flex-grow: 1.4;
+}
+.signUpExpanded {
+  background-color: rgba(64, 70, 86, 0.98);
+  color: rgb(218, 231, 241);
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 20px;
+  order: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: flex-grow .5s ease-out;
+  -moz-transition: flex-grow .2s ease-out;
+  -webkit-transition: flex-grow .5s ease-out;
+  -o-transition: flex-grow .5s ease-out;
+}
+.signUp:hover {
+  flex-grow: 1.2;
+  cursor: pointer;
+}
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.icons {
+  font-size: 75px;
+}
+.iconsCollapsed {
+  font-size: 35px;
+  margin-top: 30px;
+  opacity: 0.8;
+}
+.logForm {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 60%;
+}
+.logForm h2 {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+.Input {
+  display: flex;
+  flex-direction: row;
+  /* border-bottom: 1px solid rgba(255, 252, 232, 0.1); */
+  padding: 10px;
+  margin-bottom: 15px;
+  color: #FFFCE8;
+  text-transform: uppercase;
+}
+.Input input {
+  
+  border: 0;
+  color: #FFFCE8;
+  background: transparent;
+  font-family: "Roboto Condensed", sans-serif;
+  flex: 1 0 auto;
+  font-size: 18px;
+  font-weight: 300;
+}
+.Input input:focus ~ label {
+  opacity: 1;
+}
+.Input input[type='text'] ~ label::before {
+  content: "\f007";
+}
+.Input input::-webkit-input-placeholder{
+  color: #FFFFFF;
+}
+.Input input[type='email'] ~ label::before {
+  content: "\f1fa";
+}
+.Input input[type='password'] ~ label::before {
+  content: "\f023";
+}
+.iconVisibility {
+  opacity: 0.7;
+}
+.iconVisibility:hover {
+  opacity: 1;
+  cursor:pointer;
+}
+.submitButton {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.socialNets {
+  flex-grow: 4;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 50px;
+}
+.socialNetsIcon {
+  margin-right: 30px;
+  opacity: 0.8;
+  cursor: pointer;
+}
+.socialNetsIcon:hover {
+  opacity: 1;
+}
+.forgotPass {
+  color: #e0d1ff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 50px;
+}
+button {
+  right: 0; 
+  border: 0; 
+  border-radius: 18px;
+  color: white;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 23px;
+  font-weight: 500;
+  justify-content: center;
+  margin-top: 50px;
+  outline: none;
+  padding: 5px;
+  text-transform: uppercase;
+  width: 30%;
+}
+.submitSignIn {
+  background: rgba(102, 58, 173, 0.8);
+  cursor: pointer;
+}
+.submitSignUp {
+  background: rgba(43, 46, 56, 0.8);
+  cursor: pointer;
+}
+button .fa {
+  font-size: 12px;
+  margin-left: auto;
+  position: relative;
+  top: 1px;
+}
+button:hover {
+  transform: opacity(1);
+}
+button:active {
+  transform: scale(0.99);
+}
+
+.example-enter {
+  margin-top: 30px;
+  opacity: .01;
+}
+.example-enter.example-enter-active {
+  margin-top: 0px;
+  opacity: 1;
+  transition: opacity .5s ease, margin .5s ease;
+}
+
+.example-leave {
+  margin-top: 0px;
+  opacity: 1;
+}
+.example-leave.example-leave-active {
+  margin-top: -30px;
+  opacity: .01;
+  transition: opacity .3s ease, margin .5s ease;
+}
