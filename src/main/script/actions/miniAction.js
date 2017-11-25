@@ -41,3 +41,9 @@ export const fetchStudentInfoFailure = (data) => {
   };
 };
 
+export const syncRecentMovies = () => {
+  return {
+    type: ActionTypes.SYNC_MOVIE_RECENT_REQUEST,
+  }
+};
+

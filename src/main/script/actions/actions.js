@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { ActionTypes } from './actionTypes';
-import { fetchStudent, requestStudent } from './miniAction';
+import { fetchStudent, requestStudent, syncRecentMovies } from './miniAction';
 
 export const fetchData = () => {
   const url = '/data';
@@ -90,4 +90,15 @@ export const getMovieList = (movieListName) => {
   } else {
     return null;
   }
+};
+
+export const syncRecentMovieList = () => {
+  const url = 'sync/recent';
+  return (dispatch) => {
+    dispatch(syncRecentMovies())
+    return fetch(url, {
+      method: 'POST',
+    })
+      .then(() => dispatch(fetchMovieRecent.request()) )
+  } 
 };

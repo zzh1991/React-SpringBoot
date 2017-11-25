@@ -56,6 +56,12 @@ public class MovieService {
 //        syncViewData();
     }
 
+    public void syncRecentMovies() throws IOException {
+        deleteOutDataMovie();
+        saveMovie();
+        saveDetailToMovie();
+    }
+
     public List<Movie> getMovies(String url) throws IOException {
         MovieVo movieVo = null;
         String context = getUrlContent(url);

@@ -54,4 +54,11 @@ export default {
       body: request,
     }); 
   },
+  syncRecentMovies() {
+    const url = 'sync/recent';
+    return CommonApi(url, {
+      method: 'POST',
+      mode: 'cors', 
+    })
+  },
 }

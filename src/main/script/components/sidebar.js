@@ -74,6 +74,13 @@ class SideBar extends React.Component {
               />
               {'  电影助手'}
             </div>
+            {this.props.showSyncButton &&
+            <div style={{ position: 'fixed',right: 20, color: 'white', fontSize: 16}} >
+              <span onClick={this.props.syncMovies} >
+                <Icon type="sync" style={{ color: 'white' }} /> {'  SYNC'}
+              </span>
+            </div>
+            }
           </Header>
           <Layout style={{ height: '92vh', }} >
             <Sider

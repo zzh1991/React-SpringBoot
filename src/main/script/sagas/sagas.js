@@ -2,9 +2,12 @@ import { call, put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga';
 import Api from '../services/api';
 import { ActionTypes } from '../actions/actionTypes';
-import { fetchMovieRecent, fetchMovieTop, fetchMovieViewed, fetchViewdMovieList, fetchStarMovieList } from '../actions/actions';
+import { fetchMovieRecent, fetchMovieTop,
+  fetchMovieViewed, fetchViewdMovieList,
+  fetchStarMovieList
+ } from '../actions/actions';
 import { fetchStudent, fetchStudentError, fetchStudentInfoSuccess,
-fetchStudentInfoFailure,
+fetchStudentInfoFailure
 } from '../actions/miniAction';
 
 
