@@ -2,19 +2,19 @@
 
 ## Install
 - npm install
-- webpack
-- configure you database name (an empty database)
+- npm run build
+- configure you database name (an empty database) in application.properties
 - start the web app in IDE
 - open browser: http://localhost:8080
 
 ## Demo: Movie Helper
 ### Recent Movies
-![Recent](./pictures/recent-movie-antd.png)
+![Recent](./pictures/recent-movie-antd3.png)
 ### Top 100 Movies
-![Top](./pictures/top-movie-antd.png)
+![Top](./pictures/top-movie-antd3.png)
 ### Viewed Movies
 
-### Movies to watch
+### Movies wanted to watch
 
 ### Ref
 ![recent](https://movie.douban.com/)
@@ -23,9 +23,13 @@
 ## TO DO LIST
 ### login page
     - [x] sign in / sign up
-    - less render
+    - [x] less render
     - update time
 ### data bind with user id
+
+### improvement
+    - [x] sync recent movies
+    - [x] antd 3.0.0
 
 ## Dependency
 ### front-end
@@ -34,7 +38,7 @@
 - react-redux
 - redux-thunk
 - redux-saga
-- material-ui
+- material-ui (only few components will be used)
 - ant design
 - webpack
 - babel dependency
