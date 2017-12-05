@@ -28,7 +28,7 @@
     "webpack-dev-server": "^2.8.2"
   },
   "dependencies": {
-    "antd": "^2.13.2",
+    "antd": "^3.0.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.26.0",

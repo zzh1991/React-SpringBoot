@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Layout, Icon, Menu } from 'antd';
+import { Layout, Icon, Menu, Button } from 'antd';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { withRouter } from 'react-router-dom';
@@ -75,10 +75,11 @@ class SideBar extends React.Component {
               {'  电影助手'}
             </div>
             {this.props.showSyncButton &&
-            <div style={{ position: 'fixed',right: 20, color: 'white', fontSize: 16}} >
-              <span onClick={this.props.syncMovies} >
+            <div style={{ position: 'fixed',right: 20 }} >
+              {/* <span onClick={this.props.syncMovies} >
                 <Icon type="sync" style={{ color: 'white' }} /> {'  SYNC'}
-              </span>
+              </span> */}
+              <Button icon="sync" ghost style={{ width: '7vw' }} onClick={this.props.syncMovies}>SYNC</Button>
             </div>
             }
           </Header>

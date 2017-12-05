@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import '../styles/style.css';
 
 class MovieDetail extends Component {
@@ -14,27 +15,33 @@ class MovieDetail extends Component {
             <img src={record.imageLarge} />
             <p><a href={record.imageLarge} target={'_blank'}>{record.title}</a></p>
             <div className={'casts-info'}>
-              <h2>{'主演'}</h2>
+              <h3>{'主演'}</h3>
               {
                 record.casts.split(',').map((cast) => {
-                  return <h3 key={cast} >{cast}</h3>
+                  return <Author key={cast} >{cast}</Author>
                 })
               }
-              <h2>{'导演'}</h2>
+              <h3>{'导演'}</h3>
               {
                 record.directors.split(',').map((director) => {
-                  return <h3 key={director} >{director}</h3>
+                  return <Author key={director} >{director}</Author>
                 })
               }
               <hr/>
-              <h2>{'简介'}</h2>
-              <h3>{record.summary}</h3>
-              <h2>{'国家'}</h2>
-              <h3>{record.countries}</h3>
+              <h3>{'简介'}</h3>
+              <p>{record.summary}</p>
+              <h3>{'国家'}</h3>
+              <p>{record.countries}</p>
             </div>
           </div>
         );
     }
 }
+
+const Author = styled.p`
+  margin-bottom: 4px;
+  margin-top: 0;
+  padding: 0;
+`;
 
 export default MovieDetail;
