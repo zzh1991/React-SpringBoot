@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import '../styles/style.css';
 
 class MovieDetail extends Component {
     constructor(props) {
@@ -11,10 +10,10 @@ class MovieDetail extends Component {
         const { record } = this.props;
         console.log(record.imageLarge);
         return (
-          <div className={'extra-info'}>
+          <ExtraInfo>
             <img src={record.imageLarge} />
-            <p><a href={record.imageLarge} target={'_blank'}>{record.title}</a></p>
-            <div className={'casts-info'}>
+            {/* <p><a href={record.imageLarge} target={'_blank'}>{record.title}</a></p> */}
+            <CastsInfo>
               <h3>{'主演'}</h3>
               {
                 record.casts.split(',').map((cast) => {
@@ -32,8 +31,8 @@ class MovieDetail extends Component {
               <p>{record.summary}</p>
               <h3>{'国家'}</h3>
               <p>{record.countries}</p>
-            </div>
-          </div>
+            </CastsInfo>
+          </ExtraInfo>
         );
     }
 }
@@ -42,6 +41,18 @@ const Author = styled.p`
   margin-bottom: 4px;
   margin-top: 0;
   padding: 0;
+`;
+
+const ExtraInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 12px;
+`;
+
+const CastsInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
 `;
 
 export default MovieDetail;

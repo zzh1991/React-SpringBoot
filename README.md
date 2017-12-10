@@ -82,3 +82,8 @@
 - async: "transform-runtime", { "polyfill": false, "regenerator": true }
 
 ### webpack-dev-server
+
+## [Parcel](https://parceljs.org/)
+### Problems
+- css packaged, class name is not same, so not css effect
+- svg, jpg url path is not right for static resource, not web resource

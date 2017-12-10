@@ -1,6 +1,7 @@
 {
+  "presets": ["env", "react", "stage-2"],
   "plugins": [
-    ["import", {"libraryName": "antd", "style": "css"}],
-    ["import", {"libraryName": "material-ui", "style": "css"}]
+    ["transform-runtime"],
+    ["import", {"libraryName": "antd", "style": true }]
   ]
 }
