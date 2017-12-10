@@ -2,39 +2,34 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 class MovieDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        const { record } = this.props;
-        console.log(record.imageLarge);
-        return (
-          <ExtraInfo>
-            <img src={record.imageLarge} />
-            {/* <p><a href={record.imageLarge} target={'_blank'}>{record.title}</a></p> */}
-            <CastsInfo>
-              <h3>{'主演'}</h3>
-              {
-                record.casts.split(',').map((cast) => {
-                  return <Author key={cast} >{cast}</Author>
-                })
-              }
-              <h3>{'导演'}</h3>
-              {
-                record.directors.split(',').map((director) => {
-                  return <Author key={director} >{director}</Author>
-                })
-              }
-              <hr/>
-              <h3>{'简介'}</h3>
-              <p>{record.summary}</p>
-              <h3>{'国家'}</h3>
-              <p>{record.countries}</p>
-            </CastsInfo>
-          </ExtraInfo>
-        );
-    }
+  render() {
+    const { record } = this.props;
+    return (
+      <ExtraInfo>
+        <img src={record.imageLarge} alt={record.imageLarge} />
+        {/* <p><a href={record.imageLarge} target={'_blank'}>{record.title}</a></p> */}
+        <CastsInfo>
+          <h3>{'主演'}</h3>
+          {
+            record.casts.split(',').map((cast) => {
+              return <Author key={cast} >{cast}</Author>;
+            })
+          }
+          <h3>{'导演'}</h3>
+          {
+            record.directors.split(',').map((director) => {
+              return <Author key={director} >{director}</Author>;
+            })
+          }
+          <hr />
+          <h3>{'简介'}</h3>
+          <p>{record.summary}</p>
+          <h3>{'国家'}</h3>
+          <p>{record.countries}</p>
+        </CastsInfo>
+      </ExtraInfo>
+    );
+  }
 }
 
 const Author = styled.p`

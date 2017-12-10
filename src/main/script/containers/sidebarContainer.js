@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { fetchMovieRecent, syncRecentMovieList } from '../actions/actions';
 import Main from '../containers/main';
 import '../styles/style.css';
-import SideBar from '../components/sidebar.js'
+import SideBar from '../components/sidebar.js';
 
 class SideBarContainer extends Component {
-
   componentDidMount = () => {
     this.props.dispatch(fetchMovieRecent.request());
   };
@@ -18,30 +17,29 @@ class SideBarContainer extends Component {
   render() {
     const { data } = this.props;
     return (
-        <SideBar
-          keys={'/'}
-          showSyncButton
-          syncMovies={this.onSync}
-        >
-          <Main
-            data={data}
-          />
-        </SideBar>
+      <SideBar
+        keys={'/'}
+        showSyncButton
+        syncMovies={this.onSync}
+      >
+        <Main
+          data={data}
+        />
+      </SideBar>
     );
   }
-};
+}
 
 function mapStateToProps(state) {
   return {
     data: state.info.movieRecentList.data,
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-  }
+  };
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBarContainer);

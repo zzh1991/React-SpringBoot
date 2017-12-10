@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Icon } from 'antd';
+import { Table } from 'antd';
 import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
 import ToggleStar from 'material-ui/svg-icons/toggle/star';
@@ -59,7 +59,7 @@ class Main extends React.Component {
   };
 
   onRowClick = (record, index, event) => {
-    this.setState({ index, });
+    this.setState({ index });
   };
 
   rowClassName = (record, index) => {
@@ -82,14 +82,14 @@ class Main extends React.Component {
     }
   };
 
-  render () {
+  render() {
     const columns = [
       {
         title: '电影名称',
         key: 'name',
         dataIndex: 'title',
         render: (text, record) => {
-          return <a href={record.url} target={'_blank'}>{text}</a>
+          return <a href={record.url} target={'_blank'}>{text}</a>;
         },
         width: 200,
       },
@@ -122,22 +122,24 @@ class Main extends React.Component {
         key: 'viewed',
         dataIndex: 'viewed',
         render: (text, record) => {
-          return <Checkbox
+          return (<Checkbox
             defaultChecked={text}
             checkedIcon={<Visibility />}
             uncheckedIcon={<VisibilityOff />}
-            onCheck={(event, isChecked) => {this.updateCheck(event, isChecked, record.movieId, watchedMovieName) }}
-          />;
+            onCheck={(event, isChecked) => {
+              this.updateCheck(event, isChecked, record.movieId, watchedMovieName);
+            }}
+          />);
         },
         width: 100,
         filters: [
           {
             text: '已观影',
-            value: true
+            value: true,
           },
           {
             text: '未观影',
-            value: false
+            value: false,
           },
         ],
         filterMultiple: false,
@@ -148,18 +150,20 @@ class Main extends React.Component {
         key: 'star',
         dataIndex: 'star',
         render: (text, record) => {
-          return <Checkbox
+          return (<Checkbox
             defaultChecked={text}
             checkedIcon={<ToggleStar />}
             uncheckedIcon={<ToggleStarBorder />}
-            onCheck={(event, isChecked) => {this.updateCheck(event, isChecked, record.movieId, starMovieName) }}
-          />;
+            onCheck={(event, isChecked) => {
+              this.updateCheck(event, isChecked, record.movieId, starMovieName);
+            }}
+          />);
         },
         width: 100,
         filters: [
           {
             text: '想看',
-            value: true
+            value: true,
           },
         ],
         filterMultiple: false,
@@ -167,10 +171,11 @@ class Main extends React.Component {
       },
     ];
 
-    let { data } = this.props;
-    {data && data.map((item, index) => {
-      item['key'] = index;
-    });
+    const { data } = this.props;
+    if (data !== null) {
+      data.map((item, index) => {
+        item.key = index;
+      });
     }
 
     const { watchedMovieSet, starMovieSet } = this.state;
@@ -192,49 +197,44 @@ class Main extends React.Component {
 
     return (
       <div>
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={{
+            pageSize: 10,
+            current: this.state.current,
+            defaultCurrent: 1,
+            total: data ? data.length : 0,
+            showSizeChanger: true,
+            onShowSizeChange: () => {},
+            onChange: (page) => {
+              this.setState({
+                current: page,
+              });
+            },
+          }}
 
-          <Table
-            columns={columns}
-            dataSource={data}
-            pagination={{
-             pageSize: 10,
-             current: this.state.current,
-             defaultCurrent: 1,
-             total: data ? data.length : 0,
-             showSizeChanger: true,
-             onShowSizeChange: (current, pageSize) => {
-             },
-             onChange: (page) => {
-               this.setState({
-                 current: page,
-               });
-             },
-            }}
-
-            // onChange={this.onChange}
-            // onRowClick={this.onRowClick}
-
-           // rowClassName={'table-content'}
-           expandedRowRender={record => <MovieDetail record={record} />}
-           scroll={{ y: '75vh' }}
-          />
+          // onChange={this.onChange}
+          // onRowClick={this.onRowClick}
+          // rowClassName={'table-content'}
+          expandedRowRender={record => <MovieDetail record={record} />}
+          scroll={{ y: '75vh' }}
+        />
       </div>
     );
   }
-};
+}
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
     // data: state.info.movieRecentList.data,
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-  }
+  };
 }
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
-
