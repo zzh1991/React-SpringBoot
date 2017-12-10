@@ -29,7 +29,12 @@
     "redux-logger": "^3.0.6",
     "url-loader": "^0.6.2",
     "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.8.2"
+    "webpack-dev-server": "^2.8.2",
+    "eslint": "^4.7.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0"
   },
   "dependencies": {
     "antd": "^3.0.0",
@@ -43,7 +48,6 @@
     "clipboard": "^1.7.1",
     "css-loader": "^0.28.7",
     "es6-promise": "^4.1.1",
-    "eslint": "^4.7.0",
     "html-withimg-loader": "^0.1.16",
     "image-loader": "0.0.1",
     "immutable": "^3.8.1",
