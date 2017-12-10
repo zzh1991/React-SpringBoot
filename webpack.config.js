@@ -30,13 +30,17 @@ module.exports = {
         loader: 'style-loader!css-loader'
       },
       {
-        test:/\.(png|jpg|gif)$/ ,
+        test: /\.less$/,
+        loader: "style-loader!css-loader!less-loader"
+      },
+      {
+        test:/\.(png|jpg|gif|svg)$/ ,
         use:[{
           loader:'url-loader',
-          options:{
-            limit:5000,
-            outputPath:'./src/main/resources/static/images/',
-          }
+          // options:{
+          //   limit:5000,
+          //   outputPath:'./src/main/resources/static/images/',
+          // }
         }]
       },
       // {

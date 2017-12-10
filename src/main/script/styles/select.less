@@ -1,0 +1,43 @@
+@import '~kuma-base/theme/blue.less'; // or orange.less global variables which components need
+@import '~kuma-base/core.less'; // base element style and reset
+@svg-path: '../../../node_modules/kuma-base/core/svg/blue'; // your installed kuma-base package path
+@import '~uxcore-cascade-multi-select/src/CascadeMultiSelect'; // component style
+@import "~uxcore-dropdown/src/DropDown";
+@import "~uxcore-button/src/Button";
+@import "~uxcore-dialog/src/Dialog";
+@import "~uxcore-icon/src/Icon";
+@import "~uxcore-cascade-select/src/CascadeSelect";
+@import "~uxcore-tree/src/Tree";
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_494688_gsk49vz2fqxv42t9.woff') format('woff');
+}
+
+.kuma-icon {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: .2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.kuma-icon-triangle-down:before {
+  content: "\e601";
+}
+
+.kuma-icon-error:before {
+  content: "\e723";
+}
+
+
+.kuma-icon-triangle-right {
+  margin-right: 5px;
+  vertical-align: middle;
+  color: #999;
+}
+
+.kuma-icon-triangle-right:before {
+  content: "\e602";
+}

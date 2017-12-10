@@ -3,6 +3,7 @@ target
 node_modules
 .idea
 .mvn
+.cache
 gradle
 gradlew
 gradlew.bat
