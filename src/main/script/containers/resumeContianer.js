@@ -3,7 +3,7 @@ import Form from "react-jsonschema-form";
 import CascadeMultiSelect from 'uxcore-cascade-multi-select';
 import PersonalCard from '../components/personalCard';
 import PersonalInfo from '../components/personalInfo';
-// import '../styles/select.less';
+import '../styles/select.less';
 
 const options = [
   {
@@ -119,32 +119,32 @@ class ResumeContainer extends Component {
 
     return (
       <div>
-        {/*<div style={{ margin: 15 }}>*/}
-          {/*<CascadeMultiSelect*/}
-            {/*className={'ucms-input'}*/}
-            {/*dropdownClassName={'ucms-drop'}*/}
-            {/*options={options}*/}
-            {/*onSelect={(valueList, labelList, leafList) => {*/}
-              {/*console.log(valueList, labelList, leafList);*/}
-              {/*this.setState({ demo1: valueList });*/}
-            {/*}}*/}
-            {/*onOk={(valueList, labelList, leafList) => {*/}
-              {/*console.log(valueList, labelList, leafList);*/}
-            {/*}}*/}
-            {/*value={this.state.demo1}*/}
-            {/*locale={'en-us'}*/}
-            {/*allowClear={true}*/}
-          {/*/>*/}
-        {/*</div>*/}
-        {/*<Form*/}
-          {/*schema={schema}*/}
-          {/*formData={formData}*/}
-          {/*onChange={this.log("changed")}*/}
-          {/*onSubmit={this.onSubmit}*/}
-          {/*onError={this.log("errors")}*/}
-        {/*/>*/}
-        <PersonalCard />
-        <PersonalInfo />
+        <div style={{ margin: 15 }}>
+          <CascadeMultiSelect
+            className={'ucms-input'}
+            dropdownClassName={'ucms-drop'}
+            options={options}
+            onSelect={(valueList, labelList, leafList) => {
+              console.log(valueList, labelList, leafList);
+              this.setState({ demo1: valueList });
+            }}
+            onOk={(valueList, labelList, leafList) => {
+              console.log(valueList, labelList, leafList);
+            }}
+            value={this.state.demo1}
+            locale={'en-us'}
+            allowClear={true}
+          />
+        </div>
+        <Form
+          schema={schema}
+          formData={formData}
+          onChange={this.log("changed")}
+          onSubmit={this.onSubmit}
+          onError={this.log("errors")}
+        />
+        {/*<PersonalCard />*/}
+        {/*<PersonalInfo />*/}
       </div>
     );
   }

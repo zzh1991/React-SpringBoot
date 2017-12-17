@@ -1,6 +1,5 @@
 import { call, put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga';
-import "babel-polyfill";
 import Api from '../services/api';
 import { ActionTypes } from '../actions/actionTypes';
 import { fetchStudent, fetchStudentError, fetchStudentInfoSuccess,

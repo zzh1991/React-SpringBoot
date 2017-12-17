@@ -1,7 +1,7 @@
 {
   "presets": ["env", "react", "stage-2"],
   "plugins": [
-    ["transform-regenerator"],
+    ["transform-runtime"],
     ["import", {"libraryName": "antd", "style": true }]
   ]
 }
