@@ -28,6 +28,11 @@ public class MovieController {
         movieService.syncRecentMovies();
     }
 
+    @PostMapping("sync/top")
+    public void syncTop() throws IOException {
+
+    }
+
     @GetMapping("movie/recent")
     public List<Film> getRecentMovie() throws IOException {
         return movieService.getFilmList();

@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { ActionTypes } from './actionTypes';
-import { fetchStudent, requestStudent, syncRecentMovies } from './miniAction';
+import { fetchStudent, requestStudent, syncRecentMovies, syncTopMovies } from './miniAction';
 
 export const fetchData = () => {
   const url = '/data';
@@ -9,7 +9,7 @@ export const fetchData = () => {
     return fetch(url)
       .then(response => response.json())
       .then(json => dispatch(fetchStudent(json)));
-  }
+  };
 };
 
 function createAction(types) {
@@ -18,21 +18,21 @@ function createAction(types) {
       return {
         type: types[0],
         data,
-      }
+      };
     },
     success(data) {
       return {
         type: types[1],
         data,
-      }
+      };
     },
     error(data) {
       return {
         type: types[2],
         data,
-      }
+      };
     },
-  }
+  };
 }
 
 export const fetchMovieRecent = createAction([
@@ -65,9 +65,8 @@ export const fetchStarMovieList = createAction([
   ActionTypes.FETCH_STAR_MOVIE_LIST_SUCCESS,
   ActionTypes.FETCH_STAR_MOVIE_LIST_FAILURE,
 ]);
-
 export const saveMovieToLocal = (movieId, movieListName) => {
-  let movieIds = localStorage.getItem(movieListName);
+  const movieIds = localStorage.getItem(movieListName);
   if (movieIds !== null) {
     const movieSet = new Set(JSON.parse(movieIds));
     movieSet.add(movieId);
@@ -95,10 +94,21 @@ export const getMovieList = (movieListName) => {
 export const syncRecentMovieList = () => {
   const url = 'sync/recent';
   return (dispatch) => {
-    dispatch(syncRecentMovies())
+    dispatch(syncRecentMovies());
     return fetch(url, {
       method: 'POST',
     })
-      .then(() => dispatch(fetchMovieRecent.request()) )
-  } 
+      .then(() => dispatch(fetchMovieRecent.request()));
+  };
+};
+
+export const syncTopMovieList = () => {
+  const url = 'sync/top';
+  return (dispatch) => {
+    dispatch(syncTopMovies());
+    return fetch(url, {
+      method: 'POST',
+    })
+      .then(() => dispatch(fetchMovieTop.request()));
+  };
 };
