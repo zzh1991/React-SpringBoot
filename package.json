@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel watch src/main/script/index.js -d src/main/resources/static/built",
+    "build": "webpack",
     "start": "webpack-dev-server --devtool eval --progress --colors --hot",
     "deploy": "NODE_ENV=production webpack -p",
     "deploy-windows": "SET NODE_ENV=production & webpack -p ",
@@ -29,6 +29,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
     "file-loader": "^1.1.5",
+    "less-loader": "^4.0.5",
     "parcel-bundler": "^1.1.0",
     "postcss-modules": "^1.1.0",
     "redux-devtools": "^3.4.0",
@@ -72,7 +73,6 @@
     "redux-thunk": "^2.2.0",
     "style-loader": "^0.18.2",
     "styled-components": "^2.2.3",
-    "underscore": "^1.8.3",
-    "webpack": "^3.6.0"
+    "underscore": "^1.8.3"
   }
 }

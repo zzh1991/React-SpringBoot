@@ -3,13 +3,6 @@ target
 node_modules
 .idea
 .mvn
-gradle
-gradlew
-gradlew.bat
-gs-messaging-stomp-websocket.iml
-mvnw
-mnvw.cmd
-build.gradle
 .DS_Store
 src/.DS_Store
 src/main/.DS_Store
@@ -17,3 +10,9 @@ src/main/resources/.DS_Store
 src/main/resources/static/.DS_Store
 src/main/script/.DS_Store
 .cache
+src/main/resources/static/built/bundle.js
+src/main/resources/static/built/index.js
+src/main/resources/static/built/index.css
+src/main/resources/static/app.js
+src/main/resources/static/index2.html
+src/main/resources/static/main.css

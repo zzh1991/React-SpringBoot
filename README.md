@@ -7,7 +7,7 @@
 - start the web app in IDE
 - open browser: http://localhost:8080
 
-## Demo: Movie Helper
+## Demo: [Movie Helper](https://movieshelper.herokuapp.com/)
 ### Recent Movies
 ![Recent](./pictures/recent-movie-antd3.png)
 ### Top 100 Movies
