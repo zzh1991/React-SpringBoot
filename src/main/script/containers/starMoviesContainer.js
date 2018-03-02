@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import SideBar from '../components/sidebar.js'
 import Main from '../containers/main';
 import '../styles/style.css';
-import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import { connect } from 'react-redux';
 import { fetchStarMovieList, getMovieList } from '../actions/actions';
 

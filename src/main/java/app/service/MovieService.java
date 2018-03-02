@@ -12,6 +12,7 @@ import app.vo.movie.Avatar;
 import app.vo.movie.Movie;
 import app.vo.movie.MovieSubject;
 import app.vo.movie.MovieVo;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.collect.Lists;
@@ -46,16 +47,6 @@ public class MovieService {
     @Autowired
     private FilmListRepository filmListRepository;
 
-    public void sync() throws IOException {
-        deleteOutDataMovie();
-        saveMovie();
-//        deleteOutDataTopMovie();
-//        saveTopMovie();
-//        saveDetailToMovie();
-        saveDetailToTopMovie();
-//        syncViewData();
-    }
-
     public void syncRecentMovies() throws IOException {
         deleteOutDataMovie();
         saveMovie();
@@ -72,6 +63,7 @@ public class MovieService {
         MovieVo movieVo = null;
         String context = getUrlContent(url);
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         movieVo = mapper.readValue(context, TypeFactory.defaultInstance().constructType(MovieVo.class));
         return movieVo.getSubjects();
     }

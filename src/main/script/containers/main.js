@@ -1,11 +1,6 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table,Button } from 'antd';
 import { connect } from 'react-redux';
-import Checkbox from 'material-ui/Checkbox';
-import ToggleStar from 'material-ui/svg-icons/toggle/star';
-import ToggleStarBorder from 'material-ui/svg-icons/toggle/star-border';
-import Visibility from 'material-ui/svg-icons/action/visibility';
-import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import '../styles/style.css';
 import { fetchMovieViewed, saveMovieToLocal, deleteMovieToLocal, getMovieList } from '../actions/actions';
 import MovieDetail from '../components/movieDetail';
@@ -69,7 +64,7 @@ class Main extends React.Component {
     return '';
   };
 
-  updateCheck = (event, isChecked, id, movieListName) => {
+  updateCheck = (isChecked, id, movieListName) => {
     this.props.dispatch(fetchMovieViewed.request({
       id,
       viewed: isChecked,
@@ -77,10 +72,44 @@ class Main extends React.Component {
 
     if (isChecked) {
       saveMovieToLocal(id, movieListName);
+      this.setViewOrStarState(movieListName, id);
     } else {
       deleteMovieToLocal(id, movieListName);
+      this.setUnviewOrUnstarState(movieListName, id);
     }
   };
+
+  setViewOrStarState = (movieListName, id) => {
+    if (movieListName === watchedMovieName) {
+      const set = this.state.watchedMovieSet;
+      set.add(id);
+      this.setState({
+        watchedMovieSet: set,
+      });
+    } else {
+      const set = this.state.starMovieSet;
+      set.add(id);
+      this.setState({
+        starMovieSet: set,
+      });
+    }
+  }
+
+  setUnviewOrUnstarState = (movieListName, id) => {
+    if (movieListName === watchedMovieName) {
+      const set = this.state.watchedMovieSet;
+      set.delete(id);
+      this.setState({
+        watchedMovieSet: set,
+      });
+    } else {
+      const set = this.state.starMovieSet;
+      set.delete(id);
+      this.setState({
+        starMovieSet: set,
+      });
+    }
+  }
 
   render() {
     const columns = [
@@ -122,14 +151,26 @@ class Main extends React.Component {
         key: 'viewed',
         dataIndex: 'viewed',
         render: (text, record) => {
-          return (<Checkbox
-            defaultChecked={text}
-            checkedIcon={<Visibility />}
-            uncheckedIcon={<VisibilityOff />}
-            onCheck={(event, isChecked) => {
-              this.updateCheck(event, isChecked, record.movieId, watchedMovieName);
-            }}
-          />);
+          let isChecked = false;
+          if (this.state.watchedMovieSet.has(record.movieId)) {
+            isChecked = true;
+          }
+          return (<span>
+            {isChecked &&
+            <Button
+              shape="circle"
+              icon="eye"
+              onClick={() => {this.updateCheck(!isChecked,
+              record.movieId, watchedMovieName);}}
+            />}
+            {!isChecked &&
+            <Button
+              shape="circle"
+              icon="eye-o"
+              onClick={() => {this.updateCheck(!isChecked,
+                record.movieId, watchedMovieName);}}
+            />}
+            </span>);
         },
         width: 100,
         filters: [
@@ -150,14 +191,26 @@ class Main extends React.Component {
         key: 'star',
         dataIndex: 'star',
         render: (text, record) => {
-          return (<Checkbox
-            defaultChecked={text}
-            checkedIcon={<ToggleStar />}
-            uncheckedIcon={<ToggleStarBorder />}
-            onCheck={(event, isChecked) => {
-              this.updateCheck(event, isChecked, record.movieId, starMovieName);
-            }}
-          />);
+          let isChecked = false;
+          if (this.state.starMovieSet.has(record.movieId)) {
+            isChecked = true;
+          }
+          return (<span>
+            {isChecked &&
+            <Button
+              shape="circle"
+              icon="heart"
+              onClick={() => {this.updateCheck(!isChecked,
+                record.movieId, starMovieName);}}
+            />}
+            {!isChecked &&
+            <Button
+              shape="circle"
+              icon="heart-o"
+              onClick={() => {this.updateCheck(!isChecked,
+                record.movieId, starMovieName);}}
+            />}
+          </span>);
         },
         width: 100,
         filters: [
@@ -201,7 +254,7 @@ class Main extends React.Component {
           columns={columns}
           dataSource={data}
           pagination={{
-            pageSize: 10,
+            pageSize: 9,
             current: this.state.current,
             defaultCurrent: 1,
             total: data ? data.length : 0,

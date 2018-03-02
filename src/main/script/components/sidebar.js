@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Layout, Icon, Menu, Button } from 'antd';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import { withRouter } from 'react-router-dom';
 import '../styles/style.css';
 
 const { Header, Content, Sider } = Layout;
-injectTapEventPlugin();
-
 class SideBar extends React.Component {
   constructor(props) {
     super(props);
@@ -88,9 +84,7 @@ class SideBar extends React.Component {
             </Menu>
           </Sider>
           <Content style={{ padding: 20 }} >
-            <MuiThemeProvider>
-              {this.props.children}
-            </MuiThemeProvider>
+            {this.props.children}
           </Content>
         </Layout>
       </Layout>

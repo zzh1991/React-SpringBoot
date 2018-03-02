@@ -18,11 +18,6 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    @PostMapping("sync")
-    public void sync() throws IOException {
-        movieService.sync();
-    }
-
     @PostMapping("sync/recent")
     public void syncRecent() throws IOException {
         movieService.syncRecentMovies();
@@ -30,7 +25,7 @@ public class MovieController {
 
     @PostMapping("sync/top")
     public void syncTop() throws IOException {
-
+        movieService.syncTopMovies();
     }
 
     @GetMapping("movie/recent")
