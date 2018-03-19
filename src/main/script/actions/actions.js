@@ -87,7 +87,7 @@ export const getMovieList = (movieListName) => {
   if (movieIds !== null) {
     return new Set(JSON.parse(movieIds));
   } else {
-    return null;
+    return new Set();
   }
 };
 

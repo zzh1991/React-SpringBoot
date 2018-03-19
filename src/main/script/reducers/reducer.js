@@ -23,88 +23,102 @@ function studentData (state = {data: []}, action) {
   }
 };
 
-function movieRecentList (state = {data: []}, action) {
+function movieRecentList (state = {data: [], loading: false}, action) {
   switch (action.type) {
     case ActionTypes.FETCH_MOVIE_RECENT_REQUEST:
+    case ActionTypes.SYNC_MOVIE_RECENT_REQUEST:
       return {
         ...state,
         data: [],
+        loading: true,
       };
     case ActionTypes.FETCH_MOVIE_RECENT_SUCCESS:
       return {
         ...state,
         data: action.data,
+        loading: false,
       };
     case ActionTypes.FETCH_MOVIE_RECENT_FAILURE:
       return {
         ...state,
         data: [],
+        loading: false,
       };
     default:
       return state;
   }
 };
 
-function movieTopList (state = {data: []}, action) {
+function movieTopList (state = {data: [], loading: false}, action) {
   switch (action.type) {
     case ActionTypes.FETCH_MOVIE_TOP_REQUEST:
+    case ActionTypes.SYNC_MOVIE_TOP_REQUEST:
       return {
         ...state,
         data: [],
+        loading: true,
       };
     case ActionTypes.FETCH_MOVIE_TOP_SUCCESS:
       return {
         ...state,
         data: action.data,
+        loading: false
       };
     case ActionTypes.FETCH_MOVIE_TOP_FAILURE:
       return {
         ...state,
         data: [],
+        loading: false
       };
     default:
       return state;
   }
 };
 
-function movieViewedList (state = {data: []}, action) {
+function movieViewedList (state = {data: [], loading: false}, action) {
   switch (action.type) {
     case ActionTypes.FETCH_VIEWED_MOVIE_LIST_REQUEST:
       return {
         ...state,
         data: [],
+        loading: true,
       };
     case ActionTypes.FETCH_VIEWED_MOVIE_LIST_SUCCESS:
       return {
         ...state,
         data: action.data,
+        loading: false,
       };
     case ActionTypes.FETCH_VIEWED_MOVIE_LIST_FAILURE:
       return {
         ...state,
         data: [],
+        loading: false,
       };
     default:
       return state;
   }
 };
 
-function movieStarList (state = {data: []}, action) {
+function movieStarList (state = {data: [], loading: false}, action) {
   switch (action.type) {
     case ActionTypes.FETCH_STAR_MOVIE_LIST_REQUEST:
       return {
         ...state,
         data: [],
+        loading: true,
       };
     case ActionTypes.FETCH_STAR_MOVIE_LIST_SUCCESS:
       return {
         ...state,
         data: action.data,
+        loading: false,
       };
     case ActionTypes.FETCH_STAR_MOVIE_LIST_FAILURE:
       return {
         ...state,
         data: [],
+        loading: false,
       };
     default:
       return state;

@@ -152,7 +152,7 @@ class Main extends React.Component {
         dataIndex: 'viewed',
         render: (text, record) => {
           let isChecked = false;
-          if (this.state.watchedMovieSet.has(record.movieId)) {
+          if (record && record.movieId && this.state.watchedMovieSet.has(record.movieId)) {
             isChecked = true;
           }
           return (<span>
@@ -192,7 +192,7 @@ class Main extends React.Component {
         dataIndex: 'star',
         render: (text, record) => {
           let isChecked = false;
-          if (this.state.starMovieSet.has(record.movieId)) {
+          if (record && record.movieId && this.state.starMovieSet.has(record.movieId)) {
             isChecked = true;
           }
           return (<span>

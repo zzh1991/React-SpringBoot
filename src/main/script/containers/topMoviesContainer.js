@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Spin } from 'antd';
 import SideBar from '../components/sidebar.js';
 import Main from '../containers/main';
 import '../styles/style.css';
@@ -15,16 +16,21 @@ class TopMoviesContainer extends Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data, loading } = this.props;
     return (
       <SideBar
         keys={'/top'}
         showSyncButton
         syncMovies={this.onSync}
       >
-        <Main
-          data={data}
-        />
+        <Spin
+          tip="Loading..."
+          spinning={loading}
+        >
+          <Main
+            data={data}
+          />
+        </Spin>
       </SideBar>
     );
   }
@@ -33,6 +39,7 @@ class TopMoviesContainer extends Component {
 function mapStateToProps(state) {
   return {
     data: state.info.movieTopList.data,
+    loading: state.info.movieTopList.loading,
   };
 }
 

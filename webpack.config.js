@@ -1,5 +1,6 @@
 var webpack = require("webpack");
 var path = require("path");
+const uglify = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: "./src/main/script/index.js", // 项目打包入口文件
@@ -56,6 +57,9 @@ module.exports = {
       }
       ]
   },
+  plugins:[
+    new uglify()
+  ],
   watchOptions: {
     poll: 1000,
     aggregateTimeout: 500,

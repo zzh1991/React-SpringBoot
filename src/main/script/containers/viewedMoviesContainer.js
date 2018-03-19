@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Spin } from 'antd';
 import SideBar from '../components/sidebar.js'
 import Main from '../containers/main';
 import '../styles/style.css';
@@ -16,12 +17,17 @@ class ViewedMoviesContainer extends Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data, loading } = this.props;
     return (
       <SideBar keys={'/view'} >
-        <Main
-          data={data}
-        />
+        <Spin
+          tip="Loading..."
+          spinning={loading}
+        >
+          <Main
+            data={data}
+          />
+        </Spin>
       </SideBar>
     );
   }
@@ -30,6 +36,7 @@ class ViewedMoviesContainer extends Component {
 function mapStateToProps(state) {
   return {
     data: state.info.movieViewedList.data,
+    loading: state.info.movieViewedList.loading,
   }
 }
 
