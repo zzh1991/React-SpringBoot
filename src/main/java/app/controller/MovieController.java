@@ -4,7 +4,6 @@ import app.entity.Film;
 import app.entity.FilmList;
 import app.entity.TopFilm;
 import app.service.MovieService;
-import app.vo.movie.MovieIdsForm;
 import app.vo.movie.MovieSubject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +61,11 @@ public class MovieController {
     @PostMapping("movie/viewed")
     public List<FilmList> getViewedList(@RequestBody List<Long> movieIdList) {
         return movieService.getViewedList(movieIdList);
+    }
+
+    @PostMapping("movie/sync/{movieId}")
+    public FilmList syncOneMovieToMovieList(@PathVariable Long movieId) {
+        return movieService.syncOneMovieToMovieList(movieId);
     }
 
 }

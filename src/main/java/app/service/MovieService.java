@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -28,8 +29,10 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
+@Slf4j
 public class MovieService {
 
     private static final String SEPARATOR = ",";
@@ -281,5 +284,41 @@ public class MovieService {
 
     public List<FilmList> getViewedList(List<Long> movieIdList) {
         return filmListRepository.findByMovieIdIsIn(movieIdList);
+    }
+
+    public FilmList syncOneMovieToMovieList(Long movieId) {
+        FilmList filmList = filmListRepository.findFirstByMovieId(movieId);
+        MovieSubject movieSubject;
+        FilmList syncedMovie = FilmList.builder().build();
+        try {
+            movieSubject = getMovieSubject(movieId);
+        } catch (IOException e) {
+            log.error("can not fetch this movieId: {}", movieId);
+            return syncedMovie;
+        }
+
+        if (!Objects.isNull(movieSubject)) {
+            syncedMovie = FilmList.builder()
+                    .movieId(movieId)
+                    .title(movieSubject.getTitle())
+                    .rating(movieSubject.getRating().getAverage())
+                    .url(movieSubject.getAlt())
+                    .movieYear(movieSubject.getYear())
+                    .imageLarge(movieSubject.getImages().get(LARGE))
+                    .casts(getNames(movieSubject.getCasts()))
+                    .directors(getNames(movieSubject.getDirectors()))
+                    .genres(StringUtils.join(movieSubject.getGenres(), SEPARATOR))
+                    .summary(movieSubject.getSummary())
+                    .countries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR))
+                    .build();
+        } else {
+            return syncedMovie;
+        }
+
+        if (!Objects.isNull(filmList)) {
+            syncedMovie.setId(filmList.getId());
+        }
+
+        return filmListRepository.save(syncedMovie);
     }
 }
