@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -279,11 +280,29 @@ public class MovieService {
     }
 
     public List<FilmList> getStarList(List<Long> movieIdList) {
+        return getFilmLists(movieIdList);
+    }
+
+    private List<FilmList> getFilmLists(List<Long> movieIdList) {
+        List<FilmList> filmLists = filmListRepository.findByMovieIdIsIn(movieIdList);
+        if (filmLists.isEmpty()) {
+            for (Long movieId : movieIdList) {
+                this.syncOneMovieToMovieList(movieId);
+            }
+        } else {
+            List<Long> existedIdList = filmLists.stream()
+                    .map(FilmList::getMovieId).collect(Collectors.toList());
+            for (Long movieId : movieIdList) {
+                if (!existedIdList.contains(movieId)) {
+                    this.syncOneMovieToMovieList(movieId);
+                }
+            }
+        }
         return filmListRepository.findByMovieIdIsIn(movieIdList);
     }
 
     public List<FilmList> getViewedList(List<Long> movieIdList) {
-        return filmListRepository.findByMovieIdIsIn(movieIdList);
+        return getFilmLists(movieIdList);
     }
 
     public FilmList syncOneMovieToMovieList(Long movieId) {
