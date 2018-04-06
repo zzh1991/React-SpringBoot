@@ -199,7 +199,7 @@ public class MovieService {
     }
 
     private void saveDetailToMovieList(Long id, MovieSubject movieSubject) throws IOException {
-        FilmList filmList = filmListRepository.findOne(id);
+        FilmList filmList = filmListRepository.findFirstByMovieId(id);
         if (filmList != null) {
             filmList.setSummary(movieSubject.getSummary());
             filmList.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
