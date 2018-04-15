@@ -17,8 +17,8 @@
 ### Movies wanted to watch
 
 ### Ref
-![recent](https://movie.douban.com/)
-![top](https://movie.douban.com/top250?start=0&filter=)
+[recent](https://movie.douban.com/)
+[top](https://movie.douban.com/top250?start=0&filter=)
 
 ## TO DO LIST
 ### login page
