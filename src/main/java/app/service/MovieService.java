@@ -291,6 +291,7 @@ public class MovieService {
             }
         } else {
             List<Long> existedIdList = filmLists.stream()
+                    .filter(filmList -> !Objects.isNull(filmList.getSummary()))
                     .map(FilmList::getMovieId).collect(Collectors.toList());
             for (Long movieId : movieIdList) {
                 if (!existedIdList.contains(movieId)) {
