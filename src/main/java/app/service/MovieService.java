@@ -15,13 +15,16 @@ import app.vo.movie.MovieVo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,36 +37,36 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MovieService {
 
     private static final String SEPARATOR = ",";
-    public static final String LARGE = "large";
+    private static final String LARGE = "large";
 
-    @Autowired
     private FilmRepository filmRepository;
-
-    @Autowired
     private TopFilmRepository topFilmRepository;
-
-    @Autowired
     private ViewFilmRepository viewFilmRepository;
-
-    @Autowired
     private FilmListRepository filmListRepository;
 
     public void syncRecentMovies() throws IOException {
+        List<Film> newFilmList = Lists.newArrayList();
         deleteOutDataMovie();
         saveMovie();
-        saveDetailToMovie();
+        saveDetailToMovie(newFilmList);
+        filmRepository.save(newFilmList);
+        log.info("update movie summary and country");
     }
 
     public void syncTopMovies() throws IOException {
+        List<TopFilm> newTopFilmList = Lists.newArrayList();
         deleteOutDataTopMovie();
         saveTopMovie();
-        saveDetailToTopMovie();
+        saveDetailToTopMovie(newTopFilmList);
+        topFilmRepository.save(newTopFilmList);
+        log.info("update top movie summary and country");
     }
 
-    public List<Movie> getMovies(String url) throws IOException {
+    private List<Movie> getMovies(String url) throws IOException {
         MovieVo movieVo = null;
         String context = getUrlContent(url);
         ObjectMapper mapper = new ObjectMapper();
@@ -86,8 +89,21 @@ public class MovieService {
     private void saveMovie() throws IOException {
         String url = "https://api.douban.com/v2/movie/in_theaters?city=上海";
         List<Movie> movieList = getMovies(url);
-        movieList.forEach(movie -> {
-            filmRepository.save(Film.builder()
+        List<Film> filmList = Lists.newArrayList();
+        List<FilmList> filmItemList = Lists.newArrayList();
+
+        this.getRecentFilmList(movieList, filmList, filmItemList);
+        filmRepository.save(filmList);
+        log.info("save movies");
+        this.saveToMovieListDatabase(filmItemList);
+        log.info("save movie list");
+    }
+
+    private void getRecentFilmList(List<Movie> movieList, List<Film> filmList, List<FilmList> filmItemList) {
+        for (Movie movie : movieList) {
+            FilmList filmItem = FilmList.builder().build();
+            Film film = filmRepository.findFirstByMovieIdOrderByIdDesc(movie.getId());
+            Film newFilm = Film.builder()
                     .movieId(movie.getId())
                     .title(movie.getTitle())
                     .rating(movie.getRating().getAverage())
@@ -98,28 +114,27 @@ public class MovieService {
                     .directors(getNames(movie.getDirectors()))
                     .genres(StringUtils.join(movie.getGenres(), SEPARATOR))
                     .current(true)
-                    .build());
-            saveToMovieListDatabase(movie);
-        });
+                    .build();
+            BeanUtils.copyProperties(newFilm, filmItem);
+            if (Objects.nonNull(film)) {
+                newFilm.setCountries(film.getCountries());
+                newFilm.setSummary(film.getSummary());
+                BeanUtils.copyProperties(newFilm, filmItem);
+                newFilm.setId(film.getId());
+            }
+            filmList.add(newFilm);
+            filmItemList.add(filmItem);
+        }
     }
 
-    private void saveToMovieListDatabase(Movie movie) {
-        FilmList filmList = FilmList.builder()
-                .movieId(movie.getId())
-                .title(movie.getTitle())
-                .rating(movie.getRating().getAverage())
-                .url(movie.getAlt())
-                .movieYear(movie.getYear())
-                .imageLarge(movie.getImages().get(LARGE))
-                .casts(getNames(movie.getCasts()))
-                .directors(getNames(movie.getDirectors()))
-                .genres(StringUtils.join(movie.getGenres(), SEPARATOR))
-                .build();
-        FilmList originFilm = filmListRepository.findFirstByMovieId(movie.getId());
-        if (originFilm != null) {
-            filmList.setId(originFilm.getId());
+    private void saveToMovieListDatabase(List<FilmList> filmItemList) {
+        for (FilmList filmItem : filmItemList) {
+            FilmList originFilm = filmListRepository.findFirstByMovieId(filmItem.getMovieId());
+            if (originFilm != null) {
+                filmItem.setId(originFilm.getId());
+            }
         }
-        filmListRepository.save(filmList);
+        filmListRepository.save(filmItemList);
     }
 
     private void saveTopMovie() throws IOException {
@@ -127,8 +142,21 @@ public class MovieService {
         List<Movie> movieList = Lists.newArrayList();
         movieList.addAll(getMovies(url1));
 
-        movieList.forEach(movie -> {
-            topFilmRepository.save(TopFilm.builder()
+        List<TopFilm> topFilmList = Lists.newArrayList();
+        List<FilmList> filmItemList = Lists.newArrayList();
+        this.getTopFilmList(movieList, topFilmList, filmItemList);
+
+        topFilmRepository.save(topFilmList);
+        log.info("save movies");
+        this.saveToMovieListDatabase(filmItemList);
+        log.info("save movie list");
+    }
+
+    private void getTopFilmList(List<Movie> movieList, List<TopFilm> filmList, List<FilmList> filmItemList) {
+        for (Movie movie : movieList) {
+            FilmList filmItem = FilmList.builder().build();
+            TopFilm film = topFilmRepository.findFirstByMovieIdOrderByIdDesc(movie.getId());
+            TopFilm newFilm = TopFilm.builder()
                     .movieId(movie.getId())
                     .title(movie.getTitle())
                     .rating(movie.getRating().getAverage())
@@ -139,12 +167,20 @@ public class MovieService {
                     .directors(getNames(movie.getDirectors()))
                     .genres(StringUtils.join(movie.getGenres(), SEPARATOR))
                     .current(true)
-                    .build());
-            saveToMovieListDatabase(movie);
-        });
+                    .build();
+            BeanUtils.copyProperties(newFilm, filmItem);
+            if (Objects.nonNull(film)) {
+                newFilm.setCountries(film.getCountries());
+                newFilm.setSummary(film.getSummary());
+                BeanUtils.copyProperties(newFilm, filmItem);
+                newFilm.setId(film.getId());
+            }
+            filmList.add(newFilm);
+            filmItemList.add(filmItem);
+        }
     }
 
-    public List<Film> getFilmList() {
+    public List<Film> getRecentFilmList() {
         return filmRepository.findByCurrentIsTrueOrderByRatingDesc();
     }
 
@@ -154,18 +190,16 @@ public class MovieService {
 
     private void deleteOutDataMovie() {
         List<Film> filmList = filmRepository.findByCurrentIsTrueOrderByRatingDesc();
-        filmList.forEach(film -> {
-            film.setCurrent(false);
-            filmRepository.save(film);
-        });
+        filmList.forEach(film -> film.setCurrent(false));
+        filmRepository.save(filmList);
+        log.info("delete old movies");
     }
 
     private void deleteOutDataTopMovie() {
         List<TopFilm> topFilmList = topFilmRepository.findByCurrentIsTrueOrderByRatingDesc();
-        topFilmList.forEach(film -> {
-            film.setCurrent(false);
-            topFilmRepository.save(film);
-        });
+        topFilmList.forEach(film -> film.setCurrent(false));
+        topFilmRepository.save(topFilmList);
+        log.info("delete old top movies");
     }
 
     private String getNames(List<Avatar> avatars) {
@@ -189,43 +223,48 @@ public class MovieService {
         return movieSubject;
     }
 
-    private void saveDetailToMovie() throws IOException {
+    private void saveDetailToMovie(List<Film> newFilmList) throws IOException {
         List<Film> filmList = filmRepository.findByCurrentIsTrueOrderByRatingDesc();
         for (Film film : filmList) {
-            MovieSubject movieSubject = getMovieSubject(film.getMovieId());
-            if (movieSubject != null) {
-                film.setSummary(movieSubject.getSummary());
-                film.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
-                filmRepository.save(film);
-                saveDetailToMovieList(film.getMovieId(), movieSubject);
+            if (Strings.isNullOrEmpty(film.getSummary())) {
+                MovieSubject movieSubject = getMovieSubject(film.getMovieId());
+                if (movieSubject != null) {
+                    film.setSummary(movieSubject.getSummary());
+                    film.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
+                    newFilmList.add(film);
+                    this.saveDetailToMovieList(film.getMovieId(), movieSubject);
+                }
             }
         }
     }
 
     private void saveDetailToMovieList(Long id, MovieSubject movieSubject) throws IOException {
         FilmList filmList = filmListRepository.findFirstByMovieId(id);
-        if (filmList != null) {
+        if (Objects.nonNull(filmList) && Strings.isNullOrEmpty(filmList.getSummary())) {
             filmList.setSummary(movieSubject.getSummary());
             filmList.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
             filmListRepository.save(filmList);
+            log.info("update movie item summary and country");
         }
     }
 
-    private void saveDetailToTopMovie() throws IOException {
+    private void saveDetailToTopMovie(List<TopFilm> newTopFilmList) throws IOException {
         List<TopFilm> topFilmList = topFilmRepository.findByCurrentIsTrueOrderByRatingDesc();
         for (TopFilm topFilm : topFilmList) {
-            MovieSubject movieSubject = getMovieSubject(topFilm.getMovieId());
-            if (movieSubject != null) {
-                topFilm.setSummary(movieSubject.getSummary());
-                topFilm.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
-                topFilmRepository.save(topFilm);
-                saveDetailToMovieList(topFilm.getMovieId(), movieSubject);
+            if (Strings.isNullOrEmpty(topFilm.getSummary())) {
+                MovieSubject movieSubject = getMovieSubject(topFilm.getMovieId());
+                if (movieSubject != null) {
+                    topFilm.setSummary(movieSubject.getSummary());
+                    topFilm.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
+                    newTopFilmList.add(topFilm);
+                    this.saveDetailToMovieList(topFilm.getMovieId(), movieSubject);
+                }
             }
         }
     }
 
     public void setViewedState(Long id, Boolean viewed) {
-        ViewFilm viewFilm = viewFilmRepository.findOneByMovieId(id);
+        ViewFilm viewFilm = viewFilmRepository.findFirstByMovieId(id);
         if (viewFilm != null) {
             viewFilm.setViewed(viewed);
             viewFilmRepository.save(viewFilm);
@@ -237,13 +276,13 @@ public class MovieService {
                     .build());
         }
 
-        Film film = filmRepository.findOneByMovieId(id);
+        Film film = filmRepository.findFirstByMovieIdOrderByIdDesc(id);
         if (film != null) {
             film.setViewed(viewed);
             filmRepository.save(film);
         }
 
-        TopFilm topFilm = topFilmRepository.findOneByMovieId(id);
+        TopFilm topFilm = topFilmRepository.findFirstByMovieIdOrderByIdDesc(id);
         if (topFilm != null) {
             topFilm.setViewed(viewed);
             topFilmRepository.save(topFilm);

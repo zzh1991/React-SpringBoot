@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ViewFilmRepository extends CrudRepository<ViewFilm, Long> {
-    ViewFilm findOneByMovieId(Long id);
+    ViewFilm findFirstByMovieId(Long id);
 
     List<ViewFilm> findAll();
 }

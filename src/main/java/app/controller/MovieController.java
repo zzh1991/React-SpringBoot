@@ -29,7 +29,7 @@ public class MovieController {
 
     @GetMapping("movie/recent")
     public List<Film> getRecentMovie() throws IOException {
-        return movieService.getFilmList();
+        return movieService.getRecentFilmList();
     }
 
     @GetMapping("movie/top250")

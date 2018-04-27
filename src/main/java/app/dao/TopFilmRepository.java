@@ -8,5 +8,5 @@ import java.util.List;
 public interface TopFilmRepository extends CrudRepository<TopFilm, Long> {
     List<TopFilm> findByCurrentIsTrueOrderByRatingDesc();
 
-    TopFilm findOneByMovieId(Long id);
+    TopFilm findFirstByMovieIdOrderByIdDesc(Long id);
 }
