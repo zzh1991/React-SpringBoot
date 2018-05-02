@@ -8,6 +8,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+/**
+ * Movie Helper
+ *
+ * @author zhihao zhang
+ * @date 2018.5.2
+ */
 
 @SpringBootApplication
 @EnableScheduling
@@ -28,7 +34,7 @@ public class Application {
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", buildConfig()); // 4
+        source.registerCorsConfiguration("/**", buildConfig());
         return new CorsFilter(source);
     }
 }

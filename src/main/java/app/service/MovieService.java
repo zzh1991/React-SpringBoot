@@ -35,6 +35,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * @author zhihao zhang
+ * @date 2017.10.18
+ */
+
 @Service
 @Slf4j
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -67,11 +72,11 @@ public class MovieService {
     }
 
     private List<Movie> getMovies(String url) throws IOException {
-        MovieVo movieVo = null;
         String context = getUrlContent(url);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        movieVo = mapper.readValue(context, TypeFactory.defaultInstance().constructType(MovieVo.class));
+        MovieVo movieVo = mapper.readValue(context,
+                TypeFactory.defaultInstance().constructType(MovieVo.class));
         return movieVo.getSubjects();
     }
 
@@ -204,9 +209,9 @@ public class MovieService {
 
     private String getNames(List<Avatar> avatars) {
         List<String> nameList = Lists.newArrayList();
-        avatars.forEach(avatar -> {
-            nameList.add(avatar.getName());
-        });
+        avatars.forEach(avatar ->
+            nameList.add(avatar.getName())
+        );
         return StringUtils.join(nameList.toArray(), SEPARATOR);
     }
 
@@ -214,7 +219,7 @@ public class MovieService {
         String url = "https://api.douban.com/v2/movie/subject/" + id;
         String context = getUrlContent(url);
         ObjectMapper mapper = new ObjectMapper();
-        MovieSubject movieSubject = null;
+        MovieSubject movieSubject;
         try {
             movieSubject = mapper.readValue(context, TypeFactory.defaultInstance().constructType(MovieSubject.class));
         } catch (Exception e) {
@@ -238,7 +243,7 @@ public class MovieService {
         }
     }
 
-    private void saveDetailToMovieList(Long id, MovieSubject movieSubject) throws IOException {
+    private void saveDetailToMovieList(Long id, MovieSubject movieSubject) {
         FilmList filmList = filmListRepository.findFirstByMovieId(id);
         if (Objects.nonNull(filmList) && Strings.isNullOrEmpty(filmList.getSummary())) {
             filmList.setSummary(movieSubject.getSummary());
@@ -261,57 +266,6 @@ public class MovieService {
                 }
             }
         }
-    }
-
-    public void setViewedState(Long id, Boolean viewed) {
-        ViewFilm viewFilm = viewFilmRepository.findFirstByMovieId(id);
-        if (viewFilm != null) {
-            viewFilm.setViewed(viewed);
-            viewFilmRepository.save(viewFilm);
-        } else {
-            viewFilmRepository.save(ViewFilm.builder()
-                    .movieId(id)
-                    .time(new Date().toString())
-                    .viewed(viewed)
-                    .build());
-        }
-
-        Film film = filmRepository.findFirstByMovieIdOrderByIdDesc(id);
-        if (film != null) {
-            film.setViewed(viewed);
-            filmRepository.save(film);
-        }
-
-        TopFilm topFilm = topFilmRepository.findFirstByMovieIdOrderByIdDesc(id);
-        if (topFilm != null) {
-            topFilm.setViewed(viewed);
-            topFilmRepository.save(topFilm);
-        }
-    }
-
-    private void syncViewData() {
-        List<Film> filmList = filmRepository.findByCurrentIsTrueOrderByRatingDesc();
-        List<TopFilm> topFilmList = topFilmRepository.findByCurrentIsTrueOrderByRatingDesc();
-        List<ViewFilm> viewFilmList = viewFilmRepository.findAll();
-        Map<Long, Boolean> movieIdMap = Maps.newHashMap();
-        viewFilmList.forEach(viewFilm -> {
-            movieIdMap.put(viewFilm.getMovieId(), viewFilm.isViewed());
-        });
-
-
-        filmList.forEach(film -> {
-            if (movieIdMap.containsKey(film.getMovieId())) {
-                film.setViewed(movieIdMap.get(film.getMovieId()));
-                filmRepository.save(film);
-            }
-        });
-
-        topFilmList.forEach(topFilm -> {
-            if (movieIdMap.containsKey(topFilm.getMovieId())) {
-                topFilm.setViewed(movieIdMap.get(topFilm.getMovieId()));
-                topFilmRepository.save(topFilm);
-            }
-        });
     }
 
     public FilmList getFilmListById(Long id) {
@@ -379,5 +333,56 @@ public class MovieService {
         }
 
         return filmListRepository.save(syncedMovie);
+    }
+
+    public void setViewedState(Long id, Boolean viewed) {
+        ViewFilm viewFilm = viewFilmRepository.findFirstByMovieId(id);
+        if (viewFilm != null) {
+            viewFilm.setViewed(viewed);
+            viewFilmRepository.save(viewFilm);
+        } else {
+            viewFilmRepository.save(ViewFilm.builder()
+                    .movieId(id)
+                    .time(new Date().toString())
+                    .viewed(viewed)
+                    .build());
+        }
+
+        Film film = filmRepository.findFirstByMovieIdOrderByIdDesc(id);
+        if (film != null) {
+            film.setViewed(viewed);
+            filmRepository.save(film);
+        }
+
+        TopFilm topFilm = topFilmRepository.findFirstByMovieIdOrderByIdDesc(id);
+        if (topFilm != null) {
+            topFilm.setViewed(viewed);
+            topFilmRepository.save(topFilm);
+        }
+    }
+
+    private void syncViewData() {
+        List<Film> filmList = filmRepository.findByCurrentIsTrueOrderByRatingDesc();
+        List<TopFilm> topFilmList = topFilmRepository.findByCurrentIsTrueOrderByRatingDesc();
+        List<ViewFilm> viewFilmList = viewFilmRepository.findAll();
+        Map<Long, Boolean> movieIdMap = Maps.newHashMap();
+        viewFilmList.forEach(viewFilm ->
+                movieIdMap.put(viewFilm.getMovieId(), viewFilm.isViewed())
+        );
+
+
+        filmList.forEach(film -> {
+            if (movieIdMap.containsKey(film.getMovieId())) {
+                film.setViewed(movieIdMap.get(film.getMovieId()));
+                filmRepository.save(film);
+            }
+        });
+
+        topFilmList.forEach(topFilm -> {
+            if (movieIdMap.containsKey(topFilm.getMovieId())) {
+                topFilm.setViewed(movieIdMap.get(topFilm.getMovieId()));
+                topFilmRepository.save(topFilm);
+            }
+        });
     }
 }

@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author zhihao zhang
+ * @date 2017.10.18
+ */
+
 @RestController
 public class MovieController {
 
@@ -28,12 +33,12 @@ public class MovieController {
     }
 
     @GetMapping("movie/recent")
-    public List<Film> getRecentMovie() throws IOException {
+    public List<Film> getRecentMovie() {
         return movieService.getRecentFilmList();
     }
 
     @GetMapping("movie/top250")
-    public List<TopFilm> getTopMovie() throws IOException {
+    public List<TopFilm> getTopMovie() {
         return movieService.getTopFilmList();
     }
 
@@ -44,7 +49,6 @@ public class MovieController {
 
     @GetMapping("movie/viewed/{id}/{viewed}")
     public Boolean updateMovieViewedState(@PathVariable Long id, @PathVariable Boolean viewed) {
-//        movieService.setViewedState(id, viewed);
         return true;
     }
 

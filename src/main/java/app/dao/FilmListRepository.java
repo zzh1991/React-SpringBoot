@@ -5,10 +5,22 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+/**
+ * @author zhihao zhang
+ */
 public interface FilmListRepository extends CrudRepository<FilmList, Long> {
-    List<FilmList> findByOrderByRatingDesc();
-
+    /**
+     * find film by movie id
+     * @param movieId movieId
+     * @return FilmList
+     */
     FilmList findFirstByMovieId(Long movieId);
 
+    /**
+     * get viewed or stared films by movie ids
+     *
+     * @param ids movieIds
+     * @return List<FilmList>
+     */
     List<FilmList> findByMovieIdIsIn(List<Long> ids);
 }
