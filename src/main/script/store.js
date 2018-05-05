@@ -9,11 +9,15 @@ const combinedReducer = combineReducers({
   info: reducer,
 });
 
+const PRODUCTION = 'production';
 const middlewares = [];
 const sagaMiddleware = createSagaMiddleware();
 middlewares.push(sagaMiddleware);
 middlewares.push(thunkMiddleware);
-middlewares.push(logger);
+if (process.env.NODE_ENV !== PRODUCTION) {
+  middlewares.push(logger);
+}
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(combinedReducer, composeEnhancers(
   applyMiddleware(...middlewares))

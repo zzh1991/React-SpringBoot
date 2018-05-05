@@ -67,5 +67,10 @@ module.exports = {
     }),
     // new uglify(),
     new CleanWebpackPlugin('./src/main/resources/static/built/*.*', {}),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      }
+    }),
   ],
 };
