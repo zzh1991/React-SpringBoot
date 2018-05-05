@@ -36,7 +36,6 @@ export default {
   },
   fetchViewedMovieList(request) {
     const url = `movie/viewed`;
-    console.log(JSON.stringify(request));
     return CommonApi(url, {
       method: 'POST',
       mode: 'cors',
