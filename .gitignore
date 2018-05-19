@@ -18,3 +18,4 @@ src/main/resources/static/.DS_Store
 src/main/script/.DS_Store
 .cache
 yarn-error.log
+docker/*.jar
