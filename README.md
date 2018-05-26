@@ -1,5 +1,22 @@
 # React-SpringBoot
 
+<p align="center">
+    <a href="http://movie.zzhpro.com">
+        <img src="./src/main/resources/static/favicon.ico" width="152">
+    </a>
+    <h3 align="center">Movie Helper</h3>
+    <p align="center">
+        <a href="https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE"><img src="https://img.shields.io/github/license/zzh1991/React-SpringBoot.svg"></a>
+        <a href="#"><img src="https://img.shields.io/github/languages/top/zzh1991/React-SpringBoot.svg"></a>
+        <a href="#"><img src="https://img.shields.io/github/languages/count/zzh1991/React-SpringBoot.svg"></a>
+        <a href="#"><img src="https://img.shields.io/github/search/zzh1991/React-SpringBoot/goto.svg"></a>
+        <a href="https://github.com/zzh1991/React-SpringBoot/blob/master/.travis.yml"><img src="https://img.shields.io/travis/zzh1991/React-SpringBoot/master.svg"></a>
+    </p>
+    <p align="center">
+        Movie management and find valueable movies to watch<br>
+    </p>
+</p>
+
 ## Install
 - npm install
 - npm run build
