@@ -32,7 +32,7 @@ class SideBar extends React.Component {
 
   render() {
     return (
-      <Layout>
+      <Layout style={{ height: '100vh' }}>
         <Header
           className="header"
           style={{
@@ -51,14 +51,11 @@ class SideBar extends React.Component {
           </div>
           {this.props.showSyncButton &&
           <div style={{ position: 'fixed', right: 20 }} >
-            {/* <span onClick={this.props.syncMovies} >
-              <Icon type="sync" style={{ color: 'white' }} /> {'  SYNC'}
-            </span> */}
-            <Button icon="sync" ghost style={{ width: '7vw' }} onClick={this.props.syncMovies}>SYNC</Button>
+            <Button icon="sync" ghost onClick={this.props.syncMovies}>SYNC</Button>
           </div>
           }
         </Header>
-        <Layout style={{ height: '92vh' }} >
+        <Layout>
           <Sider
             trigger={null}
             collapsible
@@ -83,7 +80,7 @@ class SideBar extends React.Component {
               </Menu.Item>
             </Menu>
           </Sider>
-          <Content style={{ padding: 20 }} >
+          <Content style={{ padding: 20, overflowY: 'hidden' }} >
             {this.props.children}
           </Content>
         </Layout>

@@ -254,24 +254,10 @@ class Main extends React.Component {
           columns={columns}
           dataSource={data}
           pagination={{
-            pageSize: 9,
-            current: this.state.current,
-            defaultCurrent: 1,
-            total: data ? data.length : 0,
-            showSizeChanger: true,
-            onShowSizeChange: () => {},
-            onChange: (page) => {
-              this.setState({
-                current: page,
-              });
-            },
+            pageSize: 8,
           }}
-
-          // onChange={this.onChange}
-          // onRowClick={this.onRowClick}
-          // rowClassName={'table-content'}
           expandedRowRender={record => <MovieDetail record={record} />}
-          scroll={{ y: '75vh' }}
+          scroll={{ y: '70vh' }}
         />
       </div>
     );
