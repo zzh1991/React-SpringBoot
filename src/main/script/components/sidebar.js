@@ -36,12 +36,11 @@ class SideBar extends React.Component {
         <Header
           className="header"
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            paddingLeft: '20px',
+            display: 'grid',
+            gridTemplateColumns: '5fr 5fr',
           }}
         >
-          <div style={{ fontSize: 20, color: 'white', margin: 4 }}>
+          <div style={{ fontSize: 20, color: 'white', marginLeft: -30 }}>
             <Icon
               className="trigger"
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
@@ -50,8 +49,13 @@ class SideBar extends React.Component {
             {'  电影助手'}
           </div>
           {this.props.showSyncButton &&
-          <div style={{ position: 'fixed', right: 20 }} >
-            <Button icon="sync" ghost onClick={this.props.syncMovies}>SYNC</Button>
+          <div style={{
+            display: 'grid',
+            marginRight: -30,
+            justifyItems: 'end',
+            alignItems: 'center',
+          }} >
+            <Button icon="sync" ghost style={{ width: '7vw' }} onClick={this.props.syncMovies}>SYNC</Button>
           </div>
           }
         </Header>
@@ -91,6 +95,10 @@ class SideBar extends React.Component {
 
 SideBar.contextTypes = {
   router: PropTypes.object,
+};
+
+SideBar.propTypes = {
+  showSyncButton: PropTypes.bool,
 };
 
 export default withRouter(SideBar);

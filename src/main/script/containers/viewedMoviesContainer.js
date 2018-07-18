@@ -10,7 +10,7 @@ const watchedMovieName = 'watchedMovieList';
 
 class ViewedMoviesContainer extends Component {
 
-  componentDidMount = () => {
+  componentDidMount() {
     let list = getMovieList(watchedMovieName);
     list = list === null ? [] : Array.from(list);
     this.props.dispatch(fetchViewdMovieList.request(list));

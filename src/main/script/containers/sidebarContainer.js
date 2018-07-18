@@ -7,7 +7,7 @@ import '../styles/style.css';
 import SideBar from '../components/sidebar.js';
 
 class SideBarContainer extends Component {
-  componentDidMount = () => {
+  componentDidMount() {
     this.props.dispatch(fetchMovieRecent.request());
   };
 

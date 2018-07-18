@@ -7,7 +7,7 @@ import '../styles/style.css';
 import { fetchMovieTop, syncTopMovieList } from '../actions/actions';
 
 class TopMoviesContainer extends Component {
-  componentDidMount = () => {
+  componentDidMount() {
     this.props.dispatch(fetchMovieTop.request());
   };
 

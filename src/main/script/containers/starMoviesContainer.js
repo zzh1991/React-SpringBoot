@@ -10,7 +10,7 @@ const starMovieName = 'starMovieList';
 
 class StarMoviesContainer extends Component {
 
-  componentDidMount = () => {
+  componentDidMount() {
     let list = getMovieList(starMovieName);
     list = list === null ? [] : Array.from(list);
     this.props.dispatch(fetchStarMovieList.request(list));

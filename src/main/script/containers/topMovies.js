@@ -10,7 +10,7 @@ class TopMovies extends React.Component {
     index: -1,
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.props.dispatch(fetchMovieTop.request())
   };
 
