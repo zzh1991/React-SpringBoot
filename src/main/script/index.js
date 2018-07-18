@@ -6,3 +6,5 @@ ReactDOM.render(
   <Routes />,
   document.getElementById('react')
 );
+
+if (module.hot) module.hot.accept('./routes', () => render(Routes));

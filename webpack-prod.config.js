@@ -9,7 +9,7 @@ module.exports = {
   entry: './src/main/script/index.js',
   output: {
     path: path.resolve(__dirname, 'src/main/resources/static/'),
-    filename: 'built/bundle.[hash].js',
+    filename: 'built/bundle.js?[hash]',
     publicPath: '/',
   },
   module: {
@@ -60,7 +60,7 @@ module.exports = {
     ],
   },
   plugins: [
-    // new ExtractTextPlugin("built/bundle.[hash].css"),
+    // new ExtractTextPlugin("built/bundle.css?[hash]"),
     new HtmlWebpackPlugin({
       template: './src/main/resources/html-template/index.html',
       filename: '../templates/index.html',
