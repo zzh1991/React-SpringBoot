@@ -4,16 +4,16 @@ services:
     build: .
     container_name: web
     ports:
-      - 8080:8080
+      - 28080:8080
     depends_on:
       - db
     environment:
-      spring.datasource.url: jdbc:postgresql://postgres:postgres@db:5432/mydb
+      spring.datasource.url: jdbc:postgresql://postgres:postgres@db:25432/mydb
   db:
     image: postgres:alpine
     container_name: postgres
     ports:
-      - "5432:5432"
+      - "25432:5432"
     environment:
       POSTGRES_DB: mydb
       POSTGRES_PASSWORD: postgres

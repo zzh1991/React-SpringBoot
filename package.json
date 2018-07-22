@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "start": "webpack-dev-server --config webpack.dev.js",
-    "deploy": "NODE_ENV=production webpack -p  --config webpack-prod.config.js",
-    "deploy-windows": "SET NODE_ENV=production & webpack -p ",
+    "deploy": "NODE_ENV=production webpack -p --config webpack-prod.config.js",
+    "deploy-windows": "SET NODE_ENV=production & webpack -p --config webpack-prod.config.js",
     "validate": "npm ls",
     "server": "webpack-dev-server --open"
   },

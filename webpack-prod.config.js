@@ -9,7 +9,7 @@ module.exports = {
   entry: './src/main/script/index.js',
   output: {
     path: path.resolve(__dirname, 'src/main/resources/static/'),
-    filename: 'built/bundle.js?[hash]',
+    filename: 'built/bundle.[hash].js',
     publicPath: '/',
   },
   module: {
