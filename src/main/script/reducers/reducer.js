@@ -127,7 +127,7 @@ function movieStarList (state = {data: [], loading: false}, action) {
 
 function allMoviesList (state = {data: [], loading: false}, action) {
   switch (action.type) {
-    case ActionTypes.FETCH_ALL_MOVIE_LIST_FAILURE:
+    case ActionTypes.FETCH_ALL_MOVIE_LIST_REQUEST:
       return {
         ...state,
         data: [],

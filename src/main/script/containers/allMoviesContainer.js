@@ -15,8 +15,6 @@ class AllMoviesContainer extends Component {
     return (
       <SideBar
         keys={'/all'}
-        showSyncButton
-        syncMovies={this.onSync}
       >
         <Spin
           tip="Loading..."
