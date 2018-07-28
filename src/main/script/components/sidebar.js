@@ -82,6 +82,10 @@ class SideBar extends React.Component {
                 <Icon type="star" />
                 <span>想看</span>
               </Menu.Item>
+              <Menu.Item key="/all">
+                <Icon type="appstore" />
+                <span>所有电影</span>
+              </Menu.Item>
             </Menu>
           </Sider>
           <Content style={{ padding: 20, overflowY: 'hidden' }} >

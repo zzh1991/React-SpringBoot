@@ -125,10 +125,36 @@ function movieStarList (state = {data: [], loading: false}, action) {
   }
 };
 
+function allMoviesList (state = {data: [], loading: false}, action) {
+  switch (action.type) {
+    case ActionTypes.FETCH_ALL_MOVIE_LIST_FAILURE:
+      return {
+        ...state,
+        data: [],
+        loading: true,
+      };
+    case ActionTypes.FETCH_ALL_MOVIE_LIST_SUCCESS:
+      return {
+        ...state,
+        data: action.data,
+        loading: false,
+      };
+    case ActionTypes.FETCH_ALL_MOVIE_LIST_FAILURE:
+      return {
+        ...state,
+        data: [],
+        loading: false,
+      };
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   studentData,
   movieRecentList,
   movieTopList,
   movieViewedList,
   movieStarList,
+  allMoviesList,
 });

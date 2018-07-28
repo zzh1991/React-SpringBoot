@@ -385,4 +385,8 @@ public class MovieService {
             }
         });
     }
+
+    public List<FilmList> getAllMoviesList() {
+        return filmListRepository.findAllByOrderByMovieYearDescRatingDesc();
+    }
 }

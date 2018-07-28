@@ -60,4 +60,11 @@ export default {
       mode: 'cors', 
     })
   },
+  fetchAllMovieList() {
+    const url = `movie/all`;
+    return CommonApi(url, {
+      method: 'GET',
+      mode: 'cors',
+    });
+  },
 }

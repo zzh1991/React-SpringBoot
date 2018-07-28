@@ -4,7 +4,7 @@ import Api from '../services/api';
 import { ActionTypes } from '../actions/actionTypes';
 import { fetchMovieRecent, fetchMovieTop,
   fetchMovieViewed, fetchViewdMovieList,
-  fetchStarMovieList
+  fetchStarMovieList, fetchAllMovieList
  } from '../actions/actions';
 import { fetchStudent, fetchStudentError, fetchStudentInfoSuccess,
 fetchStudentInfoFailure
@@ -78,6 +78,15 @@ function* fetchStarMovieListSage(action) {
   }
 }
 
+function* fetchAllMovieListSage(action) {
+  try {
+    const payload = yield call(Api.fetchAllMovieList);
+    yield put(fetchAllMovieList.success(payload));
+  } catch (error) {
+    yield put(fetchAllMovieList.error(error.message));
+  }
+}
+
 function* watchFetchData() {
   yield* takeLatest(ActionTypes.FETCH_DATA_REQUEST, fetchDataSage)
 }
@@ -106,6 +115,10 @@ function* watchFetchStarMovieList() {
   yield* takeLatest(ActionTypes.FETCH_STAR_MOVIE_LIST_REQUEST, fetchStarMovieListSage)
 }
 
+function* watchFetchAllMovieList() {
+  yield* takeLatest(ActionTypes.FETCH_ALL_MOVIE_LIST_REQUEST, fetchAllMovieListSage)
+}
+
 export default function* HelloSaga() {
   yield [
     watchFetchData(),
@@ -115,5 +128,6 @@ export default function* HelloSaga() {
     watchFetchMovieViewed(),
     watchFetchViewedMovieList(),
     watchFetchStarMovieList(),
+    watchFetchAllMovieList(),
   ]
 }

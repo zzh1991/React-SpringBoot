@@ -41,7 +41,6 @@ export const fetchMovieRecent = createAction([
   ActionTypes.FETCH_MOVIE_RECENT_FAILURE,
 ]);
 
-
 export const fetchMovieTop = createAction([
   ActionTypes.FETCH_MOVIE_TOP_REQUEST,
   ActionTypes.FETCH_MOVIE_TOP_SUCCESS,
@@ -65,6 +64,13 @@ export const fetchStarMovieList = createAction([
   ActionTypes.FETCH_STAR_MOVIE_LIST_SUCCESS,
   ActionTypes.FETCH_STAR_MOVIE_LIST_FAILURE,
 ]);
+
+export const fetchAllMovieList = createAction([
+  ActionTypes.FETCH_ALL_MOVIE_LIST_REQUEST,
+  ActionTypes.FETCH_ALL_MOVIE_LIST_SUCCESS,
+  ActionTypes.FETCH_ALL_MOVIE_LIST_FAILURE,
+]);
+
 export const saveMovieToLocal = (movieId, movieListName) => {
   const movieIds = localStorage.getItem(movieListName);
   if (movieIds !== null) {

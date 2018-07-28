@@ -127,6 +127,7 @@ class Main extends React.Component {
         render: (text, record) => {
           return <a href={record.url} target={'_blank'}>{text}</a>;
         },
+        sorter: (a, b) => a.title.localeCompare(b.title),
         width: 200,
       },
       {

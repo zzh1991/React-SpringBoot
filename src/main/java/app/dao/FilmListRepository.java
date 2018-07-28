@@ -23,4 +23,10 @@ public interface FilmListRepository extends CrudRepository<FilmList, Long> {
      * @return List<FilmList>
      */
     List<FilmList> findByMovieIdIsIn(List<Long> ids);
+
+    /**
+     * get all movies
+     * @return List<FilmList>
+     */
+    List<FilmList> findAllByOrderByMovieYearDescRatingDesc();
 }

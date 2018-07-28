@@ -72,4 +72,8 @@ public class MovieController {
         return movieService.syncOneMovieToMovieList(movieId);
     }
 
+    @GetMapping("movie/all")
+    public List<FilmList> getAllMoviesList() {
+        return movieService.getAllMoviesList();
+    }
 }
