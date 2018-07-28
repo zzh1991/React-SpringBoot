@@ -111,6 +111,13 @@ class Main extends React.Component {
     }
   }
 
+  numberToBoolean = (num) => {
+    if (num > 0) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     const columns = [
       {
@@ -176,15 +183,15 @@ class Main extends React.Component {
         filters: [
           {
             text: '已观影',
-            value: true,
+            value: 1,
           },
           {
             text: '未观影',
-            value: false,
+            value: 0,
           },
         ],
         filterMultiple: false,
-        onFilter: (value, record) => record.viewed,
+        onFilter: (value, record) => record.viewed === this.numberToBoolean(value),
       },
       {
         title: '想看',
@@ -216,11 +223,15 @@ class Main extends React.Component {
         filters: [
           {
             text: '想看',
-            value: true,
+            value: 1,
+          },
+          {
+            text: '未知',
+            value: 0,
           },
         ],
         filterMultiple: false,
-        onFilter: (value, record) => record.star,
+        onFilter: (value, record) => record.star === this.numberToBoolean(value),
       },
     ];
 
