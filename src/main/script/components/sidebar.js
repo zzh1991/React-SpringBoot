@@ -55,7 +55,7 @@ class SideBar extends React.Component {
             justifyItems: 'end',
             alignItems: 'center',
           }} >
-            <Button icon="sync" ghost style={{ width: '7vw' }} onClick={this.props.syncMovies}>SYNC</Button>
+            <Button icon="sync" ghost onClick={this.props.syncMovies}>SYNC</Button>
           </div>
           }
         </Header>
