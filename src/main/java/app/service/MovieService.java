@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
@@ -58,7 +59,7 @@ public class MovieService {
         deleteOutDataMovie();
         saveMovie();
         saveDetailToMovie(newFilmList);
-        filmRepository.save(newFilmList);
+        filmRepository.saveAll(newFilmList);
         log.info("update movie summary and country");
     }
 
@@ -67,7 +68,7 @@ public class MovieService {
         deleteOutDataTopMovie();
         saveTopMovie();
         saveDetailToTopMovie(newTopFilmList);
-        topFilmRepository.save(newTopFilmList);
+        topFilmRepository.saveAll(newTopFilmList);
         log.info("update top movie summary and country");
     }
 
@@ -98,7 +99,7 @@ public class MovieService {
         List<FilmList> filmItemList = Lists.newArrayList();
 
         this.getRecentFilmList(movieList, filmList, filmItemList);
-        filmRepository.save(filmList);
+        filmRepository.saveAll(filmList);
         log.info("save movies");
         this.saveToMovieListDatabase(filmItemList);
         log.info("save movie list");
@@ -139,7 +140,7 @@ public class MovieService {
                 filmItem.setId(originFilm.getId());
             }
         }
-        filmListRepository.save(filmItemList);
+        filmListRepository.saveAll(filmItemList);
     }
 
     private void saveTopMovie() throws IOException {
@@ -151,7 +152,7 @@ public class MovieService {
         List<FilmList> filmItemList = Lists.newArrayList();
         this.getTopFilmList(movieList, topFilmList, filmItemList);
 
-        topFilmRepository.save(topFilmList);
+        topFilmRepository.saveAll(topFilmList);
         log.info("save movies");
         this.saveToMovieListDatabase(filmItemList);
         log.info("save movie list");
@@ -196,14 +197,14 @@ public class MovieService {
     private void deleteOutDataMovie() {
         List<Film> filmList = filmRepository.findByCurrentIsTrueOrderByRatingDesc();
         filmList.forEach(film -> film.setCurrent(false));
-        filmRepository.save(filmList);
+        filmRepository.saveAll(filmList);
         log.info("delete old movies");
     }
 
     private void deleteOutDataTopMovie() {
         List<TopFilm> topFilmList = topFilmRepository.findByCurrentIsTrueOrderByRatingDesc();
         topFilmList.forEach(film -> film.setCurrent(false));
-        topFilmRepository.save(topFilmList);
+        topFilmRepository.saveAll(topFilmList);
         log.info("delete old top movies");
     }
 
