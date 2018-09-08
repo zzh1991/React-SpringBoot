@@ -1,9 +1,11 @@
 import React from 'react';
-import { Table,Button } from 'antd';
+import { Table, Button, Input } from 'antd';
 import { connect } from 'react-redux';
 import '../styles/style.css';
 import { fetchMovieViewed, saveMovieToLocal, deleteMovieToLocal, getMovieList } from '../actions/actions';
 import MovieDetail from '../components/movieDetail';
+
+const Search = Input.Search;
 
 const movieType = [
   {
@@ -48,9 +50,7 @@ class Main extends React.Component {
     index: -1,
     watchedMovieSet: getMovieList(watchedMovieName),
     starMovieSet: getMovieList(starMovieName),
-  };
-
-  onChange = (pagination, filters, sorter) => {
+    searchText: '',
   };
 
   onRowClick = (record, index, event) => {
@@ -116,7 +116,13 @@ class Main extends React.Component {
       return true;
     }
     return false;
-  }
+  };
+
+  searchMovie = (searchText) => {
+    this.setState({
+      searchText,
+    });
+  };
 
   render() {
     const columns = [
@@ -236,8 +242,12 @@ class Main extends React.Component {
       },
     ];
 
-    const { data } = this.props;
+    let { data } = this.props;
     if (data !== null) {
+      const { searchText } = this.state;
+      if (searchText !== '') {
+        data = data.filter(item => item.title.includes(searchText));
+      }
       data.map((item, index) => {
         item.key = index;
       });
@@ -262,6 +272,13 @@ class Main extends React.Component {
 
     return (
       <div>
+        <div style={{ marginBottom: 8}} >
+          <Search
+            placeholder="search movie by name"
+            onSearch={this.searchMovie}
+            style={{ width: 200 }}
+          />
+        </div>
         <Table
           columns={columns}
           dataSource={data}

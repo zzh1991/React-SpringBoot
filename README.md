@@ -18,11 +18,14 @@
 </p>
 
 ## Install
-- npm install
-- npm run build
+- npm install or `use yarn` 
+- `npm run build` or `npm start`
 - configure you database name (an empty database) in application.properties
+    - your PostgreSQL database configuration
 - start the web app in IDE
-- open browser: http://localhost:8080
+- open browser
+    - `npm run build`: go to http://localhost:8080
+    - `npm start`: go to http://localhost:3000
 
 ## Demo: [Movie Helper](http://movie.zzhpro.com)
 ### Recent Movies
@@ -34,8 +37,8 @@
 ### Movies wanted to watch
 
 ### Ref
-- [recent](https://movie.douban.com/)
-- [top](https://movie.douban.com/top250?start=0&filter=)
+- [recent movies](https://movie.douban.com/)
+- [top movies](https://movie.douban.com/top250?start=0&filter=)
 
 ## TO DO LIST
 ### login page
@@ -55,13 +58,12 @@
 - react-redux
 - redux-thunk
 - redux-saga
-- material-ui (only few components will be used)
-- ant design
-- webpack
+- [ant design](https://ant.design)
+- webpack 3
 - babel dependency
 
 ### backend
-- Spring Boot
+- Spring Boot 2
 - PostgreSQL
 - Guava
 - Swagger2
