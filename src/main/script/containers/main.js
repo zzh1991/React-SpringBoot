@@ -47,21 +47,24 @@ const starMovieName = 'starMovieList';
 class Main extends React.Component {
   state = {
     current: 1,
+    pageSize: 6,
     index: -1,
     watchedMovieSet: getMovieList(watchedMovieName),
     starMovieSet: getMovieList(starMovieName),
     searchText: '',
   };
 
-  onRowClick = (record, index, event) => {
-    this.setState({ index });
+  onShowSizeChange = (current, pageSize) => {
+    this.setState({
+      current,
+      pageSize,
+    });
   };
 
-  rowClassName = (record, index) => {
-    if (index === this.state.index) {
-      return 'clicked';
-    }
-    return '';
+  onChange = (current) => {
+    this.setState({
+      current,
+    });
   };
 
   updateCheck = (isChecked, id, movieListName) => {
@@ -253,7 +256,7 @@ class Main extends React.Component {
       });
     }
 
-    const { watchedMovieSet, starMovieSet } = this.state;
+    const { watchedMovieSet, starMovieSet, current, pageSize } = this.state;
     if (watchedMovieSet) {
       data.map((item) => {
         if (watchedMovieSet.has(item.movieId)) {
@@ -283,7 +286,13 @@ class Main extends React.Component {
           columns={columns}
           dataSource={data}
           pagination={{
-            pageSize: 6,
+            current,
+            pageSize,
+            showSizeChanger: true,
+            onShowSizeChange: this.onShowSizeChange,
+            pageSizeOptions: ['6', '8', '10'],
+            showQuickJumper: true,
+            onChange: this.onChange,
           }}
           expandedRowRender={record => <MovieDetail record={record} />}
           scroll={{ y: '70vh' }}
