@@ -283,7 +283,7 @@ class Main extends React.Component {
           columns={columns}
           dataSource={data}
           pagination={{
-            pageSize: 8,
+            pageSize: 6,
           }}
           expandedRowRender={record => <MovieDetail record={record} />}
           scroll={{ y: '70vh' }}
