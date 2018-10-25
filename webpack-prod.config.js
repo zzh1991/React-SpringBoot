@@ -14,6 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'src/main/resources/static/'),
     filename: 'built/[name].[hash].js',
+    chunkFilename: 'built/[name].[hash].js',
     publicPath: '/',
   },
   module: {

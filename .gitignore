@@ -19,3 +19,4 @@ src/main/script/.DS_Store
 .cache
 yarn-error.log
 docker/*.jar
+yarn.lock

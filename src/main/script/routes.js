@@ -1,15 +1,39 @@
 import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import {Provider} from 'react-redux';
-
+import Loadable from 'react-loadable';
 import store from './store';
 import SideBar from './components/sidebar.js';
-import TopMoviesContainer from  './containers/topMoviesContainer';
-import ViewedMoviesContainer from './containers/viewedMoviesContainer';
-import StarMoviesContainer from './containers/starMoviesContainer';
 import NotFound from './containers/notFound';
-import SideBarContainer from './containers/sidebarContainer';
-import AllMoviesContainer from './containers/allMoviesContainer';
+
+function Loading() {
+  return <div>Loading...</div>;
+}
+
+const SideBarContainer = Loadable({
+  loader: () => import('./containers/sidebarContainer'),
+  loading: Loading,
+});
+
+const TopMoviesContainer = Loadable({
+  loader: () => import('./containers/topMoviesContainer'),
+  loading: Loading,
+});
+
+const ViewedMoviesContainer = Loadable({
+  loader: () => import('./containers/viewedMoviesContainer'),
+  loading: Loading,
+});
+
+const StarMoviesContainer = Loadable({
+  loader: () => import('./containers/starMoviesContainer'),
+  loading: Loading,
+});
+
+const AllMoviesContainer = Loadable({
+  loader: () => import('./containers/starMoviesContainer'),
+  loading: Loading,
+});
 
 const Routes = () => (
   <Provider store={store}>
