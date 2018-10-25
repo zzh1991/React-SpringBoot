@@ -4,7 +4,6 @@ import { Spin } from 'antd';
 import { fetchMovieRecent, syncRecentMovieList } from '../actions/actions';
 import Main from '../containers/main';
 import '../styles/style.css';
-import SideBar from '../components/sidebar.js';
 
 class SideBarContainer extends Component {
   componentDidMount() {
@@ -18,20 +17,18 @@ class SideBarContainer extends Component {
   render() {
     const { data, loading } = this.props;
     return (
-      <SideBar
-        keys={'/'}
-        showSyncButton
-        syncMovies={this.onSync}
-      >
+      <div>
         <Spin
           tip="Loading..."
           spinning={loading}
         >
           <Main
             data={data}
+            showSyncButton
+            syncMovies={this.onSync}
           />
         </Spin>
-      </SideBar>
+      </div>
     );
   }
 }

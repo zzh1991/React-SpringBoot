@@ -18,20 +18,18 @@ class TopMoviesContainer extends Component {
   render() {
     const { data, loading } = this.props;
     return (
-      <SideBar
-        keys={'/top'}
-        showSyncButton
-        syncMovies={this.onSync}
-      >
+      <div>
         <Spin
           tip="Loading..."
           spinning={loading}
         >
           <Main
             data={data}
+            showSyncButton
+            syncMovies={this.onSync}
           />
         </Spin>
-      </SideBar>
+      </div>
     );
   }
 }

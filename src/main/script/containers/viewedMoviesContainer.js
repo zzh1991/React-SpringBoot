@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Spin } from 'antd';
-import SideBar from '../components/sidebar.js'
 import Main from '../containers/main';
 import '../styles/style.css';
 import { connect } from 'react-redux';
@@ -19,7 +18,7 @@ class ViewedMoviesContainer extends Component {
   render() {
     const { data, loading } = this.props;
     return (
-      <SideBar keys={'/view'} >
+      <div>
         <Spin
           tip="Loading..."
           spinning={loading}
@@ -28,7 +27,7 @@ class ViewedMoviesContainer extends Component {
             data={data}
           />
         </Spin>
-      </SideBar>
+      </div>
     );
   }
 };

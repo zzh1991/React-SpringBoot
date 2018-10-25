@@ -11,7 +11,7 @@ class SideBar extends React.Component {
     this.state = {
       open: true,
       openMenu: false,
-      collapsed: false,
+      collapsed: true,
     };
   }
 
@@ -48,16 +48,6 @@ class SideBar extends React.Component {
             />
             {'  电影助手'}
           </div>
-          {this.props.showSyncButton &&
-          <div style={{
-            display: 'grid',
-            marginRight: -30,
-            justifyItems: 'end',
-            alignItems: 'center',
-          }} >
-            <Button icon="sync" ghost onClick={this.props.syncMovies}>SYNC</Button>
-          </div>
-          }
         </Header>
         <Layout>
           <Sider
@@ -65,7 +55,7 @@ class SideBar extends React.Component {
             collapsible
             collapsed={this.state.collapsed}
           >
-            <Menu theme="dark" mode="inline" onClick={this.clickMenu} defaultSelectedKeys={[this.props.keys]}>
+            <Menu theme="dark" mode="inline" onClick={this.clickMenu} defaultSelectedKeys={['/']}>
               <Menu.Item key="/">
                 <Icon type="home" />
                 <span>上映电影</span>
@@ -99,10 +89,6 @@ class SideBar extends React.Component {
 
 SideBar.contextTypes = {
   router: PropTypes.object,
-};
-
-SideBar.propTypes = {
-  showSyncButton: PropTypes.bool,
 };
 
 export default withRouter(SideBar);

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import { fetchAllMovieList } from '../actions/actions';
 import Main from '../containers/main';
-import SideBar from '../components/sidebar.js';
 
 class AllMoviesContainer extends Component {
   componentDidMount() {
@@ -13,9 +12,7 @@ class AllMoviesContainer extends Component {
   render() {
     const { data, loading } = this.props;
     return (
-      <SideBar
-        keys={'/all'}
-      >
+      <div>
         <Spin
           tip="Loading..."
           spinning={loading}
@@ -24,7 +21,7 @@ class AllMoviesContainer extends Component {
             data={data}
           />
         </Spin>
-      </SideBar>
+      </div>
     );
   }
 }

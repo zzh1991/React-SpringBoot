@@ -1,6 +1,7 @@
 import React from 'react';
-import { Table, Button, Input } from 'antd';
+import { Table, Button, Input, Icon } from 'antd';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import '../styles/style.css';
 import { fetchMovieViewed, saveMovieToLocal, deleteMovieToLocal, getMovieList } from '../actions/actions';
 import MovieDetail from '../components/movieDetail';
@@ -175,18 +176,26 @@ class Main extends React.Component {
           return (<span>
             {isChecked &&
             <Button
-              shape="circle"
-              icon="eye"
-              onClick={() => {this.updateCheck(!isChecked,
-              record.movieId, watchedMovieName);}}
-            />}
+              type='circle'
+              onClick={() => {this.updateCheck(!isChecked, record.movieId, watchedMovieName);}}
+            >
+              <Icon
+                type="eye"
+                theme="filled"
+              />
+            </Button>
+            }
             {!isChecked &&
             <Button
-              shape="circle"
-              icon="eye-o"
-              onClick={() => {this.updateCheck(!isChecked,
-                record.movieId, watchedMovieName);}}
-            />}
+              type='circle'
+              onClick={() => {this.updateCheck(!isChecked, record.movieId, watchedMovieName);}}
+            >
+              <Icon
+                type="eye"
+                theme="outlined"
+              />
+            </Button>
+            }
             </span>);
         },
         width: 100,
@@ -215,18 +224,27 @@ class Main extends React.Component {
           return (<span>
             {isChecked &&
             <Button
-              shape="circle"
-              icon="heart"
-              onClick={() => {this.updateCheck(!isChecked,
-                record.movieId, starMovieName);}}
-            />}
+              type='circle'
+              onClick={() => {this.updateCheck(!isChecked, record.movieId, starMovieName);}}
+            >
+              <Icon
+                type="heart"
+                theme="filled"
+              />
+            </Button>
+            }
             {!isChecked &&
             <Button
-              shape="circle"
-              icon="heart-o"
+              type='circle'
               onClick={() => {this.updateCheck(!isChecked,
                 record.movieId, starMovieName);}}
-            />}
+            >
+              <Icon
+                type="heart"
+                theme="outlined"
+              />
+            </Button>
+            }
           </span>);
         },
         width: 100,
@@ -275,12 +293,28 @@ class Main extends React.Component {
 
     return (
       <div>
-        <div style={{ marginBottom: 8}} >
-          <Search
-            placeholder="search movie by name"
-            onSearch={this.searchMovie}
-            style={{ width: 200 }}
-          />
+        <div style={{ marginBottom: 16, display: 'grid', gridTemplateColumns: '5fr 5fr' }}>
+          <div style={{ display: 'grid'}} >
+            <Search
+              placeholder="search movie by name"
+              onSearch={this.searchMovie}
+              style={{ width: 200 }}
+            />
+          </div>
+          {this.props.showSyncButton &&
+          <div style={{
+            display: 'grid',
+            justifyItems: 'end',
+            alignItems: 'center',
+          }} >
+            <Button
+              type="primary"
+              icon="sync"
+              onClick={this.props.syncMovies}>
+              SYNC
+            </Button>
+          </div>
+          }
         </div>
         <Table
           columns={columns}
@@ -313,5 +347,9 @@ function mapDispatchToProps(dispatch) {
     dispatch,
   };
 }
+
+Main.propTypes = {
+  showSyncButton: PropTypes.bool,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
