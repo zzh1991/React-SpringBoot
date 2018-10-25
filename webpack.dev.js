@@ -5,10 +5,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const port = process.env.PORT || 3000;
 
 module.exports = {
-  entry: './src/main/script/index.js',
+  entry: {
+    bundle: './src/main/script/index.js',
+    vendor: ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux',
+    'redux-saga', 'redux-thunk', 'prop-types'],
+  },
   output: {
     // path: path.resolve(__dirname, 'src/main/resources/static/built'),
-    filename: 'bundle.js',
+    filename: '[name].js',
     publicPath: '/built/'
   },
   devtool: 'inline-source-map',
@@ -66,6 +70,10 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
+    }),
   ],
   devServer: {
     host: '0.0.0.0',

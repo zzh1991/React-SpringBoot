@@ -6,10 +6,14 @@ const uglify = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: './src/main/script/index.js',
+  entry: {
+    bundle: './src/main/script/index.js',
+    vendor: ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux',
+      'redux-saga', 'redux-thunk', 'prop-types'],
+  },
   output: {
     path: path.resolve(__dirname, 'src/main/resources/static/'),
-    filename: 'built/bundle.[hash].js',
+    filename: 'built/[name].[hash].js',
     publicPath: '/',
   },
   module: {
@@ -71,6 +75,10 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
     }),
   ],
 };
