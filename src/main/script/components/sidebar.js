@@ -4,7 +4,7 @@ import { Layout, Icon, Menu, Button } from 'antd';
 import { withRouter } from 'react-router-dom';
 import '../styles/style.css';
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content, Sider, Footer } = Layout;
 class SideBar extends React.Component {
   constructor(props) {
     super(props);
@@ -78,9 +78,14 @@ class SideBar extends React.Component {
               </Menu.Item>
             </Menu>
           </Sider>
-          <Content style={{ padding: 20, overflowY: 'hidden' }} >
-            {this.props.children}
-          </Content>
+          <Layout>
+            <Content style={{ padding: 20, overflowY: 'hidden' }} >
+              {this.props.children}
+            </Content>
+            <Footer style={{ textAlign: 'center' }}>
+              Movie Helper ©2018 Created by zzh
+            </Footer>
+          </Layout>
         </Layout>
       </Layout>
     );

@@ -31,7 +31,7 @@ const StarMoviesContainer = Loadable({
 });
 
 const AllMoviesContainer = Loadable({
-  loader: () => import('./containers/starMoviesContainer'),
+  loader: () => import('./containers/allMoviesContainer'),
   loading: Loading,
 });
 
