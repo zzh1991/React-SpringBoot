@@ -34,6 +34,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 /**
@@ -53,6 +57,8 @@ public class MovieService {
     private TopFilmRepository topFilmRepository;
     private ViewFilmRepository viewFilmRepository;
     private FilmListRepository filmListRepository;
+    private static final ExecutorService executorService =
+            Executors.newFixedThreadPool(2);
 
     public void syncRecentMovies() throws IOException {
         List<Film> newFilmList = Lists.newArrayList();
@@ -216,12 +222,12 @@ public class MovieService {
         return StringUtils.join(nameList.toArray(), SEPARATOR);
     }
 
-    public MovieSubject getMovieSubject(Long id) throws IOException {
+    public MovieSubject getMovieSubject(Long id) {
         String url = "https://api.douban.com/v2/movie/subject/" + id;
-        String context = getUrlContent(url);
-        ObjectMapper mapper = new ObjectMapper();
         MovieSubject movieSubject;
         try {
+            String context = getUrlContent(url);
+            ObjectMapper mapper = new ObjectMapper();
             movieSubject = mapper.readValue(context, TypeFactory.defaultInstance().constructType(MovieSubject.class));
         } catch (Exception e) {
             return null;
@@ -229,17 +235,31 @@ public class MovieService {
         return movieSubject;
     }
 
-    private void saveDetailToMovie(List<Film> newFilmList) throws IOException {
+    private void saveDetailToMovie(List<Film> newFilmList) {
         List<Film> filmList = filmRepository.findByCurrentIsTrueOrderByRatingDesc();
-        for (Film film : filmList) {
-            if (Strings.isNullOrEmpty(film.getSummary())) {
-                MovieSubject movieSubject = getMovieSubject(film.getMovieId());
-                if (movieSubject != null) {
-                    film.setSummary(movieSubject.getSummary());
-                    film.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
-                    newFilmList.add(film);
-                    this.saveDetailToMovieList(film.getMovieId(), movieSubject);
-                }
+        List<CompletableFuture<Boolean>> completableFuture =
+                filmList.stream()
+                        .filter(film -> Strings.isNullOrEmpty(film.getSummary()))
+                        .map(film -> CompletableFuture.supplyAsync(() -> getMovieSubject(film.getMovieId()),
+                        executorService)
+                                .thenApply(movieSubject -> {
+                                    if (Objects.nonNull(movieSubject)) {
+                                        film.setSummary(movieSubject.getSummary());
+                                        film.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
+                                        newFilmList.add(film);
+                                        this.saveDetailToMovieList(film.getMovieId(), movieSubject);
+                                        return true;
+                                    }
+                                    return false;
+                                }))
+                        .collect(Collectors.toList());
+
+        for (Future<Boolean> future : completableFuture) {
+            try {
+                boolean fetchStatus = future.get();
+                log.warn("update summary success: {}", String.valueOf(fetchStatus));
+            } catch (Exception e) {
+                log.error("get movie summary error");
             }
         }
     }
@@ -306,7 +326,7 @@ public class MovieService {
         FilmList syncedMovie = FilmList.builder().build();
         try {
             movieSubject = getMovieSubject(movieId);
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("can not fetch this movieId: {}", movieId);
             return syncedMovie;
         }
