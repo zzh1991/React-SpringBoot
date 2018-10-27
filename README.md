@@ -18,56 +18,69 @@
 </p>
 
 ## Install
-- npm install or `use yarn` 
-- `npm run build` or `npm start`
+- install node dependencies: `npm install` or `yarn` 
 - configure you database name (an empty database) in application.properties
     - your PostgreSQL database configuration
+- prepare front static files
+    - dev mode
+        - `yarn start` or `npm start`
+    - build mode
+        - `yarn run deploy` or `npm run deploy`
 - start the web app in IDE
 - open browser
-    - `npm run build`: go to http://localhost:8080
-    - `npm start`: go to http://localhost:3000
+    - `build mode`: go to http://localhost:8080
+    - `dev mode`: go to http://localhost:3000
 
 ## Demo: [Movie Helper](http://movie.zzhpro.com)
 ### Recent Movies
-![Recent](./pictures/recent-movie-antd3.png)
+![Recent](./pictures/recent-movie.png)
 ### Top 100 Movies
-![Top](./pictures/top-movie-antd3.png)
+![Top](./pictures/top-movie.png)
 ### Viewed Movies
+![View](./pictures/view-movie.png)
+### Stared Movies(Want to watch)
+![Star](./pictures/star-movie.png)
+### All Movies
+![All](./pictures/all-movie.png)
 
-### Movies wanted to watch
-
-### Ref
+### Reference
 - [recent movies](https://movie.douban.com/)
 - [top movies](https://movie.douban.com/top250?start=0&filter=)
 
 ## TO DO LIST
 ### login page
-    - [x] sign in / sign up
-    - [x] less render
-    - update time
+    - [x] sign in / sign up (removed)
 ### data bind with user id
 
 ### improvement
-    - [x] sync recent movies
-    - [x] antd 3.0.0
+    - [x] sync recent / top movies
+    - [x] upgrade to antd 3.10.1
+    - [x] latest sync time
+    - [x] search movie name
+    - [x] database / layout re-dsign
+    - [x] schedule task 
 
 ## Dependency
 ### front-end
 - react
-- react-router
+- redux
+- react-router-dom
 - react-redux
 - redux-thunk
 - redux-saga
 - [ant design](https://ant.design)
+- day.js
 - webpack 3
 - babel dependency
+- eslint dependency
 
 ### backend
 - Spring Boot 2
 - PostgreSQL
 - Guava
 - Swagger2
-- flyway
+- Flyway
+- Prometheus
 
 ## Config
 ### hot deploy for Intellij IDEA
@@ -95,14 +108,17 @@
 // this.context.router.history.push('path');
 ```
 
-## webpack
-### babel
+## Problems
+### Migrate flyway 3.x to 5.x issue
+> firstly should migrate to **4.2.0** and then 5.x
+
+## Package front files
+### webpack
+#### babel
 - arrow function: transform-class-properties
 - async: "transform-runtime", { "polyfill": false, "regenerator": true }
 
-### webpack-dev-server
-
-## [Parcel](https://parceljs.org/)
-### Problems
+### [Parcel](https://parceljs.org/)
+#### Problems
 - css packaged, class name is not same, so not css effect
 - svg, jpg url path is not right for static resource, not web resource

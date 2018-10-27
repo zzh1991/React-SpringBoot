@@ -6,9 +6,6 @@ node_modules
 gradle
 gradlew
 gradlew.bat
-gs-messaging-stomp-websocket.iml
-mvnw
-mnvw.cmd
 build.gradle
 .DS_Store
 src/.DS_Store
@@ -20,3 +17,4 @@ src/main/script/.DS_Store
 yarn-error.log
 docker/*.jar
 yarn.lock
+package-lock.json
