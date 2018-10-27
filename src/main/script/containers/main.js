@@ -2,6 +2,7 @@ import React from 'react';
 import { Table, Button, Input, Icon } from 'antd';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 import '../styles/style.css';
 import { fetchMovieViewed, saveMovieToLocal, deleteMovieToLocal, getMovieList } from '../actions/actions';
 import MovieDetail from '../components/movieDetail';
@@ -126,6 +127,20 @@ class Main extends React.Component {
     this.setState({
       searchText,
     });
+  };
+
+  renderLatestSyncTime = () => {
+    const { data } = this.props;
+    if (data.length === 0) {
+      return '';
+    }
+    let maxDate = '';
+    for (const item of data) {
+      if (item.updateTime > maxDate) {
+        maxDate = item.updateTime;
+      }
+    }
+    return `上次同步时间: ${dayjs(maxDate).format()}`
   };
 
   render() {
@@ -307,12 +322,17 @@ class Main extends React.Component {
             justifyItems: 'end',
             alignItems: 'center',
           }} >
-            <Button
-              type="primary"
-              icon="sync"
-              onClick={this.props.syncMovies}>
-              SYNC
-            </Button>
+            <div>
+              <span style={{ marginRight: 8 }}>
+                {this.renderLatestSyncTime()}
+              </span>
+              <Button
+                type="primary"
+                icon="sync"
+                onClick={this.props.syncMovies}>
+                SYNC
+              </Button>
+            </div>
           </div>
           }
         </div>
