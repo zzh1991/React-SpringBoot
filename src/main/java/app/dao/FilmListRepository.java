@@ -1,5 +1,6 @@
 package app.dao;
 
+import app.constant.MovieTypeEnum;
 import app.entity.FilmList;
 import org.springframework.data.repository.CrudRepository;
 
@@ -29,4 +30,11 @@ public interface FilmListRepository extends CrudRepository<FilmList, Long> {
      * @return List<FilmList>
      */
     List<FilmList> findAllByOrderByMovieYearDescRatingDesc();
+
+    /**
+     * get movie list by movie type
+     * @param movieTypeEnum
+     * @return
+     */
+    List<FilmList> findByMovieTypeEnumOrderByRatingDesc(MovieTypeEnum movieTypeEnum);
 }
