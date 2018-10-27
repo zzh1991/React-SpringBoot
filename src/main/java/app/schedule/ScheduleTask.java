@@ -1,5 +1,6 @@
 package app.schedule;
 
+import app.constant.MovieTypeEnum;
 import app.service.MovieService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,21 +23,13 @@ public class ScheduleTask {
 
     @Scheduled(cron = "0 0 22 * * ?", zone = ZONE)
     public void updateMovie() {
-        try {
-            movieService.syncRecentMovies();
-            log.info("update movie successfully");
-        } catch (Exception e) {
-            log.error("update movie failed: {}", e.getMessage());
-        }
+        movieService.syncMovies(MovieTypeEnum.RECENT);
+        log.info("update movie successfully");
     }
 
     @Scheduled(cron = "0 30 22 * * ?", zone = ZONE)
     public void updateTopMovie() {
-        try {
-            movieService.syncTopMovies();
-            log.info("update top movie successfully");
-        } catch (Exception e) {
-            log.error("update top movie failed: {}", e.getMessage());
-        }
+        movieService.syncMovies(MovieTypeEnum.TOP);
+        log.info("update top movie successfully");
     }
 }

@@ -1,8 +1,7 @@
 package app.controller;
 
-import app.entity.Film;
+import app.constant.MovieTypeEnum;
 import app.entity.FilmList;
-import app.entity.TopFilm;
 import app.service.MovieService;
 import app.vo.movie.MovieSubject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +22,27 @@ public class MovieController {
     private MovieService movieService;
 
     @PostMapping("sync/recent")
-    public void syncRecent() throws IOException {
-        movieService.syncRecentMovies();
+    public void syncRecent() {
+        movieService.syncMovies(MovieTypeEnum.RECENT);
     }
 
     @PostMapping("sync/top")
-    public void syncTop() throws IOException {
-        movieService.syncTopMovies();
+    public void syncTop() {
+        movieService.syncMovies(MovieTypeEnum.TOP);
     }
 
     @GetMapping("movie/recent")
-    public List<Film> getRecentMovie() {
-        return movieService.getRecentFilmList();
+    public List<FilmList> getRecentMovie() {
+        return movieService.getFilmList(MovieTypeEnum.RECENT);
     }
 
     @GetMapping("movie/top250")
-    public List<TopFilm> getTopMovie() {
-        return movieService.getTopFilmList();
+    public List<FilmList> getTopMovie() {
+        return movieService.getFilmList(MovieTypeEnum.TOP);
     }
 
     @GetMapping("movie/subject/{id}")
-    public MovieSubject getMovieSubject(@PathVariable Long id) throws IOException {
+    public MovieSubject getMovieSubject(@PathVariable Long id) {
         return movieService.getMovieSubject(id);
     }
 

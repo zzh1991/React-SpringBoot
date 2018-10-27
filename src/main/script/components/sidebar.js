@@ -55,7 +55,9 @@ class SideBar extends React.Component {
             collapsible
             collapsed={this.state.collapsed}
           >
-            <Menu theme="dark" mode="inline" onClick={this.clickMenu} defaultSelectedKeys={['/']}>
+            <Menu theme="dark" mode="inline" onClick={this.clickMenu}
+                  defaultSelectedKeys={[window.location.hash.substr(1)]}
+            >
               <Menu.Item key="/">
                 <Icon type="home" />
                 <span>上映电影</span>

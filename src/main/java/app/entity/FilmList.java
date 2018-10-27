@@ -1,11 +1,13 @@
 package app.entity;
 
+import app.constant.MovieTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author zhihao zhang
@@ -35,4 +37,11 @@ public class FilmList {
 
     private Boolean viewed;
     private Boolean star;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateTime;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "movie_type")
+    private MovieTypeEnum movieTypeEnum;
 }
