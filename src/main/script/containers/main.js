@@ -311,7 +311,7 @@ class Main extends React.Component {
         <div style={{ marginBottom: 16, display: 'grid', gridTemplateColumns: '5fr 5fr' }}>
           <div style={{ display: 'grid'}} >
             <Search
-              placeholder="search movie by name"
+              placeholder="电影搜索"
               onSearch={this.searchMovie}
               style={{ width: 200 }}
             />
@@ -349,7 +349,8 @@ class Main extends React.Component {
             onChange: this.onChange,
           }}
           expandedRowRender={record => <MovieDetail record={record} />}
-          scroll={{ y: '70vh' }}
+          scroll={{ y: '60vh' }}
+          rowKey={record => record.id}
         />
       </div>
     );
