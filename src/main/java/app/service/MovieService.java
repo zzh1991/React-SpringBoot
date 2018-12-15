@@ -19,6 +19,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.threads.ThreadPoolExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +27,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 /**
@@ -45,7 +43,8 @@ public class MovieService {
     private static final String SEPARATOR = ",";
     private static final String LARGE = "large";
     private static final ExecutorService executorService =
-            Executors.newFixedThreadPool(2);
+            new ThreadPoolExecutor(2, 2, 60, TimeUnit.SECONDS,
+                    new LinkedBlockingQueue<>());
 
     private FilmListRepository filmListRepository;
 
