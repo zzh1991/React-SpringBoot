@@ -2,7 +2,6 @@ build
 target
 node_modules
 .idea
-.mvn
 gradle
 gradlew
 gradlew.bat

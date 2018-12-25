@@ -1,3 +1,21 @@
+sudo: required
 language: java
-install: true
-script: true
+
+addons:
+  sonarcloud:
+    organization: "$SONAR_ORG"
+    token:
+      secure: "$SONAR_TOKEN"
+
+jdk:
+  - oraclejdk8
+
+script:
+  # JaCoCo is used to have code coverage, the agent has to be activated
+  - mvn install -Dmaven.test.skip=true
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
