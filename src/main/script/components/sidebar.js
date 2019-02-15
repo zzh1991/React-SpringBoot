@@ -85,7 +85,7 @@ class SideBar extends React.Component {
               {this.props.children}
             </Content>
             <Footer style={{ textAlign: 'center' }}>
-              Movie Helper ©2018 Created by zzh
+              Movie Helper ©2019 Created by zzh
             </Footer>
           </Layout>
         </Layout>

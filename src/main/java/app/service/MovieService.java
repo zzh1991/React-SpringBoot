@@ -98,7 +98,7 @@ public class MovieService {
                     .rating(movie.getRating().getAverage())
                     .url(movie.getAlt())
                     .movieYear(movie.getYear())
-                    .imageLarge(movie.getImages().get(LARGE))
+                    .imageLarge(this.replacePictureExtension(movie.getImages().get(LARGE)))
                     .casts(getNames(movie.getCasts()))
                     .directors(getNames(movie.getDirectors()))
                     .genres(StringUtils.join(movie.getGenres(), SEPARATOR))
@@ -169,7 +169,7 @@ public class MovieService {
         for (Future<Boolean> future : completableFuture) {
             try {
                 boolean fetchStatus = future.get();
-                log.warn("update summary success: {}", String.valueOf(fetchStatus));
+                log.warn("update summary success: {}", fetchStatus);
             } catch (Exception e) {
                 log.error("get movie summary error");
             }
@@ -234,7 +234,7 @@ public class MovieService {
                     .rating(movieSubject.getRating().getAverage())
                     .url(movieSubject.getAlt())
                     .movieYear(movieSubject.getYear())
-                    .imageLarge(movieSubject.getImages().get(LARGE))
+                    .imageLarge(this.replacePictureExtension(movieSubject.getImages().get(LARGE)))
                     .casts(getNames(movieSubject.getCasts()))
                     .directors(getNames(movieSubject.getDirectors()))
                     .genres(StringUtils.join(movieSubject.getGenres(), SEPARATOR))
@@ -256,5 +256,12 @@ public class MovieService {
 
     public List<FilmList> getAllMoviesList() {
         return filmListRepository.findAllByOrderByMovieYearDescRatingDesc();
+    }
+
+    private String replacePictureExtension(String url) {
+        if (Strings.isNullOrEmpty(url)) {
+            return "";
+        }
+        return url.replace(".jpg", ".webp");
     }
 }
