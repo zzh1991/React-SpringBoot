@@ -1,11 +1,11 @@
 const webpack = require('webpack');
-const path = require("path");
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const uglify = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const uglify = require('uglifyjs-webpack-plugin');
 
 module.exports = {
+  mode: 'production',
   entry: {
     bundle: './src/main/script/index.js',
     vendor: ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux',
@@ -64,8 +64,19 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          chunks: 'initial',
+          test: 'vendor',
+          name: 'vendor',
+          enforce: true,
+        },
+      },
+    },
+  },
   plugins: [
-    // new ExtractTextPlugin("built/bundle.css?[hash]"),
     new HtmlWebpackPlugin({
       template: './src/main/resources/html-template/index.html',
       filename: '../templates/index.html',
@@ -75,11 +86,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
+      },
     }),
   ],
 };

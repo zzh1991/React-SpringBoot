@@ -1,49 +1,51 @@
 const webpack = require('webpack');
-const path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const path = require('path');
 
 const port = process.env.PORT || 3000;
 
 module.exports = {
+  mode: 'development',
   entry: {
     bundle: './src/main/script/index.js',
     vendor: ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux',
-    'redux-saga', 'redux-thunk', 'prop-types'],
+      'redux-saga', 'redux-thunk', 'prop-types'],
   },
   output: {
     // path: path.resolve(__dirname, 'src/main/resources/static/built'),
     filename: '[name].js',
-    publicPath: '/built/'
+    publicPath: '/built/',
   },
   devtool: 'inline-source-map',
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.js[x]?$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: [{
+          loader: 'babel-loader',
+        }],
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
             loader: 'css-loader',
             options: {
               modules: true,
               camelCase: true,
-              sourceMap: true
-            }
-          }
-        ]
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
         test: /\.less$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
             loader: 'css-loader',
@@ -51,33 +53,41 @@ module.exports = {
           {
             loader: 'less-loader',
             options: {
-              javascriptEnabled: true
-            }
-          }
-        ]
+              javascriptEnabled: true,
+            },
+          },
+        ],
       },
       {
-        test:/\.(png|jpg|gif)$/ ,
-        use:[{
+        test: /\.(png|jpg|gif)$/,
+        use: [{
           loader: 'url-loader',
           options: {
             limit: 8192,
             outputPath: './src/main/resources/static/images/',
-          }
-        }]
+          },
+        }],
       },
-    ]
+    ],
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          chunks: 'initial',
+          test: 'vendor',
+          name: 'vendor',
+          enforce: true,
+        },
+      },
+    },
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
-    }),
   ],
   devServer: {
     host: 'localhost',
-    port: port,
+    port,
     proxy: {
       '*': {
         target: 'http://localhost:8080',
@@ -88,5 +98,5 @@ module.exports = {
     historyApiFallback: true,
     open: false,
     hot: true,
-  }
+  },
 };

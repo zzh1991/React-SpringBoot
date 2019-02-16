@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import { fetchMovieRecent, syncRecentMovieList } from '../actions/actions';
-import Main from '../containers/main';
+import Main from './main';
 import '../styles/style.css';
 
-class SideBarContainer extends Component {
+class SidebarContainer extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchMovieRecent.request());
-  };
+    const { dispatch } = this.props;
+    dispatch(fetchMovieRecent.request());
+  }
 
   onSync = () => {
-    this.props.dispatch(syncRecentMovieList());
+    const { dispatch } = this.props;
+    dispatch(syncRecentMovieList());
   };
 
   render() {
@@ -46,4 +48,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideBarContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);
