@@ -1,7 +1,7 @@
 {
   "name": "movie-helper",
   "version": "1.0.0",
-  "description": "",
+  "description": "Movie Helper! Find valubale movies!",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,7 +12,7 @@
     "validate": "npm ls",
     "server": "webpack-dev-server --open"
   },
-  "author": "",
+  "author": "Zhihao Zhang",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
