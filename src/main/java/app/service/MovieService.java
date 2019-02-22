@@ -49,7 +49,6 @@ public class MovieService {
     private FilmListRepository filmListRepository;
 
     public void syncMovies(MovieTypeEnum movieTypeEnum) {
-        this.deleteOutDataMovie(movieTypeEnum);
         this.saveMovie(movieTypeEnum);
         this.saveDetailToMovie(movieTypeEnum);
     }
@@ -85,6 +84,9 @@ public class MovieService {
             url = "https://api.douban.com/v2/movie/top250?start=0&count=100";
         }
         List<Movie> movieList = getMovies(url);
+        if (!movieList.isEmpty()) {
+            this.deleteOutDataMovie(movieTypeEnum);
+        }
         this.saveFilmList(movieList, movieTypeEnum);
     }
 
