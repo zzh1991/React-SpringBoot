@@ -18,9 +18,16 @@
 </p>
 
 ## Install
-- install node dependencies: `npm install` or `yarn` 
-- configure you database name (an empty database) in application.properties
-    - your PostgreSQL database configuration
+1. `git clone --recursive git@github.com:zzh1991/Movie-Helper.git`
+```bash
+# or
+git clone git@github.com:zzh1991/Movie-Helper.git
+git submodule init
+git submodule update
+```
+- configure you database name (an empty database), user, password in `src/main/resources/application.properties`
+- `cd front`
+- `yarn`: install dependency
 - prepare front static files
     - dev mode
         - `yarn start` or `npm start`
@@ -30,6 +37,15 @@
 - open browser
     - `build mode`: go to http://localhost:8080
     - `dev mode`: go to http://localhost:3000
+    
+### update submodule
+```bash
+git fetch origin master
+git rebase origin/master
+
+# or
+git submodule update --remote front
+```
 
 ## Demo: [Movie Helper](http://movie.zzhpro.com)
 ### Recent Movies
@@ -61,7 +77,7 @@
     - [x] schedule task 
 
 ## Dependency
-### front-end
+### [Front end](https://github.com/zzh1991/movie-helper-front)
 - react
 - redux
 - react-router-dom
@@ -70,11 +86,11 @@
 - redux-saga
 - [ant design](https://ant.design)
 - day.js
-- webpack 3
-- babel dependency
-- eslint dependency
+- webpack 4
+- @babel 7
+- eslint
 
-### backend
+### Back end
 - Spring Boot 2
 - PostgreSQL
 - Guava
@@ -98,14 +114,14 @@
 ### HashRouter
 - install react-router-dom
 ```javascript
-<HashHashRouter>
+<HashRouter>
   <div>
     <Route exact path="/" component={App} />
     <Route path="/app" component={App} />
   </div>
 </HashRouter>
 
-// this.context.router.history.push('path');
+// this.props.history.push('path');
 ```
 
 ## Problems
