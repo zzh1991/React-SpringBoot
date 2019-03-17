@@ -25,6 +25,7 @@
 
         <!--   plugin version     -->
         <maven-lombok.version>1.18.10.0</maven-lombok.version>
+        <spring-data-elasticsearch.version>3.1.5.RELEASE</spring-data-elasticsearch.version>
     </properties>
 
     <dependencies>
@@ -186,6 +187,12 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus-boot-starter.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-elasticsearch</artifactId>
+            <version>${spring-data-elasticsearch.version}</version>
         </dependency>
 
     </dependencies>
