@@ -259,11 +259,4 @@ public class MovieService {
     public List<FilmList> getAllMoviesList() {
         return filmListRepository.findAllByOrderByMovieYearDescRatingDesc();
     }
-
-    private String replacePictureExtension(String url) {
-        if (Strings.isNullOrEmpty(url)) {
-            return "";
-        }
-        return url.replace(".jpg", ".webp");
-    }
 }
