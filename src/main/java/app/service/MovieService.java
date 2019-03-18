@@ -19,6 +19,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.tomcat.util.threads.ThreadPoolExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,8 +50,12 @@ public class MovieService {
     private FilmListRepository filmListRepository;
 
     public void syncMovies(MovieTypeEnum movieTypeEnum) {
+        StopWatch watch = new StopWatch();
+        watch.start();
         this.saveMovie(movieTypeEnum);
         this.saveDetailToMovie(movieTypeEnum);
+        watch.stop();
+        log.info("sync {} movies cost {} ms", movieTypeEnum.toString(), watch.getTime());
     }
 
     private List<Movie> getMovies(String url) {
@@ -62,7 +67,7 @@ public class MovieService {
                     TypeFactory.defaultInstance().constructType(MovieVo.class));
             return movieVo.getSubjects();
         } catch (Exception e) {
-            log.error("failed to get recent movie info: ", e.getMessage());
+            log.error("failed to get recent movie info: ", e);
             return Lists.newArrayList();
         }
     }
