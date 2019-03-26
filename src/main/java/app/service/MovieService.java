@@ -1,5 +1,6 @@
 package app.service;
 
+import app.aop.MethodTime;
 import app.constant.MovieTypeEnum;
 import app.dao.FilmListRepository;
 import app.entity.FilmList;
@@ -19,7 +20,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.StopWatch;
 import org.apache.tomcat.util.threads.ThreadPoolExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,13 +49,10 @@ public class MovieService {
 
     private FilmListRepository filmListRepository;
 
+    @MethodTime
     public void syncMovies(MovieTypeEnum movieTypeEnum) {
-        StopWatch watch = new StopWatch();
-        watch.start();
         this.saveMovie(movieTypeEnum);
         this.saveDetailToMovie(movieTypeEnum);
-        watch.stop();
-        log.info("sync {} movies cost {} ms", movieTypeEnum.toString(), watch.getTime());
     }
 
     private List<Movie> getMovies(String url) {
