@@ -24,7 +24,7 @@ import java.util.List;
 public class MethodTimeAspect {
     @Pointcut("@annotation(app.aop.MethodTime)")
     public void doAspect() {
-
+        // do some operations based on point cut
     }
 
     @Around("doAspect()")
