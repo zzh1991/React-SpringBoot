@@ -1,0 +1,19 @@
+enum MovieTypeEnum {
+  RECENT
+  TOP
+  NORMAL
+}
+
+type FilmList {
+    id: ID!
+    title: String!
+    movieId: Int!
+    movieYear: Int!
+    rating: Float!
+    movieTypeEnum: MovieTypeEnum!
+}
+
+type Query {
+    filmLists: [FilmList]
+    filmListsByMovieType(movieTypeEnum: MovieTypeEnum!): [FilmList]
+}
