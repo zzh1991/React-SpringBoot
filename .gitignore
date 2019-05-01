@@ -20,3 +20,4 @@ docker/*.jar
 yarn.lock
 package-lock.json
 movie-helper.iml
+movie-helper-front
