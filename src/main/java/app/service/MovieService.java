@@ -81,9 +81,9 @@ public class MovieService {
     }
 
     private void saveMovie(MovieTypeEnum movieTypeEnum) {
-        String url = "https://api.douban.com/v2/movie/in_theaters?city=上海";
+        String url = "https://douban.uieee.com/v2/movie/in_theaters?city=上海";
         if (MovieTypeEnum.TOP.equals(movieTypeEnum)) {
-            url = "https://api.douban.com/v2/movie/top250?start=0&count=100";
+            url = "https://douban.uieee.com/v2/movie/top250?start=0&count=100";
         }
         List<Movie> movieList = getMovies(url);
         if (!movieList.isEmpty()) {
