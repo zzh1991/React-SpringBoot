@@ -4,6 +4,7 @@ import app.aop.MethodTime;
 import app.constant.MovieTypeEnum;
 import app.dao.FilmListRepository;
 import app.entity.FilmList;
+import app.mapper.FilmListMapper;
 import app.vo.movie.Avatar;
 import app.vo.movie.Movie;
 import app.vo.movie.MovieSubject;
@@ -48,6 +49,7 @@ public class MovieService {
                     new LinkedBlockingQueue<>());
 
     private FilmListRepository filmListRepository;
+    private FilmListMapper filmListMapper;
 
     @MethodTime
     public void syncMovies(MovieTypeEnum movieTypeEnum) {
@@ -120,7 +122,7 @@ public class MovieService {
     }
 
     public List<FilmList> getFilmList(MovieTypeEnum movieTypeEnum) {
-        return filmListRepository.findByMovieTypeEnumOrderByRatingDesc(movieTypeEnum);
+        return filmListMapper.findByMovieTypeEnumOrderByRatingDesc(movieTypeEnum);
     }
 
     private void deleteOutDataMovie(MovieTypeEnum movieTypeEnum) {
@@ -139,7 +141,7 @@ public class MovieService {
     }
 
     public MovieSubject getMovieSubject(Long id) {
-        String url = "https://api.douban.com/v2/movie/subject/" + id;
+        String url = "https://douban.uieee.com/v2/movie/subject/" + id;
         MovieSubject movieSubject;
         try {
             String context = getUrlContent(url);
@@ -259,6 +261,6 @@ public class MovieService {
     }
 
     public List<FilmList> getAllMoviesList() {
-        return filmListRepository.findAllByOrderByMovieYearDescRatingDesc();
+        return filmListMapper.findAllByOrderByMovieYearDescRatingDesc();
     }
 }

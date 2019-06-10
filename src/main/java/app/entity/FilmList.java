@@ -7,10 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author zhihao zhang
+ * @date 2019.06.10
  */
 
 @Entity
@@ -19,7 +21,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "movie_list")
-public class FilmList {
+public class FilmList implements Serializable {
+    private static final long serialVersionUID = -8398532270073465206L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
