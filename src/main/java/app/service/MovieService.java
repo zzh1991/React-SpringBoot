@@ -200,6 +200,9 @@ public class MovieService {
     }
 
     private List<FilmList> getFilmLists(List<Long> movieIdList) {
+        movieIdList = movieIdList.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
         List<FilmList> filmLists = filmListRepository.findByMovieIdIsIn(movieIdList);
         List<Long> existedIdList = filmLists.stream()
                 .filter(filmList -> !Objects.isNull(filmList.getSummary()))
