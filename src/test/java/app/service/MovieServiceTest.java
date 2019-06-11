@@ -2,6 +2,7 @@ package app.service;
 
 import app.dao.FilmListRepository;
 import app.entity.FilmList;
+import app.mapper.FilmListMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,9 @@ public class MovieServiceTest {
 
     @InjectMocks
     MovieService movieService;
+
+    @Mock
+    FilmListMapper filmListMapper;
 
 
     @Test

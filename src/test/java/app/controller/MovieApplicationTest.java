@@ -2,6 +2,7 @@ package app.controller;
 
 import app.dao.FilmListRepository;
 import app.entity.FilmList;
+import app.mapper.FilmListMapper;
 import app.service.MovieService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +37,9 @@ public class MovieApplicationTest {
 
     @MockBean
     FilmListRepository filmListRepository;
+
+    @MockBean
+    FilmListMapper filmListMapper;
 
     @Test
     public void getFilmListById() {
