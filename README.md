@@ -45,6 +45,7 @@ git submodule update
 ### update submodule
 
 ```bash
+cd front
 git fetch origin master
 git rebase origin/master
 
