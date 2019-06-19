@@ -1,0 +1,59 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:~/Documents/h2/testdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
+    password: sa
+    username: password
+    initialization-mode: never
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    validate-on-migrate: false
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  devtools:
+    restart:
+      exclude: static/**, public/**
+
+  # h2
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: false
+
+server:
+  port: ${PORT:8080}
+
+# metric
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
