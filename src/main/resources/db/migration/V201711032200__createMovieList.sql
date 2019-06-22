@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS public.movie_list (
-  id BIGINT PRIMARY KEY,
+  id BIGSERIAL PRIMARY KEY,
   movie_id BIGINT,
   title TEXT,
   rating FLOAT,
@@ -12,9 +12,7 @@ CREATE TABLE IF NOT EXISTS public.movie_list (
   summary TEXT,
   countries TEXT,
   viewed BOOLEAN DEFAULT FALSE,
-  star BOOLEAN DEFAULT FALSE
+  star BOOLEAN DEFAULT FALSE,
+  update_time TIMESTAMP DEFAULT now(),
+  movie_type TEXT DEFAULT 'NORMAL'
 );
-
-CREATE SEQUENCE public.movie_list_id_seq START 1 NO MINVALUE NO MAXVALUE NO CYCLE;
-ALTER TABLE public.movie_list ALTER COLUMN id SET DEFAULT nextval('public.movie_list_id_seq');
-ALTER SEQUENCE public.movie_list_id_seq OWNED BY public.movie_list.id;
