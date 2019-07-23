@@ -137,6 +137,11 @@ git submodule update --remote front
 - setting -> compiler -> make project automatically
 - ctrl + shift + a -> registry -> auto make enabled
 
+### active dev profile
+
+1. edit run/debug configuration
+2. add environment variables: spring.profiles.active=dev
+
 ## react router v4
 
 ### HashRouter
@@ -159,6 +164,8 @@ git submodule update --remote front
 ### Migrate flyway 3.x to 5.x issue
 
 > firstly should migrate to **4.2.0** and then 5.x
+
+### h2 database conflict with druid
 
 ## Package front files
 
