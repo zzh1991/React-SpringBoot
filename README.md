@@ -98,6 +98,10 @@ git submodule update --remote front
 
 ## Dependency
 
+### [Front end](https://github.com/zzh1991/movie-helper-front)
+
+### Backend
+
 - Spring Boot 2
 - PostgresQL
 - Guava
