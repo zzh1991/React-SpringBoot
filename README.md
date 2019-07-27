@@ -18,31 +18,37 @@
     </p>
 </p>
 
-## Install
-
-1. `git clone --recursive git@github.com:zzh1991/Movie-Helper.git`
+## Git clone repo
 
 ```bash
+git clone --recursive git@github.com:zzh1991/Movie-Helper.git
+
 # or
 git clone git@github.com:zzh1991/Movie-Helper.git
 git submodule init
 git submodule update
 ```
 
-- configure you database name (an empty database), user, password in `src/main/resources/application.properties`
+## 🚀 Usage
+
+### Start application
+
+- configure database
+    - configure you database name (an empty database), user, password in [src/main/resources/application.yml](https://github.com/zzh1991/React-SpringBoot/blob/master/src/main/resources/application.yml)
+    - or use h2 database
 - `cd front`
 - `yarn`: install dependency
 - prepare front static files
   - dev mode
-    - `yarn start` or `npm start`
+    - `yarn start`
   - build mode
-    - `yarn run deploy` or `npm run deploy`
+    - `yarn run deploy`
 - start the web app in IDE
 - open browser
   - `build mode`: go to http://localhost:8080
   - `dev mode`: go to http://localhost:3000
 
-### update submodule
+### Update submodule for front end
 
 ```bash
 cd front
@@ -57,11 +63,11 @@ git submodule update --remote front
 
 ### Recent Movies
 
-![Recent](./pictures/recent-movie.png)
+![Recent](./pictures/recent-movie-1907.png)
 
 ### Top 100 Movies
 
-![Top](./pictures/top-movie.png)
+![Top](./pictures/top-movie-1907.png)
 
 ### Viewed Movies
 
@@ -80,51 +86,30 @@ git submodule update --remote front
 - [recent movies](https://movie.douban.com/)
 - [top movies](https://movie.douban.com/top250?start=0&filter=)
 
-## TO DO LIST
+## Todo
 
-### login page
-
-    - [x] sign in / sign up (removed)
-
-### data bind with user id
-
-### improvement
+### Improvement
 
 - [x] sync recent / top movies
-- [x] upgrade to antd 3.10.1
 - [x] latest sync time
 - [x] search movie name
-- [x] database / layout re-dsign
+- [x] database upgrade
 - [x] schedule task
 
 ## Dependency
 
-### [Front end](https://github.com/zzh1991/movie-helper-front)
-
-- react
-- redux
-- react-router-dom
-- react-redux
-- redux-thunk
-- redux-saga
-- [ant design](https://ant.design)
-- day.js
-- webpack 4
-- @babel 7
-- eslint
-
-### Back end
-
 - Spring Boot 2
-- PostgreSQL
+- PostgresQL
 - Guava
 - Swagger2
 - Flyway
 - Prometheus
+- GraphQL
+- Mybatis
 
 ## Config
 
-### hot deploy for Intellij IDEA
+### Hot deploy for Intellij IDEA
 
 ```xml
 <dependency>
@@ -137,27 +122,10 @@ git submodule update --remote front
 - setting -> compiler -> make project automatically
 - ctrl + shift + a -> registry -> auto make enabled
 
-### active dev profile
+### Active dev profile
 
 1. edit run/debug configuration
 2. add environment variables: spring.profiles.active=dev
-
-## react router v4
-
-### HashRouter
-
-- install react-router-dom
-
-```javascript
-<HashRouter>
-  <div>
-    <Route exact path="/" component={App} />
-    <Route path="/app" component={App} />
-  </div>
-</HashRouter>
-
-// this.props.history.push('path');
-```
 
 ## Problems
 
@@ -165,20 +133,19 @@ git submodule update --remote front
 
 > firstly should migrate to **4.2.0** and then 5.x
 
-### h2 database conflict with druid
+### H2 database conflict with druid?
 
-## Package front files
+## Author
 
-### webpack
+👤 **Zhihao Zhang**
 
-#### babel
+- Github: [@zzh1991](https://github.com/zzh1991)
 
-- arrow function: transform-class-properties
-- async: "transform-runtime", { "polyfill": false, "regenerator": true }
+## Show your support
 
-### [Parcel](https://parceljs.org/)
+Please ⭐️ this repository if this project helped you!
 
-#### Problems for parcel
+## 📝 License
 
-- css packaged, class name is not same, so not css effect
-- svg, jpg url path is not right for static resource, not web resource
+Copyright © 2019 [zzh1991](https://github.com/zzh1991).<br />
+This project is [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE) licensed.

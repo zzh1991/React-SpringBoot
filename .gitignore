@@ -4,10 +4,6 @@ node_modules
 .idea
 .vscode
 .mvn
-gradle
-gradlew
-gradlew.bat
-build.gradle
 .DS_Store
 src/.DS_Store
 src/main/.DS_Store
