@@ -23,7 +23,7 @@
         <flyway.version>5.2.4</flyway.version>
         <okhttp.verion>3.14.2</okhttp.verion>
         <commons-lang3.version>3.9</commons-lang3.version>
-        <mybatis-spring-boot-starter.version>2.1.0</mybatis-spring-boot-starter.version>
+        <mybatis-plus-boot-starter.version>3.1.2</mybatis-plus-boot-starter.version>
         <micrometer.version>1.2.0</micrometer.version>
         <prometheus.version>0.6.0</prometheus.version>
         <h2.version>1.4.199</h2.version>
@@ -198,18 +198,17 @@
             <version>${graphql-spring-boot-starter.version}</version>
         </dependency>
 
-        <!--   mybatis    -->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis-spring-boot-starter.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
             <version>${h2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus-boot-starter.version}</version>
         </dependency>
 
     </dependencies>

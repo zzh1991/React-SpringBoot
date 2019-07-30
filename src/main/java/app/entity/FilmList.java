@@ -1,6 +1,8 @@
 package app.entity;
 
 import app.constant.MovieTypeEnum;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +23,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "movie_list")
+@TableName("movie_list")
 public class FilmList implements Serializable {
     private static final long serialVersionUID = -8398532270073465206L;
 
@@ -47,5 +50,6 @@ public class FilmList implements Serializable {
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "movie_type")
+    @TableField("movie_type")
     private MovieTypeEnum movieTypeEnum;
 }
