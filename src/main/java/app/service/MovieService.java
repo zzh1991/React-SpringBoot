@@ -9,6 +9,7 @@ import app.vo.movie.Avatar;
 import app.vo.movie.Movie;
 import app.vo.movie.MovieSubject;
 import app.vo.movie.MovieVo;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -122,7 +123,10 @@ public class MovieService {
     }
 
     public List<FilmList> getFilmList(MovieTypeEnum movieTypeEnum) {
-        return filmListMapper.findByMovieTypeEnumOrderByRatingDesc(movieTypeEnum);
+        return filmListMapper.selectList(Wrappers.<FilmList>lambdaQuery()
+                .eq(FilmList::getMovieTypeEnum, movieTypeEnum)
+                .orderByDesc(FilmList::getRating)
+        );
     }
 
     private void deleteOutDataMovie(MovieTypeEnum movieTypeEnum) {
@@ -264,6 +268,9 @@ public class MovieService {
     }
 
     public List<FilmList> getAllMoviesList() {
-        return filmListMapper.findAllByOrderByMovieYearDescRatingDesc();
+        return filmListMapper.selectList(Wrappers.<FilmList>lambdaQuery()
+                .orderByDesc(FilmList::getMovieYear)
+                .orderByDesc(FilmList::getRating)
+        );
     }
 }
