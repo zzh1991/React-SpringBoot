@@ -89,10 +89,10 @@ public class MovieService {
             url = "https://douban.uieee.com/v2/movie/top250?start=0&count=100";
         }
         List<Movie> movieList = getMovies(url);
-        if (!movieList.isEmpty()) {
+        if (Objects.nonNull(movieList) && !movieList.isEmpty()) {
             this.deleteOutDataMovie(movieTypeEnum);
+            this.saveFilmList(movieList, movieTypeEnum);
         }
-        this.saveFilmList(movieList, movieTypeEnum);
     }
 
     private void saveFilmList(List<Movie> movieList, MovieTypeEnum movieTypeEnum) {
@@ -181,7 +181,7 @@ public class MovieService {
                 boolean fetchStatus = future.get();
                 log.warn("update summary success: {}", fetchStatus);
             } catch (Exception e) {
-                log.error("get movie summary error");
+                log.error("get movie summary error", e);
             }
         }
 
