@@ -37,6 +37,11 @@ spring:
   main:
     lazy-initialization: true
 
+  data:
+    elasticsearch:
+      cluster-name: docker-cluster
+      cluster-nodes: localhost:9300
+
 server:
   port: ${PORT:8080}
 
