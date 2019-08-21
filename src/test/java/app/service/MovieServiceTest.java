@@ -1,8 +1,9 @@
 package app.service;
 
-import app.dao.FilmListRepository;
-import app.entity.FilmList;
-import app.mapper.FilmListMapper;
+import app.dao.FilmRepository;
+import app.entity.Film;
+import app.mapper.FilmMapper;
+import app.service.db.DataService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,25 +17,29 @@ import static org.mockito.Mockito.when;
 public class MovieServiceTest {
 
     @Mock
-    FilmListRepository filmListRepository;
+    FilmRepository filmRepository;
 
     @InjectMocks
     MovieService movieService;
 
     @Mock
-    FilmListMapper filmListMapper;
+    FilmMapper filmMapper;
+
+    @Mock
+    DataService dataService;
 
 
     @Test
-    public void getFilmListById() {
-        FilmList filmList = FilmList.builder()
+    public void findByMovieId() {
+        Film film = Film.builder()
                 .id(1L)
                 .movieId(1L)
                 .build();
 
-        when(filmListRepository.findFirstByMovieId(filmList.getMovieId())).thenReturn(filmList);
+//        when(filmRepository.findFirstByMovieId(film.getMovieId())).thenReturn(film);
+        when(dataService.findByMovieId(film.getMovieId())).thenReturn(film);
 
-        FilmList result = movieService.getFilmListById(filmList.getMovieId());
-        assertThat(result).isEqualTo(filmList);
+        Film result = movieService.getMovieById(film.getMovieId());
+        assertThat(result).isEqualTo(film);
     }
 }

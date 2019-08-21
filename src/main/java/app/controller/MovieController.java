@@ -1,7 +1,7 @@
 package app.controller;
 
 import app.constant.MovieTypeEnum;
-import app.entity.FilmList;
+import app.entity.Film;
 import app.service.MovieService;
 import app.vo.movie.MovieSubject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +31,13 @@ public class MovieController {
     }
 
     @GetMapping("movie/recent")
-    public List<FilmList> getRecentMovie() {
-        return movieService.getFilmList(MovieTypeEnum.RECENT);
+    public List<Film> getRecentMovie() {
+        return movieService.getMoviesByMovieTypeEnum(MovieTypeEnum.RECENT);
     }
 
     @GetMapping("movie/top250")
-    public List<FilmList> getTopMovie() {
-        return movieService.getFilmList(MovieTypeEnum.TOP);
+    public List<Film> getTopMovie() {
+        return movieService.getMoviesByMovieTypeEnum(MovieTypeEnum.TOP);
     }
 
     @GetMapping("movie/subject/{id}")
@@ -51,27 +51,27 @@ public class MovieController {
     }
 
     @GetMapping("list/{id}")
-    public FilmList getFilmListById(@PathVariable Long id) {
-        return movieService.getFilmListById(id);
+    public Film getFilmListById(@PathVariable Long id) {
+        return movieService.getMovieById(id);
     }
 
     @PostMapping("movie/star")
-    public List<FilmList> getStarList(@RequestBody List<Long> movieIdList) {
-        return movieService.getStarList(movieIdList);
+    public List<Film> getStarList(@RequestBody List<Long> movieIdList) {
+        return movieService.getMoviesByMovieIds(movieIdList);
     }
 
     @PostMapping("movie/viewed")
-    public List<FilmList> getViewedList(@RequestBody List<Long> movieIdList) {
-        return movieService.getViewedList(movieIdList);
+    public List<Film> getViewedList(@RequestBody List<Long> movieIdList) {
+        return movieService.getMoviesByMovieIds(movieIdList);
     }
 
     @PostMapping("movie/sync/{movieId}")
-    public FilmList syncOneMovieToMovieList(@PathVariable Long movieId) {
-        return movieService.syncOneMovieToMovieList(movieId);
+    public Film syncOneMovieToMovieList(@PathVariable Long movieId) {
+        return movieService.syncMovieByMovieId(movieId);
     }
 
     @GetMapping("movie/all")
-    public List<FilmList> getAllMoviesList() {
-        return movieService.getAllMoviesList();
+    public List<Film> getAllMoviesList() {
+        return movieService.getAllMovies();
     }
 }

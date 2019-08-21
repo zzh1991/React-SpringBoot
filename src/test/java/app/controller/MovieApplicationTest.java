@@ -1,8 +1,8 @@
 package app.controller;
 
-import app.dao.FilmListRepository;
-import app.entity.FilmList;
-import app.mapper.FilmListMapper;
+import app.dao.FilmRepository;
+import app.entity.Film;
+import app.mapper.FilmMapper;
 import app.service.MovieService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,27 +36,27 @@ public class MovieApplicationTest {
     MovieService movieService;
 
     @MockBean
-    FilmListRepository filmListRepository;
+    FilmRepository filmRepository;
 
     @MockBean
-    FilmListMapper filmListMapper;
+    FilmMapper filmMapper;
 
     @Test
     public void getFilmListById() {
-        FilmList filmList = FilmList.builder()
+        Film film = Film.builder()
                 .id(1L)
                 .movieId(1L)
                 .build();
 
-        when(filmListRepository.findFirstByMovieId(1L)).thenReturn(filmList);
-        when(movieService.getFilmListById(1L)).thenReturn(filmList);
+        when(filmRepository.findFirstByMovieId(1L)).thenReturn(film);
+        when(movieService.getMovieById(1L)).thenReturn(film);
 
-        FilmList result = get(uri.concat("/list/").concat(filmList.getMovieId().toString()))
+        Film result = get(uri.concat("/list/").concat(film.getMovieId().toString()))
         .then()
         .assertThat()
         .statusCode(HttpStatus.OK.value())
         .extract()
-        .as(FilmList.class);
-        assertThat(result).isEqualTo(filmList);
+        .as(Film.class);
+        assertThat(result).isEqualTo(film);
     }
 }

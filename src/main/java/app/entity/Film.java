@@ -24,7 +24,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "movie_list")
 @TableName("movie_list")
-public class FilmList implements Serializable {
+public class Film implements Serializable {
     private static final long serialVersionUID = -8398532270073465206L;
 
     @Id
