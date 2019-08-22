@@ -2,14 +2,12 @@ package app.service;
 
 import app.aop.MethodTime;
 import app.constant.MovieTypeEnum;
-import app.dao.FilmListRepository;
-import app.entity.FilmList;
-import app.mapper.FilmListMapper;
+import app.entity.Film;
+import app.service.db.DataService;
 import app.vo.movie.Avatar;
 import app.vo.movie.Movie;
 import app.vo.movie.MovieSubject;
 import app.vo.movie.MovieVo;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -45,12 +43,48 @@ public class MovieService {
 
     private static final String SEPARATOR = ",";
     private static final String LARGE = "large";
+    private static final String DOUBAN_URL = "https://douban.uieee.com";
+
+    private static final OkHttpClient HTTP_CLIENT = new OkHttpClient();
     private static final ExecutorService executorService =
             new ThreadPoolExecutor(2, 2, 60, TimeUnit.SECONDS,
                     new LinkedBlockingQueue<>());
 
-    private FilmListRepository filmListRepository;
-    private FilmListMapper filmListMapper;
+    private DataService dataService;
+
+    public Film getMovieById(Long id) {
+        return dataService.findByMovieId(id);
+    }
+
+    public List<Film> getMoviesByMovieTypeEnum(MovieTypeEnum movieTypeEnum) {
+        return dataService.listFilmsByMovieTypeEnum(movieTypeEnum);
+    }
+
+    public List<Film> getAllMovies() {
+        return dataService.listAllFilms();
+    }
+
+    public List<Film> getMoviesByMovieIds(List<Long> movieIdList) {
+        List<Long> filterMovieIdList = movieIdList.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        List<Film> filmList = dataService.findByMovieIds(filterMovieIdList);
+        List<Long> existedIdList = filmList.stream()
+                .filter(film -> !Objects.isNull(film.getSummary()))
+                .map(Film::getMovieId).collect(Collectors.toList());
+        List<Film> newFilmList = Lists.newArrayList();
+        for (Long movieId : filterMovieIdList) {
+            if (!existedIdList.contains(movieId)) {
+                Film syncedMovie = this.syncMovieByMovieId(movieId);
+                if (Objects.nonNull(syncedMovie)) {
+                    newFilmList.add(syncedMovie);
+                }
+            }
+        }
+
+        batchUpdateFilmList(newFilmList);
+        return dataService.findByMovieIds(filterMovieIdList);
+    }
 
     @MethodTime
     public void syncMovies(MovieTypeEnum movieTypeEnum) {
@@ -58,7 +92,28 @@ public class MovieService {
         this.saveDetailToMovie(movieTypeEnum);
     }
 
-    private List<Movie> getMovies(String url) {
+    private void saveMovie(MovieTypeEnum movieTypeEnum) {
+        String url = DOUBAN_URL.concat("/v2/movie/in_theaters?city=上海");
+        if (MovieTypeEnum.TOP.equals(movieTypeEnum)) {
+            url = DOUBAN_URL.concat("/v2/movie/top250?start=0&count=100");
+        }
+        List<Movie> movieList = getMoviesFromOrigin(url);
+        if (Objects.nonNull(movieList) && !movieList.isEmpty()) {
+            this.deleteOutDataMovie(movieTypeEnum);
+            this.saveFilmList(movieList, movieTypeEnum);
+        }
+    }
+
+    private String getUrlContent(String url) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Response response = HTTP_CLIENT.newCall(request).execute();
+        return response.body().string();
+    }
+
+    private List<Movie> getMoviesFromOrigin(String url) {
         try {
             String context = getUrlContent(url);
             ObjectMapper mapper = new ObjectMapper();
@@ -72,34 +127,18 @@ public class MovieService {
         }
     }
 
-    private String getUrlContent(String url) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-        Response response = client.newCall(request).execute();
-        return response.body().string();
-    }
-
-    private void saveMovie(MovieTypeEnum movieTypeEnum) {
-        String url = "https://douban.uieee.com/v2/movie/in_theaters?city=上海";
-        if (MovieTypeEnum.TOP.equals(movieTypeEnum)) {
-            url = "https://douban.uieee.com/v2/movie/top250?start=0&count=100";
-        }
-        List<Movie> movieList = getMovies(url);
-        if (Objects.nonNull(movieList) && !movieList.isEmpty()) {
-            this.deleteOutDataMovie(movieTypeEnum);
-            this.saveFilmList(movieList, movieTypeEnum);
-        }
+    private void deleteOutDataMovie(MovieTypeEnum movieTypeEnum) {
+        List<Film> filmList = dataService.findByMovieTypeEnum(movieTypeEnum);
+        filmList.forEach(film -> film.setMovieTypeEnum(MovieTypeEnum.NORMAL));
+        dataService.saveAll(filmList);
+        log.info("set old recent {} movies to normal movies", filmList.size());
     }
 
     private void saveFilmList(List<Movie> movieList, MovieTypeEnum movieTypeEnum) {
-        List<FilmList> filmList = Lists.newArrayList();
+        List<Film> filmList = Lists.newArrayList();
         for (Movie movie : movieList) {
-            FilmList film = filmListRepository.findFirstByMovieId(movie.getId());
-            FilmList newFilm = FilmList.builder()
+            Film film = dataService.findByMovieId(movie.getId());
+            Film newFilm = Film.builder()
                     .movieId(movie.getId())
                     .title(movie.getTitle())
                     .rating(movie.getRating().getAverage())
@@ -122,49 +161,21 @@ public class MovieService {
         batchUpdateFilmList(filmList);
     }
 
-    public List<FilmList> getFilmList(MovieTypeEnum movieTypeEnum) {
-        return filmListMapper.selectList(Wrappers.<FilmList>lambdaQuery()
-                .eq(FilmList::getMovieTypeEnum, movieTypeEnum)
-                .orderByDesc(FilmList::getRating)
-        );
-    }
-
-    private void deleteOutDataMovie(MovieTypeEnum movieTypeEnum) {
-        List<FilmList> filmList = filmListRepository.findByMovieTypeEnumOrderByRatingDesc(movieTypeEnum);
-        filmList.forEach(film -> film.setMovieTypeEnum(MovieTypeEnum.NORMAL));
-        filmListRepository.saveAll(filmList);
-        log.info("set old recent {} movies to normal movies", filmList.size());
-    }
-
-    private String getNames(List<Avatar> avatars) {
-        List<String> nameList = Lists.newArrayList();
-        avatars.forEach(avatar ->
-            nameList.add(avatar.getName())
-        );
-        return StringUtils.join(nameList.toArray(), SEPARATOR);
-    }
-
-    public MovieSubject getMovieSubject(Long id) {
-        String url = "https://douban.uieee.com/v2/movie/subject/" + id;
-        MovieSubject movieSubject;
-        try {
-            String context = getUrlContent(url);
-            ObjectMapper mapper = new ObjectMapper();
-            movieSubject = mapper.readValue(context, TypeFactory.defaultInstance().constructType(MovieSubject.class));
-        } catch (Exception e) {
-            return null;
+    private void batchUpdateFilmList(List<Film> filmList) {
+        if (!filmList.isEmpty()) {
+            dataService.saveAll(filmList);
+            log.info("update {} movie items summary and country", filmList.size());
         }
-        return movieSubject;
     }
 
     private void saveDetailToMovie(MovieTypeEnum movieTypeEnum) {
-        List<FilmList> filmList = filmListRepository.findByMovieTypeEnumOrderByRatingDesc(movieTypeEnum);
-        List<FilmList> newFilmList = Lists.newArrayList();
+        List<Film> filmList = dataService.findByMovieTypeEnum(movieTypeEnum);
+        List<Film> newFilmList = Lists.newArrayList();
         List<CompletableFuture<Boolean>> completableFuture =
                 filmList.stream()
                         .filter(film -> Strings.isNullOrEmpty(film.getSummary()))
                         .map(film -> CompletableFuture.supplyAsync(() -> getMovieSubject(film.getMovieId()),
-                        executorService)
+                                executorService)
                                 .thenApply(movieSubject -> {
                                     if (Objects.nonNull(movieSubject)) {
                                         film.setSummary(movieSubject.getSummary());
@@ -188,51 +199,10 @@ public class MovieService {
         batchUpdateFilmList(newFilmList);
     }
 
-    private void batchUpdateFilmList(List<FilmList> newFilmList) {
-        if (!newFilmList.isEmpty()) {
-            filmListRepository.saveAll(newFilmList);
-            log.info("update {} movie items summary and country", newFilmList.size());
-        }
-    }
-
-    public FilmList getFilmListById(Long id) {
-        return filmListRepository.findFirstByMovieId(id);
-    }
-
-    public List<FilmList> getStarList(List<Long> movieIdList) {
-        return getFilmLists(movieIdList);
-    }
-
-    private List<FilmList> getFilmLists(List<Long> movieIdList) {
-        movieIdList = movieIdList.stream()
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        List<FilmList> filmLists = filmListRepository.findByMovieIdIsIn(movieIdList);
-        List<Long> existedIdList = filmLists.stream()
-                .filter(filmList -> !Objects.isNull(filmList.getSummary()))
-                .map(FilmList::getMovieId).collect(Collectors.toList());
-        List<FilmList> newFilmList = Lists.newArrayList();
-        for (Long movieId : movieIdList) {
-            if (!existedIdList.contains(movieId)) {
-                FilmList syncedMovie = this.syncOneMovieToMovieList(movieId);
-                if (Objects.nonNull(syncedMovie)) {
-                    newFilmList.add(syncedMovie);
-                }
-            }
-        }
-
-        batchUpdateFilmList(newFilmList);
-        return filmListRepository.findByMovieIdIsIn(movieIdList);
-    }
-
-    public List<FilmList> getViewedList(List<Long> movieIdList) {
-        return getFilmLists(movieIdList);
-    }
-
-    public FilmList syncOneMovieToMovieList(Long movieId) {
-        FilmList filmList = filmListRepository.findFirstByMovieId(movieId);
+    public Film syncMovieByMovieId(Long movieId) {
+        Film film = dataService.findByMovieId(movieId);
         MovieSubject movieSubject;
-        FilmList syncedMovie;
+        Film syncedMovie;
         try {
             movieSubject = getMovieSubject(movieId);
         } catch (Exception e) {
@@ -241,7 +211,7 @@ public class MovieService {
         }
 
         if (!Objects.isNull(movieSubject)) {
-            syncedMovie = FilmList.builder()
+            syncedMovie = Film.builder()
                     .movieId(movieId)
                     .title(movieSubject.getTitle())
                     .rating(movieSubject.getRating().getAverage())
@@ -260,17 +230,32 @@ public class MovieService {
             return null;
         }
 
-        if (!Objects.isNull(filmList)) {
-            syncedMovie.setId(filmList.getId());
+        if (!Objects.isNull(film)) {
+            syncedMovie.setId(film.getId());
         }
 
         return syncedMovie;
     }
 
-    public List<FilmList> getAllMoviesList() {
-        return filmListMapper.selectList(Wrappers.<FilmList>lambdaQuery()
-                .orderByDesc(FilmList::getMovieYear)
-                .orderByDesc(FilmList::getRating)
+    public MovieSubject getMovieSubject(Long id) {
+        String url = DOUBAN_URL.concat("/v2/movie/subject/")
+                .concat(String.valueOf(id));
+        MovieSubject movieSubject;
+        try {
+            String context = getUrlContent(url);
+            ObjectMapper mapper = new ObjectMapper();
+            movieSubject = mapper.readValue(context, TypeFactory.defaultInstance().constructType(MovieSubject.class));
+        } catch (Exception e) {
+            return null;
+        }
+        return movieSubject;
+    }
+
+    private String getNames(List<Avatar> avatars) {
+        List<String> nameList = Lists.newArrayList();
+        avatars.forEach(avatar ->
+                nameList.add(avatar.getName())
         );
+        return StringUtils.join(nameList.toArray(), SEPARATOR);
     }
 }

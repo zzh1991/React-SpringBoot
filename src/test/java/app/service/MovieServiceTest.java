@@ -1,13 +1,16 @@
 package app.service;
 
-import app.dao.FilmListRepository;
-import app.entity.FilmList;
-import app.mapper.FilmListMapper;
+import app.constant.MovieTypeEnum;
+import app.entity.Film;
+import app.service.db.DataService;
+import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -15,26 +18,37 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 public class MovieServiceTest {
 
-    @Mock
-    FilmListRepository filmListRepository;
-
     @InjectMocks
-    MovieService movieService;
+    private MovieService movieService;
 
     @Mock
-    FilmListMapper filmListMapper;
+    private DataService dataService;
 
+    private static final Film FILM = Film.builder()
+            .id(1L)
+            .movieId(1L)
+            .build();
+
+    private static final List<Film> FILM_LIST = Lists.newArrayList(FILM);
 
     @Test
-    public void getFilmListById() {
-        FilmList filmList = FilmList.builder()
-                .id(1L)
-                .movieId(1L)
-                .build();
+    public void findByMovieId() {
+        when(dataService.findByMovieId(FILM.getMovieId())).thenReturn(FILM);
+        Film result = movieService.getMovieById(FILM.getMovieId());
+        assertThat(result).isEqualTo(FILM);
+    }
 
-        when(filmListRepository.findFirstByMovieId(filmList.getMovieId())).thenReturn(filmList);
+    @Test
+    public void getMoviesByMovieTypeEnum() {
+        when(dataService.listFilmsByMovieTypeEnum(MovieTypeEnum.TOP)).thenReturn(FILM_LIST);
+        List<Film> filmList = movieService.getMoviesByMovieTypeEnum(MovieTypeEnum.TOP);
+        assertThat(filmList.size()).isEqualTo(FILM_LIST.size());
+    }
 
-        FilmList result = movieService.getFilmListById(filmList.getMovieId());
-        assertThat(result).isEqualTo(filmList);
+    @Test
+    public void getAllMovies() {
+        when(dataService.listAllFilms()).thenReturn(FILM_LIST);
+        List<Film> filmList = movieService.getAllMovies();
+        assertThat(filmList.size()).isEqualTo(FILM_LIST.size());
     }
 }

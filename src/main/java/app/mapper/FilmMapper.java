@@ -1,6 +1,6 @@
 package app.mapper;
 
-import app.entity.FilmList;
+import app.entity.Film;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -8,5 +8,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @date 2019.07.30
  */
 
-public interface FilmListMapper extends BaseMapper<FilmList> {
+public interface FilmMapper extends BaseMapper<Film> {
 }

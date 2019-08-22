@@ -1,9 +1,8 @@
 package app.controller;
 
-import app.dao.FilmListRepository;
-import app.entity.FilmList;
-import app.mapper.FilmListMapper;
+import app.entity.Film;
 import app.service.MovieService;
+import app.service.db.DataService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,36 +26,33 @@ public class MovieApplicationTest {
 
     private String uri;
 
+    @MockBean
+    MovieService movieService;
+
+    @MockBean
+    DataService dataService;
+
     @PostConstruct
     public void init() {
         uri = "http://localhost:" + port;
     }
 
-    @MockBean
-    MovieService movieService;
-
-    @MockBean
-    FilmListRepository filmListRepository;
-
-    @MockBean
-    FilmListMapper filmListMapper;
-
     @Test
     public void getFilmListById() {
-        FilmList filmList = FilmList.builder()
+        Film film = Film.builder()
                 .id(1L)
                 .movieId(1L)
                 .build();
 
-        when(filmListRepository.findFirstByMovieId(1L)).thenReturn(filmList);
-        when(movieService.getFilmListById(1L)).thenReturn(filmList);
+        when(dataService.findByMovieId(1L)).thenReturn(film);
+        when(movieService.getMovieById(1L)).thenReturn(film);
 
-        FilmList result = get(uri.concat("/list/").concat(filmList.getMovieId().toString()))
+        Film result = get(uri.concat("/list/").concat(film.getMovieId().toString()))
         .then()
         .assertThat()
         .statusCode(HttpStatus.OK.value())
         .extract()
-        .as(FilmList.class);
-        assertThat(result).isEqualTo(filmList);
+        .as(Film.class);
+        assertThat(result).isEqualTo(film);
     }
 }
