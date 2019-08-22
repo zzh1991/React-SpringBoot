@@ -1,9 +1,8 @@
 package app.controller;
 
-import app.dao.FilmRepository;
 import app.entity.Film;
-import app.mapper.FilmMapper;
 import app.service.MovieService;
+import app.service.db.DataService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,19 +26,16 @@ public class MovieApplicationTest {
 
     private String uri;
 
-    @PostConstruct
-    public void init() {
-        uri = "http://localhost:" + port;
-    }
-
     @MockBean
     MovieService movieService;
 
     @MockBean
-    FilmRepository filmRepository;
+    DataService dataService;
 
-    @MockBean
-    FilmMapper filmMapper;
+    @PostConstruct
+    public void init() {
+        uri = "http://localhost:" + port;
+    }
 
     @Test
     public void getFilmListById() {
@@ -48,7 +44,7 @@ public class MovieApplicationTest {
                 .movieId(1L)
                 .build();
 
-        when(filmRepository.findFirstByMovieId(1L)).thenReturn(film);
+        when(dataService.findByMovieId(1L)).thenReturn(film);
         when(movieService.getMovieById(1L)).thenReturn(film);
 
         Film result = get(uri.concat("/list/").concat(film.getMovieId().toString()))

@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public class FilmRepositoryTest extends SpringBootBaseTest {
+    private static final long MOVIE_ID = 1292052L;
     @Autowired
     private FilmRepository filmRepository;
 
@@ -21,15 +22,15 @@ public class FilmRepositoryTest extends SpringBootBaseTest {
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
     public void findFirstByMovieId() {
-        Film film = filmRepository.findFirstByMovieId(1292052L);
-        assertThat(film.getMovieId()).isEqualTo(1292052L);
+        Film film = filmRepository.findFirstByMovieId(MOVIE_ID);
+        assertThat(film.getMovieId()).isEqualTo(MOVIE_ID);
     }
 
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
     public void findByMovieIdIsIn() {
-        List<Film> filmList = filmRepository.findByMovieIdIsIn(Lists.newArrayList(1292052L));
+        List<Film> filmList = filmRepository.findByMovieIdIsIn(Lists.newArrayList(MOVIE_ID));
         assertThat(filmList.size()).isEqualTo(1);
     }
 

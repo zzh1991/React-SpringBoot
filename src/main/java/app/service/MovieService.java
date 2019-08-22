@@ -65,15 +65,15 @@ public class MovieService {
     }
 
     public List<Film> getMoviesByMovieIds(List<Long> movieIdList) {
-        movieIdList = movieIdList.stream()
+        List<Long> filterMovieIdList = movieIdList.stream()
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        List<Film> filmList = dataService.findByMovieIds(movieIdList);
+        List<Film> filmList = dataService.findByMovieIds(filterMovieIdList);
         List<Long> existedIdList = filmList.stream()
                 .filter(film -> !Objects.isNull(film.getSummary()))
                 .map(Film::getMovieId).collect(Collectors.toList());
         List<Film> newFilmList = Lists.newArrayList();
-        for (Long movieId : movieIdList) {
+        for (Long movieId : filterMovieIdList) {
             if (!existedIdList.contains(movieId)) {
                 Film syncedMovie = this.syncMovieByMovieId(movieId);
                 if (Objects.nonNull(syncedMovie)) {
@@ -83,7 +83,7 @@ public class MovieService {
         }
 
         batchUpdateFilmList(newFilmList);
-        return dataService.findByMovieIds(movieIdList);
+        return dataService.findByMovieIds(filterMovieIdList);
     }
 
     @MethodTime
