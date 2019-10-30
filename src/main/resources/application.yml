@@ -25,6 +25,10 @@ spring:
     restart:
       exclude: static/**, public/**
 
+  h2:
+    console:
+      enabled: false
+
 server:
   port: ${PORT:8080}
 
