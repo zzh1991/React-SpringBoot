@@ -1,5 +1,6 @@
 package app.es;
 
+import app.constant.MovieTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,18 @@ public class EsController {
     private EsService esService;
 
     @GetMapping("movie")
-    public void saveMovieToEs() {
-        esService.saveMovieToEs();
+    public void saveAllMovieToEs() {
+        esService.saveAllMoviesToEs();
+    }
+
+    @GetMapping("movie/recent")
+    public void saveRecentMoviesToEs() {
+        esService.saveMoviesToEsByMovieTypeEnum(MovieTypeEnum.RECENT);
+    }
+
+    @GetMapping("movie/top")
+    public void saveTopMoviesToEs() {
+        esService.saveMoviesToEsByMovieTypeEnum(MovieTypeEnum.TOP);
     }
 
     @DeleteMapping("movie")

@@ -1,10 +1,10 @@
 package app.es;
 
-import app.entity.FilmList;
+import app.constant.MovieTypeEnum;
+import app.entity.Film;
 import app.service.MovieService;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,19 +33,29 @@ public class EsService {
     @Autowired
     private EsFilmRepository esFilmRepository;
 
-    public void saveMovieToEs() {
-        List<FilmList> filmLists = movieService.getAllMoviesList();
+    public void saveAllMoviesToEs() {
+        List<Film> filmList = movieService.getAllMovies();
+        saveFilmsToEs(filmList);
+    }
+
+    public void saveMoviesToEsByMovieTypeEnum(MovieTypeEnum movieTypeEnum) {
+        List<Film> filmList = movieService.getMoviesByMovieTypeEnum(movieTypeEnum);
+        saveFilmsToEs(filmList);
+    }
+
+    private void saveFilmsToEs(List<Film> filmList) {
         List<EsFilm> esFilmList = Lists.newArrayList();
-        filmLists.forEach(filmList -> {
+        filmList.forEach(film -> {
             EsFilm esFilm = EsFilm.builder().build();
-            BeanUtils.copyProperties(filmList, esFilm);
+            BeanUtils.copyProperties(film, esFilm);
             esFilmList.add(esFilm);
         });
         esFilmRepository.saveAll(esFilmList);
     }
 
     public void deleteMovieIndex() {
-        elasticsearchTemplate.deleteIndex("movie");
+//        elasticsearchTemplate.deleteIndex("movie");
+        elasticsearchTemplate.deleteIndex(EsFilm.class);
     }
 
     public List<EsFilm> searchMovie(String search) {

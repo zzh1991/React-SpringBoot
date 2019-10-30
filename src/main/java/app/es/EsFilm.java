@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -24,6 +26,7 @@ import javax.persistence.Enumerated;
 public class EsFilm {
     @Id
     private Long movieId;
+
     private String title;
     private double rating;
     private int movieYear;
@@ -34,6 +37,7 @@ public class EsFilm {
     private String genres;
     private String summary;
     private String countries;
+
     @Enumerated(value = EnumType.STRING)
     private MovieTypeEnum movieTypeEnum;
 }
