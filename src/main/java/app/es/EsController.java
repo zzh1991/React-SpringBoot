@@ -17,17 +17,17 @@ public class EsController {
     @Autowired
     private EsService esService;
 
-    @GetMapping("movie")
+    @PostMapping("movie")
     public void saveAllMovieToEs() {
         esService.saveAllMoviesToEs();
     }
 
-    @GetMapping("movie/recent")
+    @PostMapping("movie/recent")
     public void saveRecentMoviesToEs() {
         esService.saveMoviesToEsByMovieTypeEnum(MovieTypeEnum.RECENT);
     }
 
-    @GetMapping("movie/top")
+    @PostMapping("movie/top")
     public void saveTopMoviesToEs() {
         esService.saveMoviesToEsByMovieTypeEnum(MovieTypeEnum.TOP);
     }
@@ -40,5 +40,10 @@ public class EsController {
     @GetMapping("movie/{search}")
     public List<EsFilm> searchMovie(@PathVariable String search) {
         return esService.searchMovie(search);
+    }
+
+    @GetMapping("movie/fuzzy/{search}")
+    public List<EsFilm> searchMovieFuzzily(@PathVariable String search) {
+        return esService.searchMovieFuzzily(search);
     }
 }
