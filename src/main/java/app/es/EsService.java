@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static org.elasticsearch.index.query.Operator.AND;
-import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * @author Zhihao Zhang
@@ -59,18 +59,21 @@ public class EsService {
         elasticsearchTemplate.deleteIndex(EsFilm.class);
     }
 
-    public List<EsFilm> searchMovie(String search) {
+    public List<EsFilm> searchMovie(String search, MovieTypeEnum movieTypeEnum) {
         if (Strings.isNullOrEmpty(search)) {
             return Lists.newArrayList();
         }
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                .withQuery(multiMatchQuery(search)
-                        .field("title")
-                        .field("casts")
-                        .field("directors")
-                        .field("summary")
-                        .minimumShouldMatch("100%")
-                        .type(MultiMatchQueryBuilder.Type.BEST_FIELDS))
+                .withQuery(boolQuery()
+                    .filter(termQuery("movieTypeEnum.keyword", movieTypeEnum.toString()))
+                    .must(multiMatchQuery(search)
+                            .field("title")
+                            .field("casts")
+                            .field("directors")
+                            .field("summary")
+                            .minimumShouldMatch("100%")
+                            .type(MultiMatchQueryBuilder.Type.BEST_FIELDS))
+                )
                 .build();
         return elasticsearchTemplate.queryForList(searchQuery, EsFilm.class);
     }

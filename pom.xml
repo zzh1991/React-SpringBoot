@@ -25,7 +25,7 @@
 
         <!--   plugin version     -->
         <maven-lombok.version>1.18.10.0</maven-lombok.version>
-        <spring-data-elasticsearch.version>3.1.5.RELEASE</spring-data-elasticsearch.version>
+        <spring-data-elasticsearch.version>3.1.11.RELEASE</spring-data-elasticsearch.version>
     </properties>
 
     <dependencies>

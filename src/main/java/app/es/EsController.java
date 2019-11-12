@@ -39,7 +39,17 @@ public class EsController {
 
     @GetMapping("movie/{search}")
     public List<EsFilm> searchMovie(@PathVariable String search) {
-        return esService.searchMovie(search);
+        return esService.searchMovie(search, MovieTypeEnum.NORMAL);
+    }
+
+//    @GetMapping("movie/recent/{search}")
+//    public List<EsFilm> searchRecentMovie(@PathVariable String search) {
+//        return esService.searchMovie(search, MovieTypeEnum.RECENT);
+//    }
+
+    @GetMapping("movie/top/{search}")
+    public List<EsFilm> searchTopMovie(@PathVariable String search) {
+        return esService.searchMovie(search, MovieTypeEnum.TOP);
     }
 
     @GetMapping("movie/fuzzy/{search}")
