@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Prometheus Configuration
  * @author Zhihao Zhang
- * @date 2018.8.30
+ * @since 2018.8.30
  */
 
 @Configuration

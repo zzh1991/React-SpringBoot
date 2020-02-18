@@ -59,6 +59,14 @@ git rebase origin/master
 git submodule update --remote front
 ```
 
+## Java doc
+
+```bash
+mvn javadoc:javadoc
+```
+
+> open `target/site/apidocs/index.html` by browser
+
 ## Demo: [Movie Helper](http://movie.zzhpro.com)
 
 ### Recent Movies

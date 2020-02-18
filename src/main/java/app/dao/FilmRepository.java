@@ -15,28 +15,28 @@ public interface FilmRepository extends CrudRepository<Film, Long> {
     /**
      * find film by movie id
      * @param movieId movieId
-     * @return FilmList
+     * @return Film
      */
     Film findFirstByMovieId(Long movieId);
 
     /**
      * get viewed or stared films by movie ids
      *
-     * @param ids movieIds
-     * @return List<FilmList>
+     * @param ids list of movieIds
+     * @return list of Film
      */
     List<Film> findByMovieIdIsIn(List<Long> ids);
 
     /**
      * get all movies
-     * @return List<FilmList>
+     * @return list of Film
      */
     List<Film> findAllByOrderByMovieYearDescRatingDesc();
 
     /**
      * get movie list by movie type
-     * @param movieTypeEnum
-     * @return
+     * @param movieTypeEnum movie type enum
+     * @return list of Film
      */
     List<Film> findByMovieTypeEnumOrderByRatingDesc(MovieTypeEnum movieTypeEnum);
 }
