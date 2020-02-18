@@ -14,7 +14,7 @@ import org.springframework.web.filter.CorsFilter;
  * Movie Helper
  *
  * @author zhihao zhang
- * @date 2018.5.2
+ * @since 2018.05.02
  */
 
 @Configuration

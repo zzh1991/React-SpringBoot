@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <lombok.version>1.18.8</lombok.version>
+        <lombok.version>1.18.12</lombok.version>
         <guava.version>28.0-jre</guava.version>
         <swagger.version>2.9.2</swagger.version>
         <postgresql.version>42.2.6</postgresql.version>
@@ -32,6 +32,8 @@
         <mockito.version>3.0.0</mockito.version>
         <graphql-spring-boot-starter.version>5.0.2</graphql-spring-boot-starter.version>
         <graphql-java-tools.version>5.2.4</graphql-java-tools.version>
+        <maven-lombok.version>1.18.10.0</maven-lombok.version>
+        <maven-javadoc.version>3.1.1</maven-javadoc.version>
     </properties>
 
     <dependencies>
@@ -220,6 +222,42 @@
                 <version>1.3.4</version>
                 <configuration>
                     <repository>${project.artifactId}</repository>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <version>${maven-lombok.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>delombok</goal>
+                        </goals>
+                        <configuration>
+                            <addOutputDirectory>false</addOutputDirectory>
+                            <sourceDirectory>src/main/java</sourceDirectory>
+                            <outputDirectory>
+                                ${project.build.directory}/delombok
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc.version}</version>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>attach-javadocs</id>-->
+<!--                        <goals>-->
+<!--                            <goal>jar</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+                <configuration>
+                    <sourcepath>target/delombok</sourcepath>
                 </configuration>
             </plugin>
         </plugins>
