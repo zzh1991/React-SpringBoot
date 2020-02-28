@@ -42,8 +42,8 @@ public class Film implements Serializable {
     private String summary;
     private String countries;
 
-    private Boolean viewed;
-    private Boolean star;
+    private Boolean viewed = Boolean.FALSE;
+    private Boolean star = Boolean.FALSE;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
