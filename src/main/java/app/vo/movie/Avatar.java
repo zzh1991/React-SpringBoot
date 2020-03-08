@@ -6,7 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static app.util.ConstantUtils.SEPARATOR;
 
 /**
  * @author zhihao zhang
@@ -23,4 +27,10 @@ public class Avatar {
     private String name;
     private String alt;
     private Map<String, String> avatars;
+
+    public static String getNames(List<Avatar> avatars) {
+        return avatars.stream()
+                .map(Avatar::getName)
+                .collect(Collectors.joining(SEPARATOR));
+    }
 }

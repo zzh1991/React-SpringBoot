@@ -4,6 +4,7 @@ import app.constant.MovieTypeEnum;
 import app.entity.Film;
 import app.service.db.DataService;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +16,8 @@ import java.util.List;
  */
 
 @Component
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class Query implements GraphQLQueryResolver {
-    @Autowired
     private DataService dataService;
 
     public List<Film> getFilms() {

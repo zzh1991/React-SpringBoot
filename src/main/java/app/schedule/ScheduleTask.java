@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ScheduleTask {
-
     private static final String ZONE = "GMT+8";
+
     private MovieService movieService;
 
     @Scheduled(cron = "0 0 22 * * ?", zone = ZONE)
