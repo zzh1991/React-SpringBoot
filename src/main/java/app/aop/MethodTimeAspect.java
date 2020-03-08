@@ -28,16 +28,17 @@ public class MethodTimeAspect {
     }
 
     @Around("doAspect()")
-    public void recordMethodTime(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object recordMethodTime(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         StopWatch watch = new StopWatch();
         watch.start();
-        joinPoint.proceed();
+        Object object = joinPoint.proceed();
         watch.stop();
         log.info("{} {} cost {} ms",
                 methodSignature.getMethod().getName(),
                 getParameterArray(joinPoint),
                 watch.getTime());
+        return object;
     }
 
     private String getParameterArray(JoinPoint joinPoint) {
