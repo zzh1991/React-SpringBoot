@@ -8,8 +8,7 @@ services:
 addons:
   sonarcloud:
     organization: "$SONAR_ORG"
-    token:
-      secure: "$SONAR_TOKEN"
+    token: "$SONAR_TOKEN"
   postgresql: "9.6"
 
 sudo: required
