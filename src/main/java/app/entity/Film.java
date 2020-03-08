@@ -12,13 +12,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-import static app.constant.Constant.LARGE;
-import static app.constant.Constant.SEPARATOR;
+import static app.util.ConstantUtils.LARGE;
+import static app.util.ConstantUtils.SEPARATOR;
 
 /**
  * @author zhihao zhang

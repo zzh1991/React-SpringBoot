@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static app.constant.Constant.SEPARATOR;
+import static app.util.ConstantUtils.SEPARATOR;
 
 /**
  * @author zhihao zhang
