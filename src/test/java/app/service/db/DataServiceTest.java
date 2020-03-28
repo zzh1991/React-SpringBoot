@@ -1,7 +1,5 @@
 package app.service.db;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import app.SpringBootBaseTest;
 import app.constant.MovieTypeEnum;
 import app.entity.Film;
@@ -12,6 +10,8 @@ import org.springframework.test.context.jdbc.Sql;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class DataServiceTest extends SpringBootBaseTest {
     private static final long MOVIE_ID = 1292052L;
@@ -47,7 +47,7 @@ public class DataServiceTest extends SpringBootBaseTest {
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
     public void listFilmsByMovieTypeEnum() {
-        List<Film> filmList = dataService.listFilmsByMovieTypeEnum(MovieTypeEnum.TOP);
+        List<Film> filmList = dataService.findByMovieTypeEnum(MovieTypeEnum.TOP);
         assertThat(filmList.isEmpty()).isEqualTo(false);
     }
 

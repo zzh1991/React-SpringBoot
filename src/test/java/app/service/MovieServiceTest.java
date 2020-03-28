@@ -40,7 +40,7 @@ public class MovieServiceTest {
 
     @Test
     public void getMoviesByMovieTypeEnum() {
-        when(dataService.listFilmsByMovieTypeEnum(MovieTypeEnum.TOP)).thenReturn(FILM_LIST);
+        when(dataService.findByMovieTypeEnum(MovieTypeEnum.TOP)).thenReturn(FILM_LIST);
         List<Film> filmList = movieService.getMoviesByMovieTypeEnum(MovieTypeEnum.TOP);
         assertThat(filmList.size()).isEqualTo(FILM_LIST.size());
     }

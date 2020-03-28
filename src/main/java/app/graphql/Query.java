@@ -25,6 +25,6 @@ public class Query implements GraphQLQueryResolver {
     }
 
     public List<Film> getFilmsByMovieType(MovieTypeEnum movieTypeEnum) {
-        return dataService.listFilmsByMovieTypeEnum(movieTypeEnum);
+        return dataService.findByMovieTypeEnum(movieTypeEnum);
     }
 }

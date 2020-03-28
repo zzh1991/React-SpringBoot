@@ -62,7 +62,7 @@ public class MovieService {
     private DataService dataService;
 
     public List<Film> getMoviesByMovieTypeEnum(MovieTypeEnum movieTypeEnum) {
-        return dataService.listFilmsByMovieTypeEnum(movieTypeEnum);
+        return dataService.findByMovieTypeEnum(movieTypeEnum);
     }
 
     public List<Film> getAllMovies() {
