@@ -103,6 +103,9 @@ mvn javadoc:javadoc
 - [x] search movie name
 - [x] database upgrade
 - [x] schedule task
+- [x] java doc
+- [x] lazy load
+- [x] use timestamp with time zone
 
 ## Dependency
 

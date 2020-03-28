@@ -20,10 +20,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static app.util.ConstantUtils.LARGE;
@@ -64,8 +62,7 @@ public class Film implements Serializable {
     @Builder.Default
     private Boolean star = Boolean.FALSE;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "movie_type")
@@ -83,7 +80,7 @@ public class Film implements Serializable {
                 .casts(Avatar.getNames(movie.getCasts()))
                 .directors(Avatar.getNames(movie.getDirectors()))
                 .genres(StringUtils.join(movie.getGenres(), SEPARATOR))
-                .updateTime(new Date(System.currentTimeMillis()))
+                .updateTime(LocalDateTime.now())
                 .movieTypeEnum(movieTypeEnum)
                 .build();
     }
@@ -114,7 +111,7 @@ public class Film implements Serializable {
                 .summary(movieSubject.getSummary())
                 .countries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR))
                 .movieTypeEnum(movieTypeEnum)
-                .updateTime(new Date(System.currentTimeMillis()))
+                .updateTime(LocalDateTime.now())
                 .build();
     }
 }

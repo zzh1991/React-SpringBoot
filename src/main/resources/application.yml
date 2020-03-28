@@ -29,6 +29,9 @@ spring:
     console:
       enabled: false
 
+  main:
+    lazy-initialization: true
+
 server:
   port: ${PORT:8080}
 
