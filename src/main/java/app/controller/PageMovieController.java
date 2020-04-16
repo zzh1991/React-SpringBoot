@@ -33,4 +33,11 @@ public class PageMovieController {
                 Sort.by("rating").descending());
         return pageDataService.getFilmPageByMovieTypeEnum(movieTypeEnum, newPageable);
     }
+
+    @GetMapping("search/{searchText}")
+    public Page<Film> getAllFilmPageBySearchText(@PathVariable String searchText, Pageable pageable) {
+        Pageable newPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+                Sort.by("rating").descending());
+        return pageDataService.getFilmBySearchText(searchText, newPageable);
+    }
 }
