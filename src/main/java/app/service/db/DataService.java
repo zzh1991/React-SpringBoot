@@ -20,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class DataService {
     private FilmRepository filmRepository;
+//    private FilmMapper filmMapper;
 
     public Film findByMovieId(long movieId) {
         return filmRepository.findFirstByMovieId(movieId);

@@ -3,6 +3,8 @@ package app.service.db;
 import app.constant.MovieTypeEnum;
 import app.dao.FilmRepository;
 import app.entity.Film;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhihao zhang
@@ -23,11 +28,11 @@ public class PageDataService {
     private FilmRepository filmRepository;
 
     static Specification<Film> titleContains(String title) {
-        return (book, cq, cb) -> cb.like(book.get("title"), "%" + title + "%");
+        return (film, cq, cb) -> cb.like(film.get("title"), "%" + title + "%");
     }
 
     static Specification<Film> summaryContains(String summary) {
-        return (book, cq, cb) -> cb.like(book.get("summary"), "%" + summary + "%");
+        return (film, cq, cb) -> cb.like(film.get("summary"), "%" + summary + "%");
     }
 
     public Page<Film> getFilmPageByMovieTypeEnum(MovieTypeEnum movieTypeEnum,
@@ -36,7 +41,23 @@ public class PageDataService {
     }
 
     public Page<Film> getFilmBySearchText(String searchText, Pageable pageable) {
-        return filmRepository.findAll(Specification.where(titleContains(searchText))
-                .or(summaryContains(searchText)), pageable);
+        Map<String, String> filterMap = ImmutableMap
+                .of("title", searchText, "summary", searchText);
+        List<Specification<Film>> specificationList = Lists.newArrayList();
+        filterMap.forEach((key, value) -> {
+            specificationList.add((film, cq, cb) -> cb.like(film.get(key), "%" + value + "%"));
+        });
+        Specification<Film> specification = null;
+        if (!specificationList.isEmpty()) {
+            specification = Specification.where(specificationList.get(0));
+        }
+
+        for (int i = 1; i < specificationList.size(); i++) {
+            specification = specification.or(specificationList.get(i));
+        }
+
+        return filmRepository.findAll(specification, pageable);
+//        return filmRepository.findAll(Specification.where(titleContains(searchText))
+//                .or(summaryContains(searchText)), pageable);
     }
 }
