@@ -2,7 +2,10 @@ package app.dao;
 
 import app.constant.MovieTypeEnum;
 import app.entity.Film;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +16,7 @@ import java.util.List;
  */
 
 @Repository
-public interface FilmRepository extends CrudRepository<Film, Long> {
+public interface FilmRepository extends JpaRepository<Film, Long>, JpaSpecificationExecutor<Film> {
     /**
      * find film by movie id
      * @param movieId movieId
@@ -41,4 +44,12 @@ public interface FilmRepository extends CrudRepository<Film, Long> {
      * @return list of Film
      */
     List<Film> findByMovieTypeEnumOrderByRatingDesc(MovieTypeEnum movieTypeEnum);
+
+    /**
+     * get movie page by movie type
+     * @param movieTypeEnum movie type enum
+     * @param pageable pageable
+     * @return page of Film
+     */
+    Page<Film> findAllByMovieTypeEnum(MovieTypeEnum movieTypeEnum, Pageable pageable);
 }

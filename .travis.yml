@@ -9,7 +9,7 @@ addons:
   sonarcloud:
     organization: "$SONAR_ORG"
     token: "$SONAR_TOKEN"
-  postgresql: "9.6"
+  postgresql: "10"
 
 sudo: required
 language: java
