@@ -14,7 +14,7 @@
         <a href="https://snyk.io/test/github/zzh1991/React-SpringBoot?targetFile=pom.xml"><img src="https://snyk.io/test/github/zzh1991/React-SpringBoot/badge.svg?targetFile=pom.xml" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/zzh1991/React-SpringBoot?targetFile=pom.xml" style="max-width:100%;"></a>
     </p>
     <p align="center">
-        Movie management and find valueable movies to watch<br>
+        Movie management and find valuable movies to watch<br>
     </p>
 </p>
 
@@ -34,7 +34,7 @@ git submodule update
 ### Start application
 
 - configure database
-    - configure you database name (an empty database), user, password in [src/main/resources/application.yml](https://github.com/zzh1991/React-SpringBoot/blob/master/src/main/resources/application.yml)
+    - configure your database name (an empty database), user, password in [src/main/resources/application.yml](https://github.com/zzh1991/React-SpringBoot/blob/master/src/main/resources/application.yml)
     - or use h2 database
 - `cd front`
 - `yarn`: install dependency
@@ -142,15 +142,39 @@ mvn javadoc:javadoc
 1. edit run/debug configuration
 2. add environment variables: spring.profiles.active=dev
 
+### Dependency Version Management
+
+```xml
+<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>versions-maven-plugin</artifactId>
+    <version>2.7</version>
+</plugin>
+```
+
+#### Display update
+
+```bash
+mvn versions:display-dependency-updates
+```
+
+#### Update dependency
+
+```bash
+mvn versions:use-next-releases
+
+mvn versions:use-latest-releases
+```
+
 ## Problems
 
 ### Migrate flyway 3.x to 5.x issue
 
 > firstly should migrate to **4.2.0** and then 5.x
 
-### H2 database conflict with druid?
+### H2 database conflict with `druid`?
 
-### Mybatis timestamptz could not convert to timestamp
+### Mybatis `timestamptz` could not convert to `timestamp`?
 
 ## Author
 

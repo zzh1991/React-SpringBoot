@@ -34,6 +34,7 @@
         <graphql-java-tools.version>5.2.4</graphql-java-tools.version>
         <maven-lombok.version>1.18.10.0</maven-lombok.version>
         <maven-javadoc.version>3.1.1</maven-javadoc.version>
+        <druid.version>1.1.22</druid.version>
     </properties>
 
     <dependencies>
@@ -198,7 +199,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.17</version>
+            <version>${druid.version}</version>
         </dependency>
 
         <dependency>
@@ -257,6 +258,11 @@
                 <configuration>
                     <sourcepath>target/delombok</sourcepath>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.7</version>
             </plugin>
         </plugins>
     </build>
