@@ -1,5 +1,6 @@
 package app;
 
+import app.typehandler.LocalDateTimeTypeHandler;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -40,5 +41,10 @@ public class Application {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", buildConfig());
         return new CorsFilter(source);
+    }
+
+    @Bean
+    public LocalDateTimeTypeHandler localDateTimeTypeHandler() {
+        return new LocalDateTimeTypeHandler();
     }
 }

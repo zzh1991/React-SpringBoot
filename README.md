@@ -121,6 +121,16 @@ mvn javadoc:javadoc
 - Prometheus
 - GraphQL
 - Mybatis
+- Mybatis-plus
+
+### Swagger UI
+
+- http://localhost:8080/swagger-ui.html
+
+### Monitoring Endpoint
+
+- http://localhost:8080/actuator
+- http://localhost:8080/actuator/prometheus
 
 ## Config
 
@@ -148,7 +158,6 @@ mvn javadoc:javadoc
 <plugin>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>versions-maven-plugin</artifactId>
-    <version>2.7</version>
 </plugin>
 ```
 
@@ -175,6 +184,11 @@ mvn versions:use-latest-releases
 ### H2 database conflict with `druid`?
 
 ### Mybatis `timestamptz` could not convert to `timestamp`?
+
+> Refer to https://github.com/mybatis/mybatis-3/issues/1644
+
+1. copy `LocalDateTimeTypeHandler.java` into project
+2. configure `LocalDateTimeTypeHandler` bean
 
 ## Author
 
