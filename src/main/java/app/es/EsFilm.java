@@ -7,15 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 /**
  * @author Zhihao Zhang
- * @date 2019-03-12
+ * @since 2019-03-12
  */
 
 @AllArgsConstructor

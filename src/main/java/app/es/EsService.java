@@ -5,6 +5,7 @@ import app.entity.Film;
 import app.service.MovieService;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import lombok.AllArgsConstructor;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.springframework.beans.BeanUtils;
@@ -17,22 +18,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static org.elasticsearch.index.query.Operator.AND;
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
+import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 /**
  * @author Zhihao Zhang
- * @date 2019-03-12
+ * @since 2019-03-12
  */
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class EsService {
-    @Autowired
     private MovieService movieService;
-
-    @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
-
-    @Autowired
     private EsFilmRepository esFilmRepository;
 
     public void saveAllMoviesToEs() {

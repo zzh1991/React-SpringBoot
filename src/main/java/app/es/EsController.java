@@ -1,20 +1,26 @@
 package app.es;
 
 import app.constant.MovieTypeEnum;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /**
  * @author Zhihao Zhang
- * @date 2019-03-12
+ * @since 2019-03-12
  */
 
 @RestController
 @RequestMapping("/es/")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class EsController {
-    @Autowired
     private EsService esService;
 
     @PostMapping("movie")
