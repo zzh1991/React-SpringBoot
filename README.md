@@ -18,6 +18,10 @@
     </p>
 </p>
 
+## Visitor
+
+![visitor](https://visitor-badge.glitch.me/badge?page_id=movie-helper-visitor-badge)
+
 ## Git clone repo
 
 ```bash
