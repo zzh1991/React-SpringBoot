@@ -73,23 +73,29 @@ mvn javadoc:javadoc
 
 ## Demo: [Movie Helper](http://movie.zzhpro.com)
 
-### Recent Movies
+### New Design
+
+![Dark Mode](./pictures/dark-top-movie.png)
+
+### Old Design
+
+#### Recent Movies
 
 ![Recent](./pictures/recent-movie-1907.png)
 
-### Top 100 Movies
+#### Top 100 Movies
 
 ![Top](./pictures/top-movie-1907.png)
 
-### Viewed Movies
+#### Viewed Movies
 
 ![View](./pictures/view-movie.png)
 
-### Stared Movies(Want to watch)
+#### Stared Movies(Want to watch)
 
 ![Star](./pictures/star-movie.png)
 
-### All Movies
+#### All Movies
 
 ![All](./pictures/all-movie.png)
 
@@ -104,7 +110,7 @@ mvn javadoc:javadoc
 
 - [x] sync recent / top movies
 - [x] latest sync time
-- [x] search movie name
+- [x] search by movie name
 - [x] database upgrade
 - [x] schedule task
 - [x] java doc
@@ -136,7 +142,7 @@ mvn javadoc:javadoc
 - http://localhost:8080/actuator
 - http://localhost:8080/actuator/prometheus
 
-## Config
+## Configuration
 
 ### Hot deploy for Intellij IDEA
 
