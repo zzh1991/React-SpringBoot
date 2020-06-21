@@ -83,7 +83,7 @@ public class MovieService {
                 .collect(Collectors.toList());
         List<Film> newFilmList = filterMovieIdList.stream()
                 .filter(movieId -> !existedIdList.contains(movieId))
-                .map(this::syncMovieByMovieId)
+                .map(movieId -> syncMovieByMovieId(movieId, false))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
@@ -91,7 +91,7 @@ public class MovieService {
         return dataService.findByMovieIds(filterMovieIdList);
     }
 
-    public Film syncMovieByMovieId(Long movieId) {
+    public Film syncMovieByMovieId(Long movieId, boolean save) {
         Film film = dataService.findByMovieId(movieId);
         MovieSubject movieSubject;
         try {
@@ -110,6 +110,10 @@ public class MovieService {
             syncedFilm.setId(film.getId());
         }
 
+        if (save) {
+            dataService.save(syncedFilm);
+        }
+
         return syncedFilm;
     }
 
@@ -119,6 +123,7 @@ public class MovieService {
             return MAPPER.readValue(getUrlContent(url),
                     TypeFactory.defaultInstance().constructType(MovieSubject.class));
         } catch (Exception e) {
+            log.error("failed to get movie subject by {}", url, e);
             return null;
         }
     }
@@ -145,7 +150,7 @@ public class MovieService {
                     TypeFactory.defaultInstance().constructType(MovieVo.class));
             return movieVo.getSubjects();
         } catch (Exception e) {
-            log.error("failed to get recent movie info: ", e);
+            log.error("failed to get movie info by {}", url, e);
             return Lists.newArrayList();
         }
     }
@@ -164,7 +169,7 @@ public class MovieService {
         List<Film> filmList = dataService.findByMovieTypeEnum(movieTypeEnum);
         filmList.forEach(film -> film.setMovieTypeEnum(MovieTypeEnum.NORMAL));
         dataService.saveAll(filmList);
-        log.info("set old recent {} movies to normal movies", filmList.size());
+        log.info("set old {} {} movies to normal movies", movieTypeEnum, filmList.size());
     }
 
     private void saveFilmList(List<Movie> movieList, MovieTypeEnum movieTypeEnum) {

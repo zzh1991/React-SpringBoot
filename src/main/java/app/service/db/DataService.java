@@ -48,10 +48,13 @@ public class DataService {
                 .orderByDesc(Film::getMovieYear)
                 .orderByDesc(Film::getRating)
         );
-//        return filmRepository.findAllByOrderByMovieYearDescRatingDesc();
     }
 
     public void saveAll(List<Film> filmList) {
         filmRepository.saveAll(filmList);
+    }
+
+    public void save(Film film) {
+        filmRepository.save(film);
     }
 }

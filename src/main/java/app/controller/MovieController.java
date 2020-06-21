@@ -61,7 +61,7 @@ public class MovieController {
 
     @PostMapping("movie/sync/{movieId}")
     public Film syncOneMovieToMovieList(@PathVariable Long movieId) {
-        return movieService.syncMovieByMovieId(movieId);
+        return movieService.syncMovieByMovieId(movieId, true);
     }
 
     /**
