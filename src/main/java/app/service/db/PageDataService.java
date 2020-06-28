@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author zhihao zhang
@@ -44,16 +45,19 @@ public class PageDataService {
         Map<String, String> filterMap = ImmutableMap
                 .of("title", searchText, "summary", searchText);
         List<Specification<Film>> specificationList = Lists.newArrayList();
-        filterMap.forEach((key, value) -> {
-            specificationList.add((film, cq, cb) -> cb.like(film.get(key), "%" + value + "%"));
-        });
+        filterMap.forEach((key, value) ->
+                specificationList.add((film, cq, cb) -> cb.like(film.get(key), "%" + value + "%")));
         Specification<Film> specification = null;
         if (!specificationList.isEmpty()) {
             specification = Specification.where(specificationList.get(0));
         }
 
         for (int i = 1; i < specificationList.size(); i++) {
-            specification = specification.or(specificationList.get(i));
+            if (Objects.nonNull(specification)) {
+                specification = specification.or(specificationList.get(i));
+            } else {
+                specification = Specification.where(specificationList.get(i));
+            }
         }
 
         return filmRepository.findAll(specification, pageable);
