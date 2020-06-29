@@ -1,7 +1,5 @@
 # React-SpringBoot
 
-[简体中文](README-zh.md)
-
 <p align="center">
     <a href="http://movie.zzhpro.com">
         <img src="./src/main/resources/static/favicon.ico" width="152">
@@ -20,11 +18,11 @@
     </p>
 </p>
 
-## Visitor
+## 访问数
 
 ![visitor](https://visitor-badge.glitch.me/badge?page_id=movie-helper-visitor-badge)
 
-## Git clone repo
+## 克隆项目
 
 ```bash
 git clone --recursive git@github.com:zzh1991/Movie-Helper.git
@@ -35,26 +33,26 @@ git submodule init
 git submodule update
 ```
 
-## 🚀 Usage
+## 🚀 使用
 
-### Start application
+### 启动应用
 
-- configure database
-    - configure your database name (an empty database), user, password in [src/main/resources/application.yml](https://github.com/zzh1991/React-SpringBoot/blob/master/src/main/resources/application.yml)
-    - or use h2 database
-- `cd front`
-- `yarn`: install dependency
-- prepare front static files
-  - dev mode
+- 配置 PostgresQL 数据库
+    - 在 [src/main/resources/application.yml](https://github.com/zzh1991/React-SpringBoot/blob/master/src/main/resources/application.yml) 中配置数据库用户名，密码和数据库名
+    - 或者在 dev 情况下使用 H2 数据库
+- `cd front`：切换到前端文件夹
+- `yarn`: 安装前端依赖
+- 启动前端
+  - 开发模式
     - `yarn start`
-  - build mode
+  - 生产部署模式
     - `yarn run deploy`
-- start the web app in IDE
-- open browser
-  - `build mode`: go to http://localhost:8080
-  - `dev mode`: go to http://localhost:3000
+- 在 IDE 中启动应用
+- 打开浏览器
+  - 开发模式: go to http://localhost:3000
+  - 生产部署模式: 访问 http://localhost:8080
 
-### Update submodule for front end
+### 更新前端代码
 
 ```bash
 cd front
@@ -65,94 +63,94 @@ git rebase origin/master
 git submodule update --remote front
 ```
 
-## Java doc
+## 生成 Java API 文档
 
 ```bash
 mvn javadoc:javadoc
 ```
 
-> open `target/site/apidocs/index.html` by browser
+> 打开 `target/site/apidocs/index.html` 进行访问
 
 ## Demo: [Movie Helper](http://movie.zzhpro.com)
 
-### New Design
+### 新设计
 
 ![Dark Mode](./pictures/dark-top-movie.png)
 
-### Old Design
+### 老设计
 
-#### Recent Movies
+#### 最近上映的电影
 
 ![Recent](./pictures/recent-movie-1907.png)
 
-#### Top 100 Movies
+#### Top 100 电影
 
 ![Top](./pictures/top-movie-1907.png)
 
-#### Viewed Movies
+#### 看过的电影
 
 ![View](./pictures/view-movie.png)
 
-#### Stared Movies(Want to watch)
+#### 喜欢（想看）的电影
 
 ![Star](./pictures/star-movie.png)
 
-#### All Movies
+#### 所有电影
 
 ![All](./pictures/all-movie.png)
 
-### Reference
+### 参考
 
-- [recent movies](https://movie.douban.com/)
-- [top movies](https://movie.douban.com/top250?start=0&filter=)
+- [最近的电影](https://movie.douban.com/)
+- [TOP 电影](https://movie.douban.com/top250?start=0&filter=)
 
-## Todo
+## 代办事务
 
-### Improvement
+### 提升
 
-- [x] sync recent / top movies
-- [x] latest sync time
-- [x] search by movie name
-- [x] database upgrade
-- [x] schedule task
-- [x] java doc
-- [x] lazy load
-- [x] use timestamp with time zone
+- [x] 同步最新/TOP100 电影
+- [x] 添加最近同步的时间
+- [x] 根据电影名称进行搜索
+- [x] 使用最新的 PostgresQL
+- [x] 定时任务
+- [x] Java 文档
+- [x] 懒加载
+- [x] 使用带时区的时间戳格式
 
-## Dependency
+## 依赖技术
 
-### [Front end](https://github.com/zzh1991/movie-helper-front)
+### [前端技术](https://github.com/zzh1991/movie-helper-front)
 
-### Backend
+### 后端技术
 
-- Spring Boot 2
-- PostgresQL
+- Spring Boot 2.3
+- PostgresQL 12
 - Guava
-- Swagger2
-- Flyway
+- Spring fox Swagger
+- Flyway 6
 - Prometheus
 - GraphQL
 - Mybatis
 - Mybatis-plus
 
-## Endpoints
+## 应用网址
 
 ### Swagger UI
 
 - http://localhost:8080/swagger-ui.html
 
-### Monitoring Endpoint
+### 监控网址
 
 - http://localhost:8080/actuator
 - http://localhost:8080/actuator/prometheus
 
-### GraphiQL Endpoint
+### GraphiQL 网址
 
 - http://localhost:8080/graphiql
 
-## Configuration
+## 配置
 
-### Hot deploy for Intellij IDEA
+### Intellij IDEA 热部署
 
 ```xml
 <dependency>
@@ -165,12 +163,12 @@ mvn javadoc:javadoc
 - setting -> compiler -> make project automatically
 - ctrl + shift + a -> registry -> auto make enabled
 
-### Active dev profile
+### 使用 dev 配置文件启动项目
 
-1. edit run/debug configuration
-2. add environment variables: spring.profiles.active=dev
+1. 修改启动项 run/debug 配置
+2. 增加环境变量: `spring.profiles.active=dev`
 
-### Dependency Version Management
+### 依赖版本管理
 
 ```xml
 <plugin>
@@ -179,13 +177,13 @@ mvn javadoc:javadoc
 </plugin>
 ```
 
-#### Display update
+#### 显示依赖的版本更新
 
 ```bash
 mvn versions:display-dependency-updates
 ```
 
-#### Update dependency
+#### 升级依赖版本
 
 ```bash
 mvn versions:use-next-releases
@@ -193,32 +191,32 @@ mvn versions:use-next-releases
 mvn versions:use-latest-releases
 ```
 
-## Problems
+## 问题
 
-### Migrate flyway 3.x to 5.x issue
+### 从 flyway 3.x 迁移到 5.x 出错
 
-> firstly should migrate to **4.2.0** and then 5.x
+> 首先将版本升到 **4.2.0** 然后再升到 5.x
 
-### H2 database conflict with `druid`?
+### H2 数据库与 `druid` 有冲突?
 
-### Mybatis `timestamptz` could not convert to `timestamp`?
+### Mybatis `timestamptz` 不能转化成 `timestamp` 类型?
 
-> Refer to https://github.com/mybatis/mybatis-3/issues/1644
+> 参考 https://github.com/mybatis/mybatis-3/issues/1644
 
-1. copy `LocalDateTimeTypeHandler.java` into project
-2. configure `LocalDateTimeTypeHandler` bean
+1. 复制 `LocalDateTimeTypeHandler.java` 到项目中
+2. 配置 `LocalDateTimeTypeHandler` bean
 
-## Author
+## 作者
 
 👤 **Zhihao Zhang**
 
 - Github: [@zzh1991](https://github.com/zzh1991)
 
-## Show your support
+## 点赞👍支持
 
-Please ⭐️ this repository if this project helped you!
+如果本项目对你有所帮助，请 ⭐️ 本项目吧!
 
-## 📝 License
+## 📝 许可证
 
 Copyright © 2020 [zzh1991](https://github.com/zzh1991).<br />
-This project is [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE) licensed.
+本项目许可证为 [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE) licensed.
