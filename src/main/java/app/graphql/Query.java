@@ -3,7 +3,7 @@ package app.graphql;
 import app.constant.MovieTypeEnum;
 import app.entity.Film;
 import app.service.db.DataService;
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
