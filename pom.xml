@@ -24,7 +24,7 @@
         <graphql-java-tools.version>6.1.0</graphql-java-tools.version>
 
         <!--   plugin version     -->
-        <maven-lombok.version>1.18.10.0</maven-lombok.version>
+        <maven-lombok.version>1.18.12.0</maven-lombok.version>
     </properties>
 
     <repositories>
