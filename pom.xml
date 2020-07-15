@@ -22,6 +22,7 @@
         <prometheus.version>0.9.0</prometheus.version>
         <graphql-spring-boot-starter.version>7.1.0</graphql-spring-boot-starter.version>
         <graphql-java-tools.version>6.1.0</graphql-java-tools.version>
+        <jsoup.version>1.13.1</jsoup.version>
 
         <!--   plugin version     -->
         <maven-lombok.version>1.18.12.0</maven-lombok.version>
@@ -191,6 +192,13 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus-boot-starter.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
+        </dependency>
+
 
     </dependencies>
 
