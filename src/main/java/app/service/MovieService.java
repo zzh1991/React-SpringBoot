@@ -4,6 +4,7 @@ import app.aop.MethodTime;
 import app.constant.MovieTypeEnum;
 import app.entity.Film;
 import app.service.db.DataService;
+import app.util.JsoupUtils;
 import app.vo.movie.Movie;
 import app.vo.movie.MovieSubject;
 import app.vo.movie.MovieVo;
@@ -18,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.threads.ThreadPoolExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,8 +34,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-
-import static app.util.ConstantUtils.SEPARATOR;
 
 /**
  * @author zhihao zhang
@@ -135,12 +133,19 @@ public class MovieService {
     }
 
     private void saveMovie(MovieTypeEnum movieTypeEnum) {
-        List<Movie> movieList = getMoviesFromOrigin(URL_MAP.get(movieTypeEnum));
-        if (CollectionUtils.isEmpty(movieList)) {
+        List<Film> filmList;
+        if (MovieTypeEnum.TOP.equals(movieTypeEnum)) {
+            filmList = JsoupUtils.getTopFilmListFromDouban();
+        } else if (MovieTypeEnum.RECENT.equals(movieTypeEnum)) {
+            filmList = JsoupUtils.getFilmListFromDouban();
+        } else {
+            return;
+        }
+        if (CollectionUtils.isEmpty(filmList)) {
             return;
         }
         this.deleteOutDatedMovie(movieTypeEnum);
-        this.saveFilmList(movieList, movieTypeEnum);
+        this.saveFilmList(filmList, movieTypeEnum);
     }
 
     private List<Movie> getMoviesFromOrigin(String url) {
@@ -172,10 +177,10 @@ public class MovieService {
         log.info("set old {} {} movies to normal movies", movieTypeEnum, filmList.size());
     }
 
-    private void saveFilmList(List<Movie> movieList, MovieTypeEnum movieTypeEnum) {
+    private void saveFilmList(List<Film> movieList, MovieTypeEnum movieTypeEnum) {
         List<Film> filmList = movieList.stream()
                 .map(movie -> Film.transformMovieAndOldFilmToNewFilm(
-                        movie, movieTypeEnum, dataService.findByMovieId(movie.getId())))
+                        movie, movieTypeEnum, dataService.findByMovieId(movie.getMovieId())))
                 .collect(Collectors.toList());
         this.batchUpdateFilmList(filmList);
     }
@@ -194,13 +199,12 @@ public class MovieService {
         List<CompletableFuture<Boolean>> completableFuture =
                 filmList.stream()
                         .filter(film -> Strings.isNullOrEmpty(film.getSummary()))
-                        .map(film -> CompletableFuture.supplyAsync(() -> getMovieSubject(film.getMovieId()),
+                        .map(film -> CompletableFuture.supplyAsync(() -> JsoupUtils
+                                        .getFilmDetailByMovieTypeAndUrl(movieTypeEnum, film.getUrl()),
                                 executorService)
                                 .thenApply(movieSubject -> {
                                     if (Objects.nonNull(movieSubject)) {
-                                        film.setSummary(movieSubject.getSummary());
-                                        film.setCountries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR));
-                                        newFilmList.add(film);
+                                        newFilmList.add(Film.transformMovieAndOldFilmToNewFilm(film, movieTypeEnum, movieSubject));
                                         return true;
                                     }
                                     return false;

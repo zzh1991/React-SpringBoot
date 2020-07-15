@@ -85,15 +85,24 @@ public class Film implements Serializable {
                 .build();
     }
 
-    public static Film transformMovieAndOldFilmToNewFilm(Movie movie, MovieTypeEnum movieTypeEnum,
+    public static Film transformMovieAndOldFilmToNewFilm(Film newFilm, MovieTypeEnum movieTypeEnum,
                                                          Film oldFilm) {
-        Film newFilm = Film.transformMovieToFilm(movie, movieTypeEnum);
         if (Objects.isNull(oldFilm)) {
             return newFilm;
         }
-        newFilm.setCountries(oldFilm.getCountries());
+        newFilm.setGenres(oldFilm.getGenres());
         newFilm.setSummary(oldFilm.getSummary());
-        newFilm.setId(oldFilm.getId());
+
+        if (MovieTypeEnum.TOP.equals(movieTypeEnum)) {
+            newFilm.setDirectors(oldFilm.directors);
+            newFilm.setCasts(oldFilm.casts);
+            newFilm.setMovieYear(oldFilm.movieYear);
+            newFilm.setRating(oldFilm.rating);
+        }
+
+        if (Objects.nonNull(oldFilm.getId())) {
+            newFilm.setId(oldFilm.getId());
+        }
         return newFilm;
     }
 
