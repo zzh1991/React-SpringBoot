@@ -19,7 +19,6 @@
         <guava.version>29.0-jre</guava.version>
         <swagger.version>2.10.5</swagger.version>
         <mybatis-plus-boot-starter.version>3.3.2</mybatis-plus-boot-starter.version>
-        <prometheus.version>0.9.0</prometheus.version>
         <graphql-spring-boot-starter.version>7.1.0</graphql-spring-boot-starter.version>
         <graphql-java-tools.version>6.1.0</graphql-java-tools.version>
         <jsoup.version>1.13.1</jsoup.version>
@@ -128,18 +127,6 @@
         </dependency>
 
         <dependency>
-            <groupId>io.prometheus</groupId>
-            <artifactId>simpleclient</artifactId>
-            <version>${prometheus.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.prometheus</groupId>
-            <artifactId>simpleclient_servlet</artifactId>
-            <version>${prometheus.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
@@ -204,7 +191,6 @@
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
         </dependency>
-
 
     </dependencies>
 
