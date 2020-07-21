@@ -2,18 +2,19 @@ package app.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import app.SpringBootBaseTest;
 import app.constant.MovieTypeEnum;
 import app.entity.Film;
 import com.google.common.collect.Lists;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
-public class FilmRepositoryTest extends SpringBootBaseTest {
+@SpringBootTest
+public class FilmRepositoryTest {
     private static final long MOVIE_ID = 1292052L;
     @Autowired
     private FilmRepository filmRepository;
