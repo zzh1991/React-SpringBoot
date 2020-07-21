@@ -55,3 +55,20 @@ management:
     export:
       prometheus:
         enabled: true
+
+# sql log level
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          EnumType: TRACE
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+    org.springframework.data.mongodb.core: debug
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

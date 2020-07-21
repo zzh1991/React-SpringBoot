@@ -1,11 +1,11 @@
 package app.service.db;
 
-import app.SpringBootBaseTest;
 import app.constant.MovieTypeEnum;
 import app.entity.Film;
 import com.google.common.collect.Lists;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import javax.transaction.Transactional;
@@ -13,7 +13,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DataServiceTest extends SpringBootBaseTest {
+@SpringBootTest
+public class DataServiceTest {
     private static final long MOVIE_ID = 1292052L;
 
     @Autowired
