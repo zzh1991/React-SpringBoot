@@ -37,9 +37,48 @@ git submodule update
 
 ### 启动应用
 
-- 配置 PostgresQL 数据库
-    - 在 [src/main/resources/application.yml](https://github.com/zzh1991/React-SpringBoot/blob/master/src/main/resources/application.yml) 中配置数据库用户名，密码和数据库名
-    - 或者在 dev 情况下使用 H2 数据库
+#### 配置数据库
+
+> 在 [src/main/resources/application.yml](https://github.com/zzh1991/React-SpringBoot/blob/master/src/main/resources/application.yml) 中配置数据库用户名，密码和数据库名
+
+你可以使用 PostgreSQL（默认配置）或者 MySQL 数据库。另外，你也可以使用 H2 数据库。
+
+##### MySQL 配置
+
+```yaml
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/movie?allowPublicKeyRetrieval=true&useConfigs=maxPerformance&useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+    password: mysql
+    username: root
+    initialization-mode: never
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    validate-on-migrate: false
+    locations: classpath:db/migration/mysql
+```
+
+> 在 pom.xml 文件中删除 postgres 依赖，并添加 mysql 依赖
+
+```xml
+<!-- remove -->
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+</dependency>
+
+<!-- add -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+</dependency>
+```
+
+#### 配置前端依赖
+    
 - `cd front`：切换到前端文件夹
 - `yarn`: 安装前端依赖
 - 启动前端
