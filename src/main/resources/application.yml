@@ -6,6 +6,15 @@ spring:
     username: dbuser
     initialization-mode: never
 
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: movie_db
+      username: mongo
+      password: mongo
+      authentication-database: admin
+
   flyway:
     enabled: true
     baseline-on-migrate: true
