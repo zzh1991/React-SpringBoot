@@ -4,7 +4,7 @@
 
 <p align="center">
     <a href="http://movie.zzhpro.com">
-        <img src="./src/main/resources/static/favicon.ico" width="152">
+        <img alt="movie helper icon" src="./src/main/resources/static/favicon.ico" width="152">
     </a>
     <h3 align="center">Movie Helper</h3>
     <p align="center">
@@ -15,9 +15,7 @@
         <a href="https://github.com/zzh1991/React-SpringBoot/blob/master/.travis.yml"><img src="https://img.shields.io/travis/zzh1991/React-SpringBoot/master.svg"></a>
         <a href="https://snyk.io/test/github/zzh1991/React-SpringBoot?targetFile=pom.xml"><img src="https://snyk.io/test/github/zzh1991/React-SpringBoot/badge.svg?targetFile=pom.xml" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/zzh1991/React-SpringBoot?targetFile=pom.xml" style="max-width:100%;"></a>
     </p>
-    <p align="center">
-        Movie management and find valuable movies to watch<br>
-    </p>
+    <p align="center">Movie management and find valuable movies to watch<br></p>
 </p>
 
 ## Visitor
@@ -39,9 +37,48 @@ git submodule update
 
 ### Start application
 
-- configure database
-    - configure your database name (an empty database), user, password in [src/main/resources/application.yml](https://github.com/zzh1991/React-SpringBoot/blob/master/src/main/resources/application.yml)
-    - or use h2 database
+#### configure database
+
+> configure your database name (an empty database), user, password in [src/main/resources/application.yml](https://github.com/zzh1991/React-SpringBoot/blob/master/src/main/resources/application.yml)
+
+You could use PostgreSQL(default configuration) or MySQL. Also, you could use H2 database.
+
+##### MySQL configuration
+
+```yaml
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/movie?allowPublicKeyRetrieval=true&useConfigs=maxPerformance&useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+    password: mysql
+    username: root
+    initialization-mode: never
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    validate-on-migrate: false
+    locations: classpath:db/migration/mysql
+```
+
+> remove postgres dependency and add mysql dependency in pom.xml
+
+```xml
+<!-- remove -->
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+</dependency>
+
+<!-- add -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+</dependency>
+```
+
+#### Configure Front
+
 - `cd front`
 - `yarn`: install dependency
 - prepare front static files
