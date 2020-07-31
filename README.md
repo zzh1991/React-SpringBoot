@@ -18,17 +18,31 @@
     <p align="center">Movie management and find valuable movies to watch<br></p>
 </p>
 
+## Demo: [Movie Helper](http://movie.zzhpro.com)
+
+### Desktop display
+
+![Desktop](./pictures/recent-movie-2007.png)
+
+### Mobile display
+
+<img src="./pictures/mobile-2007.png" alt="Mobile" style="zoom: 25%;" />
+
 ## Visitor
 
 ![visitor](https://visitor-badge.glitch.me/badge?page_id=movie-helper-visitor-badge)
 
 ## Git clone repo
 
+Back-end project: [React-SpringBoot](https://github.com/zzh1991/React-SpringBoot)
+
+Front-end project: [movie-helper-front](https://github.com/zzh1991/movie-helper-front)
+
 ```bash
-git clone --recursive git@github.com:zzh1991/Movie-Helper.git
+git clone --recursive git@github.com:zzh1991/React-SpringBoot.git
 
 # or
-git clone git@github.com:zzh1991/Movie-Helper.git
+git clone git@github.com:zzh1991/React-SpringBoot.git
 git submodule init
 git submodule update
 ```
@@ -84,12 +98,12 @@ spring:
 - prepare front static files
   - dev mode
     - `yarn start`
-  - build mode
-    - `yarn run deploy`
+  - Deploy mode
+    - `yarn deploy`
 - start the web app in IDE
 - open browser
-  - `build mode`: go to http://localhost:8080
   - `dev mode`: go to http://localhost:3000
+  - `deploy mode`: go to http://localhost:8080
 
 ### Update submodule for front end
 
@@ -109,34 +123,6 @@ mvn javadoc:javadoc
 ```
 
 > open `target/site/apidocs/index.html` by browser
-
-## Demo: [Movie Helper](http://movie.zzhpro.com)
-
-### New Design
-
-![Dark Mode](./pictures/dark-top-movie.png)
-
-### Old Design
-
-#### Recent Movies
-
-![Recent](./pictures/recent-movie-1907.png)
-
-#### Top 100 Movies
-
-![Top](./pictures/top-movie-1907.png)
-
-#### Viewed Movies
-
-![View](./pictures/view-movie.png)
-
-#### Stared Movies(Want to watch)
-
-![Star](./pictures/star-movie.png)
-
-#### All Movies
-
-![All](./pictures/all-movie.png)
 
 ### Reference
 

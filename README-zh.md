@@ -18,17 +18,31 @@
     </p>
 </p>
 
+## Demo: [Movie Helper](http://movie.zzhpro.com)
+
+### 桌面显示
+
+![Desktop](./pictures/recent-movie-2007.png)
+
+### 手机显示
+
+<img src="./pictures/mobile-2007.png" alt="Mobile" style="zoom: 25%;" />
+
 ## 访问数
 
 ![visitor](https://visitor-badge.glitch.me/badge?page_id=movie-helper-visitor-badge)
 
 ## 克隆项目
 
+后端项目地址：[React-SpringBoot](https://github.com/zzh1991/React-SpringBoot)
+
+前端项目地址：[movie-helper-front](https://github.com/zzh1991/movie-helper-front)
+
 ```bash
-git clone --recursive git@github.com:zzh1991/Movie-Helper.git
+git clone --recursive git@github.com:zzh1991/React-SpringBoot.git
 
 # or
-git clone git@github.com:zzh1991/Movie-Helper.git
+git clone git@github.com:zzh1991/React-SpringBoot.git
 git submodule init
 git submodule update
 ```
@@ -78,14 +92,14 @@ spring:
 ```
 
 #### 配置前端依赖
-    
+
 - `cd front`：切换到前端文件夹
 - `yarn`: 安装前端依赖
 - 启动前端
   - 开发模式
     - `yarn start`
   - 生产部署模式
-    - `yarn run deploy`
+    - `yarn deploy`
 - 在 IDE 中启动应用
 - 打开浏览器
   - 开发模式: go to http://localhost:3000
@@ -109,34 +123,6 @@ mvn javadoc:javadoc
 ```
 
 > 打开 `target/site/apidocs/index.html` 进行访问
-
-## Demo: [Movie Helper](http://movie.zzhpro.com)
-
-### 新设计
-
-![Dark Mode](./pictures/dark-top-movie.png)
-
-### 老设计
-
-#### 最近上映的电影
-
-![Recent](./pictures/recent-movie-1907.png)
-
-#### Top 100 电影
-
-![Top](./pictures/top-movie-1907.png)
-
-#### 看过的电影
-
-![View](./pictures/view-movie.png)
-
-#### 喜欢（想看）的电影
-
-![Star](./pictures/star-movie.png)
-
-#### 所有电影
-
-![All](./pictures/all-movie.png)
 
 ### 参考
 
