@@ -6,6 +6,7 @@
     </a>
     <h3 align="center">Movie Helper</h3>
     <p align="center">
+      	<a href="https://visitor-badge.glitch.me/badge?page_id=movie-helper-visitor-badge"><img src="https://visitor-badge.glitch.me/badge?page_id=movie-helper-visitor-badge" /></a>
         <a href="https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE"><img src="https://img.shields.io/github/license/zzh1991/React-SpringBoot.svg"></a>
         <a href="#"><img src="https://img.shields.io/github/languages/top/zzh1991/React-SpringBoot.svg"></a>
         <a href="#"><img src="https://img.shields.io/github/languages/count/zzh1991/React-SpringBoot.svg"></a>
@@ -18,11 +19,16 @@
     </p>
 </p>
 
+
 ## Demo: [Movie Helper](http://movie.zzhpro.com)
 
 ### 桌面显示
 
 ![Desktop](./pictures/recent-movie-2007.png)
+
+最近，我花费了不少时间将性能得分从 50 多升到了 90 分。目前的体验和响应速度都有了很大的提升。
+
+![Page Test Insights](./pictures/page-speed-insights.png)
 
 ### 手机显示
 
@@ -244,4 +250,4 @@ mvn versions:use-latest-releases
 ## 📝 许可证
 
 Copyright © 2020 [zzh1991](https://github.com/zzh1991).<br />
-本项目许可证为 [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE) licensed.
+本项目许可证为 [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE).

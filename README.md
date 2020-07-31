@@ -8,6 +8,7 @@
     </a>
     <h3 align="center">Movie Helper</h3>
     <p align="center">
+      	<a href="https://visitor-badge.glitch.me/badge?page_id=movie-helper-visitor-badge"><img src="https://visitor-badge.glitch.me/badge?page_id=movie-helper-visitor-badge" /></a>
         <a href="https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE"><img src="https://img.shields.io/github/license/zzh1991/React-SpringBoot.svg"></a>
         <a href="#"><img src="https://img.shields.io/github/languages/top/zzh1991/React-SpringBoot.svg"></a>
         <a href="#"><img src="https://img.shields.io/github/languages/count/zzh1991/React-SpringBoot.svg"></a>
@@ -18,19 +19,20 @@
     <p align="center">Movie management and find valuable movies to watch<br></p>
 </p>
 
+
 ## Demo: [Movie Helper](http://movie.zzhpro.com)
 
 ### Desktop display
 
 ![Desktop](./pictures/recent-movie-2007.png)
 
+Recently, I improved the performance from 50 to 90.
+
+![Page Test Insights](./pictures/page-speed-insights.png)
+
 ### Mobile display
 
 <img src="./pictures/mobile-2007.png" alt="Mobile" style="zoom: 25%;" />
-
-## Visitor
-
-![visitor](https://visitor-badge.glitch.me/badge?page_id=movie-helper-visitor-badge)
 
 ## Git clone repo
 
