@@ -6,7 +6,7 @@
     </a>
     <h3 align="center">Movie Helper</h3>
     <p align="center">
-      	<a href="https://visitor-badge.glitch.me/badge?page_id=movie-helper-visitor-badge"><img src="https://visitor-badge.glitch.me/badge?page_id=movie-helper-visitor-badge" /></a>
+      	<img src="https://badges.toozhao.com/badges/01EH2EP6R07GDNK946RERW9D1B/green.svg" />
         <a href="https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE"><img src="https://img.shields.io/github/license/zzh1991/React-SpringBoot.svg"></a>
         <a href="#"><img src="https://img.shields.io/github/languages/top/zzh1991/React-SpringBoot.svg"></a>
         <a href="#"><img src="https://img.shields.io/github/languages/count/zzh1991/React-SpringBoot.svg"></a>
