@@ -30,8 +30,8 @@ spring:
     console:
       enabled: false
 
-  main:
-    lazy-initialization: true
+#  main:
+#    lazy-initialization: true
 
   resources:
     cache:
