@@ -32,7 +32,7 @@ Recently, I improved the performance from 50 to 90.
 
 ### Mobile display
 
-<img src="./pictures/mobile-2007.png" alt="Mobile" style="zoom: 25%;" />
+<div align="center"><img src="./pictures/mobile-2007.png" alt="Mobile" width="400px" /></div>
 
 ## Git clone repo
 
