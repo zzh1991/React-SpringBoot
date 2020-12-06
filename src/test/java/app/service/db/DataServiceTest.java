@@ -41,7 +41,7 @@ class DataServiceTest {
     @Sql(scripts = { "/test-film-data.sql" })
     void findByMovieTypeEnum() {
         List<Film> filmList = dataService.findByMovieTypeEnum(MovieTypeEnum.TOP);
-        assertThat(filmList.isEmpty()).isEqualTo(false);
+        assertThat(filmList.isEmpty()).isFalse();
     }
 
     @Transactional
@@ -49,7 +49,7 @@ class DataServiceTest {
     @Sql(scripts = { "/test-film-data.sql" })
     void listFilmsByMovieTypeEnum() {
         List<Film> filmList = dataService.findByMovieTypeEnum(MovieTypeEnum.TOP);
-        assertThat(filmList.isEmpty()).isEqualTo(false);
+        assertThat(filmList.isEmpty()).isFalse();
     }
 
     @Transactional
@@ -57,7 +57,7 @@ class DataServiceTest {
     @Sql(scripts = { "/test-film-data.sql" })
     void listAllFilms() {
         List<Film> filmList = dataService.listAllFilms();
-        assertThat(filmList.isEmpty()).isEqualTo(false);
+        assertThat(filmList.isEmpty()).isFalse();
     }
 
     @Transactional

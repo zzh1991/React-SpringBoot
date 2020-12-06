@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { SpringTestConfiguration.class })
-public class MovieServiceTest {
+class MovieServiceTest {
 
     @Autowired
     @Qualifier("movieServiceTest")
@@ -37,21 +37,21 @@ public class MovieServiceTest {
     private static final List<Film> FILM_LIST = Lists.newArrayList(FILM);
 
     @Test
-    public void findByMovieId() {
+    void findByMovieId() {
         when(dataService.findByMovieId(FILM.getMovieId())).thenReturn(FILM);
         Film result = movieService.getMovieById(FILM.getMovieId());
         assertThat(result).isEqualTo(FILM);
     }
 
     @Test
-    public void getMoviesByMovieTypeEnum() {
+    void getMoviesByMovieTypeEnum() {
         when(dataService.listFilmsByMovieTypeEnum(MovieTypeEnum.TOP)).thenReturn(FILM_LIST);
         List<Film> filmList = movieService.getMoviesByMovieTypeEnum(MovieTypeEnum.TOP);
         assertThat(filmList.size()).isEqualTo(FILM_LIST.size());
     }
 
     @Test
-    public void getAllMovies() {
+    void getAllMovies() {
         when(dataService.listAllFilms()).thenReturn(FILM_LIST);
         List<Film> filmList = movieService.getAllMovies();
         assertThat(filmList.size()).isEqualTo(FILM_LIST.size());

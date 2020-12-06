@@ -40,7 +40,7 @@ class FilmRepositoryTest {
     @Sql(scripts = { "/test-film-data.sql" })
     void findAllByOrderByMovieYearDescRatingDesc() {
         List<Film> filmList = filmRepository.findAllByOrderByMovieYearDescRatingDesc();
-        assertThat(filmList.isEmpty()).isEqualTo(false);
+        assertThat(filmList.isEmpty()).isFalse();
     }
 
     @Transactional
@@ -48,6 +48,6 @@ class FilmRepositoryTest {
     @Sql(scripts = { "/test-film-data.sql" })
     void findByMovieTypeEnumOrderByRatingDesc() {
         List<Film> filmList = filmRepository.findByMovieTypeEnumOrderByRatingDesc(MovieTypeEnum.TOP);
-        assertThat(filmList.isEmpty()).isEqualTo(false);
+        assertThat(filmList.isEmpty()).isFalse();
     }
 }

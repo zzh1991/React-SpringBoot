@@ -30,6 +30,7 @@ public final class JsoupUtils {
     private static final String RECENT_URL = "https://movie.douban.com/cinema/nowplaying/shanghai/";
     private static final String DOUBAN_URL = "https://movie.douban.com/subject/";
     private static final String TOP_DOUBAN_URL = "https://movie.douban.com/top250?start=";
+    private static final String PROPERTY = "property";
 
     private JsoupUtils() {}
 
@@ -41,21 +42,19 @@ public final class JsoupUtils {
             Document document = Jsoup.parse(new URL(RECENT_URL), 30000);
             Element element = document.getElementById(NOWPLAYING);
             Elements elements = element.getElementsByClass("list-item");
-            elements.forEach(item -> {
-                filmList.add(Film.builder()
-                        .movieId(Long.valueOf(item.attr("id")))
-                        .title(item.attr("data-title"))
-                        .rating(Double.parseDouble(item.attr("data-score")))
-                        .movieYear(Integer.parseInt(item.attr("data-release")))
-                        .countries(getJoinString(item.attr("data-region"), " "))
-                        .directors(getJoinString(item.attr("data-director"), " "))
-                        .casts(getJoinString(item.attr("data-actors"), "/"))
-                        .url(DOUBAN_URL.concat(item.attr("id")))
-                        .imageLarge(getImageUrl(item))
-                        .updateTime(updateTime)
-                        .movieTypeEnum(MovieTypeEnum.RECENT)
-                        .build());
-            });
+            elements.forEach(item -> filmList.add(Film.builder()
+                    .movieId(Long.valueOf(item.attr("id")))
+                    .title(item.attr("data-title"))
+                    .rating(Double.parseDouble(item.attr("data-score")))
+                    .movieYear(Integer.parseInt(item.attr("data-release")))
+                    .countries(getJoinString(item.attr("data-region"), " "))
+                    .directors(getJoinString(item.attr("data-director"), " "))
+                    .casts(getJoinString(item.attr("data-actors"), "/"))
+                    .url(DOUBAN_URL.concat(item.attr("id")))
+                    .imageLarge(getImageUrl(item))
+                    .updateTime(updateTime)
+                    .movieTypeEnum(MovieTypeEnum.RECENT)
+                    .build()));
         } catch (Exception e) {
             log.error("get recent movies error: ", e);
         }
@@ -116,7 +115,7 @@ public final class JsoupUtils {
             Element infoElement = document.getElementById("info");
             Elements spanElements = infoElement.getElementsByTag("span");
             List<String> genreList = spanElements.stream()
-                    .filter(item -> "v:genre".equals(item.attr("property")))
+                    .filter(item -> "v:genre".equals(item.attr(PROPERTY)))
                     .map(Element::text)
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
@@ -143,7 +142,7 @@ public final class JsoupUtils {
             Element infoElement = document.getElementById("info");
             Elements spanElements = infoElement.getElementsByTag("span");
             List<String> genreList = spanElements.stream()
-                    .filter(item -> "v:genre".equals(item.attr("property")))
+                    .filter(item -> "v:genre".equals(item.attr(PROPERTY)))
                     .map(Element::text)
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
@@ -163,7 +162,7 @@ public final class JsoupUtils {
                     .collect(Collectors.toList());
 
             Optional<Integer> movieYear = spanElements.stream()
-                    .filter(item -> "v:initialReleaseDate".equals(item.attr("property")))
+                    .filter(item -> "v:initialReleaseDate".equals(item.attr(PROPERTY)))
                     .map(Element::text)
                     .filter(Objects::nonNull)
                     .map(item -> Integer.parseInt(item.substring(0, 4)))
@@ -173,7 +172,7 @@ public final class JsoupUtils {
             Element ratingElement = document.getElementById("interest_sectl");
             Elements strongElements = ratingElement.getElementsByTag("strong");
             Optional<Double> rating = strongElements.stream()
-                    .filter(item -> "v:average".equals(item.attr("property")))
+                    .filter(item -> "v:average".equals(item.attr(PROPERTY)))
                     .map(Element::text)
                     .filter(Objects::nonNull)
                     .map(Double::parseDouble)

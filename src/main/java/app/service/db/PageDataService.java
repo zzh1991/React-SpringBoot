@@ -61,7 +61,5 @@ public class PageDataService {
         }
 
         return filmRepository.findAll(specification, pageable);
-//        return filmRepository.findAll(Specification.where(titleContains(searchText))
-//                .or(summaryContains(searchText)), pageable);
     }
 }
