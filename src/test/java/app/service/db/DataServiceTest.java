@@ -14,7 +14,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class DataServiceTest {
+class DataServiceTest {
     private static final long MOVIE_ID = 1292052L;
 
     @Autowired
@@ -23,7 +23,7 @@ public class DataServiceTest {
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
-    public void findByMovieId() {
+    void findByMovieId() {
         Film film = dataService.findByMovieId(MOVIE_ID);
         assertThat(film.getMovieId()).isEqualTo(MOVIE_ID);
     }
@@ -31,7 +31,7 @@ public class DataServiceTest {
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
-    public void findByMovieIds() {
+    void findByMovieIds() {
         List<Film> filmList = dataService.findByMovieIds(Lists.newArrayList(MOVIE_ID));
         assertThat(filmList.size()).isEqualTo(1);
     }
@@ -39,7 +39,7 @@ public class DataServiceTest {
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
-    public void findByMovieTypeEnum() {
+    void findByMovieTypeEnum() {
         List<Film> filmList = dataService.findByMovieTypeEnum(MovieTypeEnum.TOP);
         assertThat(filmList.isEmpty()).isEqualTo(false);
     }
@@ -47,7 +47,7 @@ public class DataServiceTest {
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
-    public void listFilmsByMovieTypeEnum() {
+    void listFilmsByMovieTypeEnum() {
         List<Film> filmList = dataService.findByMovieTypeEnum(MovieTypeEnum.TOP);
         assertThat(filmList.isEmpty()).isEqualTo(false);
     }
@@ -55,7 +55,7 @@ public class DataServiceTest {
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
-    public void listAllFilms() {
+    void listAllFilms() {
         List<Film> filmList = dataService.listAllFilms();
         assertThat(filmList.isEmpty()).isEqualTo(false);
     }
@@ -63,9 +63,8 @@ public class DataServiceTest {
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
-    public void saveAll() {
+    void saveAll() {
         Film film = dataService.findByMovieId(MOVIE_ID);
         dataService.saveAll(Lists.newArrayList(film));
-        assertThat(Boolean.TRUE).isEqualTo(Boolean.TRUE);
     }
 }

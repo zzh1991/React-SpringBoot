@@ -12,13 +12,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MovieApplicationTest {
+class MovieApplicationTest {
 
     @Autowired
     private MockMvc mvc;
 
     @Test
-    public void getFilmListById() throws Exception {
+    void getFilmListById() throws Exception {
         Film film = Film.builder()
                 .id(1L)
                 .movieId(1L)

@@ -1,7 +1,5 @@
 package app.dao;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import app.constant.MovieTypeEnum;
 import app.entity.Film;
 import com.google.common.collect.Lists;
@@ -13,8 +11,10 @@ import org.springframework.test.context.jdbc.Sql;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
-public class FilmRepositoryTest {
+class FilmRepositoryTest {
     private static final long MOVIE_ID = 1292052L;
     @Autowired
     private FilmRepository filmRepository;
@@ -22,7 +22,7 @@ public class FilmRepositoryTest {
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
-    public void findFirstByMovieId() {
+    void findFirstByMovieId() {
         Film film = filmRepository.findFirstByMovieId(MOVIE_ID);
         assertThat(film.getMovieId()).isEqualTo(MOVIE_ID);
     }
@@ -30,7 +30,7 @@ public class FilmRepositoryTest {
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
-    public void findByMovieIdIsIn() {
+    void findByMovieIdIsIn() {
         List<Film> filmList = filmRepository.findByMovieIdIsIn(Lists.newArrayList(MOVIE_ID));
         assertThat(filmList.size()).isEqualTo(1);
     }
@@ -38,7 +38,7 @@ public class FilmRepositoryTest {
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
-    public void findAllByOrderByMovieYearDescRatingDesc() {
+    void findAllByOrderByMovieYearDescRatingDesc() {
         List<Film> filmList = filmRepository.findAllByOrderByMovieYearDescRatingDesc();
         assertThat(filmList.isEmpty()).isEqualTo(false);
     }
@@ -46,7 +46,7 @@ public class FilmRepositoryTest {
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
-    public void findByMovieTypeEnumOrderByRatingDesc() {
+    void findByMovieTypeEnumOrderByRatingDesc() {
         List<Film> filmList = filmRepository.findByMovieTypeEnumOrderByRatingDesc(MovieTypeEnum.TOP);
         assertThat(filmList.isEmpty()).isEqualTo(false);
     }
