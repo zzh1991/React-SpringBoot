@@ -1,21 +1,14 @@
 # React-SpringBoot
 
+![React-SpringBoot](https://socialify.git.ci/zzh1991/React-SpringBoot/image?description=1&descriptionEditable=(Movie%20Helper)%20Movie%20management%20and%20find%20valuable%20movies%20to%20watch&logo=https%3A%2F%2Fgithub.com%2Fzzh1991%2FReact-SpringBoot%2Fraw%2Fmaster%2Fsrc%2Fmain%2Fresources%2Fstatic%2Ffavicon.ico&owner=1&theme=Light)
+
 <p align="center">
-    <a href="http://movie.zzhpro.com">
-        <img src="./src/main/resources/static/favicon.ico" width="152">
-    </a>
-    <h3 align="center">Movie Helper</h3>
     <p align="center">
       	<img src="https://badges.toozhao.com/badges/01EH2EP6R07GDNK946RERW9D1B/green.svg" />
         <a href="https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE"><img src="https://img.shields.io/github/license/zzh1991/React-SpringBoot.svg"></a>
         <a href="#"><img src="https://img.shields.io/github/languages/top/zzh1991/React-SpringBoot.svg"></a>
-        <a href="#"><img src="https://img.shields.io/github/languages/count/zzh1991/React-SpringBoot.svg"></a>
-        <a href="#"><img src="https://img.shields.io/github/search/zzh1991/React-SpringBoot/goto.svg"></a>
         <a href="https://github.com/zzh1991/React-SpringBoot/blob/master/.travis.yml"><img src="https://img.shields.io/travis/zzh1991/React-SpringBoot/master.svg"></a>
         <a href="https://snyk.io/test/github/zzh1991/React-SpringBoot?targetFile=pom.xml"><img src="https://snyk.io/test/github/zzh1991/React-SpringBoot/badge.svg?targetFile=pom.xml" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/zzh1991/React-SpringBoot?targetFile=pom.xml" style="max-width:100%;"></a>
-    </p>
-    <p align="center">
-        Movie management and find valuable movies to watch<br>
     </p>
 </p>
 
@@ -32,7 +25,7 @@
 
 ### 手机显示
 
-<img src="./pictures/mobile-2007.png" alt="Mobile" style="zoom: 25%;" />
+<div align="center"><img src="./pictures/mobile-2007.png" alt="Mobile" width="400px" /></div>
 
 ## 访问数
 
