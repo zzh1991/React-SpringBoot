@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <guava.version>29.0-jre</guava.version>
+        <guava.version>30.1-jre</guava.version>
         <swagger.version>3.0.0</swagger.version>
         <mybatis-plus-boot-starter.version>3.4.2</mybatis-plus-boot-starter.version>
         <graphql-spring-boot-starter.version>11.0.0</graphql-spring-boot-starter.version>
@@ -157,12 +157,6 @@
             <groupId>com.graphql-java-kickstart</groupId>
             <artifactId>graphiql-spring-boot-starter</artifactId>
             <version>${graphql-spring-boot-starter.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
 
