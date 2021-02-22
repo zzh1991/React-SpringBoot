@@ -24,7 +24,7 @@
         <jsoup.version>1.13.1</jsoup.version>
 
         <!--   plugin version     -->
-        <maven-lombok.version>1.18.16.0</maven-lombok.version>
+        <maven-lombok.version>1.18.18.0</maven-lombok.version>
     </properties>
 
     <dependencies>
