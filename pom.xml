@@ -19,7 +19,7 @@
         <guava.version>30.1.1-jre</guava.version>
         <swagger.version>3.0.0</swagger.version>
         <mybatis-plus-boot-starter.version>3.4.2</mybatis-plus-boot-starter.version>
-        <graphql-spring-boot-starter.version>11.0.0</graphql-spring-boot-starter.version>
+        <graphql-spring-boot-starter.version>11.1.0</graphql-spring-boot-starter.version>
         <graphql-java-tools.version>11.0.1</graphql-java-tools.version>
         <jsoup.version>1.13.1</jsoup.version>
 
