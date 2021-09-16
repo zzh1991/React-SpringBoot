@@ -17,6 +17,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 8
+      - name: Set up postgres
+        uses: harmon758/postgresql-action@v1
+          with:
+            postgresql version: '11'
+      - name: Create DB
+          run: psql -c 'create database mydb;' -U postgres
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
