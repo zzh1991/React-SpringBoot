@@ -9,6 +9,16 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mydb
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v2
         with:
@@ -17,12 +27,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 8
-      - name: Set up postgres
-        uses: harmon758/postgresql-action@v1
-          with:
-            postgresql version: '11'
-      - name: Create DB
-          run: psql -c 'create database mydb;' -U postgres
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
