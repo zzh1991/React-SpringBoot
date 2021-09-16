@@ -27,6 +27,10 @@
         <spring-cloud-commons.version>3.0.3</spring-cloud-commons.version>
         <!--   plugin version     -->
         <maven-lombok.version>1.18.20.0</maven-lombok.version>
+
+        <!--   sonar     -->
+        <sonar.organization>zzh1991-github</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>

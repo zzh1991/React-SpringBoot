@@ -3,7 +3,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/mydb
     password: postgres
-    username: dbuser
+    username: postgres
     initialization-mode: never
 
   flyway:
