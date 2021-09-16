@@ -63,3 +63,8 @@ management:
     export:
       prometheus:
         enabled: true
+
+graphql:
+  servlet:
+    websocket:
+      enabled: false
