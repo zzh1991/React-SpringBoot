@@ -23,6 +23,8 @@
         <graphql-java-tools.version>11.1.2</graphql-java-tools.version>
         <jsoup.version>1.14.2</jsoup.version>
 
+        <graphql-java-extended-scalars.version>17.0</graphql-java-extended-scalars.version>
+        <spring-cloud-commons.version>3.0.3</spring-cloud-commons.version>
         <!--   plugin version     -->
         <maven-lombok.version>1.18.20.0</maven-lombok.version>
     </properties>
@@ -171,6 +173,19 @@
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-extended-scalars</artifactId>
+            <version>${graphql-java-extended-scalars.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-commons</artifactId>
+            <version>${spring-cloud-commons.version}</version>
+        </dependency>
+
 
     </dependencies>
 
