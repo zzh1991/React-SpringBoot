@@ -5,6 +5,7 @@ node_modules
 .vscode
 .mvn
 .DS_Store
+src/test/java/app/util
 src/.DS_Store
 src/main/.DS_Store
 src/main/resources/.DS_Store
@@ -17,5 +18,3 @@ yarn.lock
 package-lock.json
 movie-helper.iml
 movie-helper-front
-
-src/test/java/app/util

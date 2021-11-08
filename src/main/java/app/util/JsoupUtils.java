@@ -3,6 +3,7 @@ package app.util;
 import app.constant.MovieTypeEnum;
 import app.entity.Film;
 import com.google.common.collect.Lists;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -25,16 +26,15 @@ import static app.util.ConstantUtils.SEPARATOR;
  */
 
 @Slf4j
+@UtilityClass
 public final class JsoupUtils {
-    private static final String NOWPLAYING = "nowplaying";
-    private static final String RECENT_URL = "https://movie.douban.com/cinema/nowplaying/shanghai/";
-    private static final String DOUBAN_URL = "https://movie.douban.com/subject/";
-    private static final String TOP_DOUBAN_URL = "https://movie.douban.com/top250?start=";
-    private static final String PROPERTY = "property";
+    private final String NOWPLAYING = "nowplaying";
+    private final String RECENT_URL = "https://movie.douban.com/cinema/nowplaying/shanghai/";
+    private final String DOUBAN_URL = "https://movie.douban.com/subject/";
+    private final String TOP_DOUBAN_URL = "https://movie.douban.com/top250?start=";
+    private final String PROPERTY = "property";
 
-    private JsoupUtils() {}
-
-    public static List<Film> getFilmListFromDouban() {
+    public List<Film> getFilmListFromDouban() {
         List<Film> filmList = Lists.newArrayList();
         LocalDateTime updateTime = LocalDateTime.now();
 
@@ -61,7 +61,7 @@ public final class JsoupUtils {
         return filmList;
     }
 
-    public static List<Film> getTopFilmListFromDouban() {
+    public List<Film> getTopFilmListFromDouban() {
         int gap = 25;
         int n = 10;
         LocalDateTime updateTime = LocalDateTime.now();
@@ -94,7 +94,7 @@ public final class JsoupUtils {
         return filmList;
     }
 
-    public static Film getFilmDetailByMovieTypeAndUrl(MovieTypeEnum movieTypeEnum, String url) {
+    public Film getFilmDetailByMovieTypeAndUrl(MovieTypeEnum movieTypeEnum, String url) {
         if (MovieTypeEnum.RECENT.equals(movieTypeEnum)) {
             return getFilmDetailFromUrl(url);
         } else if (MovieTypeEnum.TOP.equals(movieTypeEnum)) {
@@ -103,7 +103,7 @@ public final class JsoupUtils {
         return null;
     }
 
-    private static Film getFilmDetailFromUrl(String url) {
+    private Film getFilmDetailFromUrl(String url) {
         if (StringUtils.isBlank(url)) {
             return null;
         }
@@ -130,7 +130,7 @@ public final class JsoupUtils {
         }
     }
 
-    private static Film getTopFilmDetailFromUrl(String url) {
+    private Film getTopFilmDetailFromUrl(String url) {
         if (StringUtils.isBlank(url)) {
             return null;
         }
@@ -193,7 +193,7 @@ public final class JsoupUtils {
         }
     }
 
-    private static String getImageUrl(Element item) {
+    private String getImageUrl(Element item) {
         Elements img = item.getElementsByTag("img");
         String url = "";
         try {
@@ -204,7 +204,7 @@ public final class JsoupUtils {
         return url;
     }
 
-    private static String getJoinString(String text, String split) {
+    private String getJoinString(String text, String split) {
         if (StringUtils.isBlank(text)) {
             return "";
         }

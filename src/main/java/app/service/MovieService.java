@@ -5,14 +5,10 @@ import app.constant.MovieTypeEnum;
 import app.entity.Film;
 import app.service.db.DataService;
 import app.util.JsoupUtils;
-import app.vo.movie.Movie;
 import app.vo.movie.MovieSubject;
-import app.vo.movie.MovieVo;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +22,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -46,11 +41,6 @@ import java.util.stream.Collectors;
 public class MovieService {
     private static final String DOUBAN_URL = "https://douban.uieee.com";
     private static final ObjectMapper MAPPER = new ObjectMapper();
-
-    private static final Map<MovieTypeEnum, String> URL_MAP = ImmutableMap.of(
-            MovieTypeEnum.RECENT, DOUBAN_URL.concat("/v2/movie/in_theaters?city=上海"),
-            MovieTypeEnum.TOP, DOUBAN_URL.concat("/v2/movie/top250?start=0&count=100")
-    );
 
     private static final OkHttpClient HTTP_CLIENT = new OkHttpClient();
     private static final ExecutorService executorService =
@@ -146,18 +136,6 @@ public class MovieService {
         }
         this.deleteOutDatedMovie(movieTypeEnum);
         this.saveFilmList(filmList, movieTypeEnum);
-    }
-
-    private List<Movie> getMoviesFromOrigin(String url) {
-        MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        try {
-            MovieVo movieVo = MAPPER.readValue(getUrlContent(url),
-                    TypeFactory.defaultInstance().constructType(MovieVo.class));
-            return movieVo.getSubjects();
-        } catch (Exception e) {
-            log.error("failed to get movie info by {}", url, e);
-            return Lists.newArrayList();
-        }
     }
 
     private String getUrlContent(String url) throws IOException {
