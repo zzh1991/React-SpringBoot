@@ -4,7 +4,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/mydb
     password: postgres
     username: postgres
-    initialization-mode: never
 
   flyway:
     enabled: true
@@ -33,11 +32,20 @@ spring:
   main:
     lazy-initialization: true
 
-  resources:
-    cache:
-      cachecontrol:
-        max-age: 120
-        must-revalidate: true
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          max-age: 120
+          must-revalidate: true
+  sql:
+    init:
+      mode: never
+
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 server:
   port: ${PORT:8080}
