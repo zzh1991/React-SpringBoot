@@ -1,16 +1,12 @@
 package app.entity;
 
 import app.constant.MovieTypeEnum;
-import app.vo.movie.Avatar;
-import app.vo.movie.Movie;
-import app.vo.movie.MovieSubject;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,9 +19,6 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
-
-import static app.util.ConstantUtils.LARGE;
-import static app.util.ConstantUtils.SEPARATOR;
 
 /**
  * @author zhihao zhang
@@ -69,22 +62,6 @@ public class Film implements Serializable {
     @TableField("movie_type")
     private MovieTypeEnum movieTypeEnum;
 
-    public static Film transformMovieToFilm(Movie movie, MovieTypeEnum movieTypeEnum) {
-        return Film.builder()
-                .movieId(movie.getId())
-                .title(movie.getTitle())
-                .rating(movie.getRating().getAverage())
-                .url(movie.getAlt())
-                .movieYear(movie.getYear())
-                .imageLarge(movie.getImages().get(LARGE))
-                .casts(Avatar.getNames(movie.getCasts()))
-                .directors(Avatar.getNames(movie.getDirectors()))
-                .genres(StringUtils.join(movie.getGenres(), SEPARATOR))
-                .updateTime(LocalDateTime.now())
-                .movieTypeEnum(movieTypeEnum)
-                .build();
-    }
-
     public static Film transformMovieAndOldFilmToNewFilm(Film newFilm, MovieTypeEnum movieTypeEnum,
                                                          Film oldFilm) {
         if (Objects.isNull(oldFilm)) {
@@ -104,23 +81,5 @@ public class Film implements Serializable {
             newFilm.setId(oldFilm.getId());
         }
         return newFilm;
-    }
-
-    public static Film transformMovieSubjectToFilm(MovieSubject movieSubject, MovieTypeEnum movieTypeEnum) {
-        return Film.builder()
-                .movieId(movieSubject.getId())
-                .title(movieSubject.getTitle())
-                .rating(movieSubject.getRating().getAverage())
-                .url(movieSubject.getAlt())
-                .movieYear(movieSubject.getYear())
-                .imageLarge(movieSubject.getImages().get(LARGE))
-                .casts(Avatar.getNames(movieSubject.getCasts()))
-                .directors(Avatar.getNames(movieSubject.getDirectors()))
-                .genres(StringUtils.join(movieSubject.getGenres(), SEPARATOR))
-                .summary(movieSubject.getSummary())
-                .countries(StringUtils.join(movieSubject.getCountries().toArray(), SEPARATOR))
-                .movieTypeEnum(movieTypeEnum)
-                .updateTime(LocalDateTime.now())
-                .build();
     }
 }

@@ -3,13 +3,11 @@ package app.controller;
 import app.constant.MovieTypeEnum;
 import app.entity.Film;
 import app.service.MovieService;
-import app.vo.movie.MovieSubject;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -39,16 +37,6 @@ public class MovieController {
         return movieService.getAllMovies();
     }
 
-    @PostMapping("movie/star")
-    public List<Film> getStarList(@RequestBody List<Long> movieIdList) {
-        return movieService.getMoviesByMovieIds(movieIdList);
-    }
-
-    @PostMapping("movie/viewed")
-    public List<Film> getViewedList(@RequestBody List<Long> movieIdList) {
-        return movieService.getMoviesByMovieIds(movieIdList);
-    }
-
     @PostMapping("sync/recent")
     public void syncRecent() {
         movieService.syncMovies(MovieTypeEnum.RECENT);
@@ -57,21 +45,6 @@ public class MovieController {
     @PostMapping("sync/top")
     public void syncTop() {
         movieService.syncMovies(MovieTypeEnum.TOP);
-    }
-
-    @PostMapping("movie/sync/{movieId}")
-    public Film syncOneMovieToMovieList(@PathVariable Long movieId) {
-        return movieService.syncMovieByMovieId(movieId, true);
-    }
-
-    /**
-     * get movie info by subject id
-     * @param id subject id
-     * @return movie subject
-     */
-    @GetMapping("movie/subject/{id}")
-    public MovieSubject getMovieSubject(@PathVariable Long id) {
-        return movieService.getMovieSubject(id);
     }
 
     /**

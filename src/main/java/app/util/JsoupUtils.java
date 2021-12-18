@@ -14,7 +14,6 @@ import org.jsoup.select.Elements;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -117,7 +116,6 @@ public final class JsoupUtils {
             List<String> genreList = spanElements.stream()
                     .filter(item -> "v:genre".equals(item.attr(PROPERTY)))
                     .map(Element::text)
-                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
 
             return Film.builder()
@@ -144,27 +142,23 @@ public final class JsoupUtils {
             List<String> genreList = spanElements.stream()
                     .filter(item -> "v:genre".equals(item.attr(PROPERTY)))
                     .map(Element::text)
-                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
 
             Elements aElements = infoElement.getElementsByTag("a");
             List<String> directorList = aElements.stream()
                     .filter(item -> "v:directedBy".equals(item.attr("rel")))
                     .map(Element::text)
-                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
 
             List<String> actorList = aElements.stream()
                     .filter(item -> "v:starring".equals(item.attr("rel")))
                     .map(Element::text)
-                    .filter(Objects::nonNull)
                     .limit(5)
                     .collect(Collectors.toList());
 
             Optional<Integer> movieYear = spanElements.stream()
                     .filter(item -> "v:initialReleaseDate".equals(item.attr(PROPERTY)))
                     .map(Element::text)
-                    .filter(Objects::nonNull)
                     .map(item -> Integer.parseInt(item.substring(0, 4)))
                     .limit(1)
                     .findFirst();
@@ -174,7 +168,6 @@ public final class JsoupUtils {
             Optional<Double> rating = strongElements.stream()
                     .filter(item -> "v:average".equals(item.attr(PROPERTY)))
                     .map(Element::text)
-                    .filter(Objects::nonNull)
                     .map(Double::parseDouble)
                     .limit(1)
                     .findFirst();
