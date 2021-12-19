@@ -39,6 +39,7 @@ spring:
       filter:
         stat:
           log-slow-sql: true
+      enable: false
 
   flyway:
     enabled: true
