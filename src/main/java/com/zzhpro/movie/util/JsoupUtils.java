@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @UtilityClass
 public final class JsoupUtils {
     private final String NOWPLAYING = "nowplaying";
-    private final String RECENT_URL = "https://movie.douban.com/cinema/nowplaying/shanghai/";
+    private final String RECENT_URL = "https://movie.douban.com/cinema/nowplaying/hangzhou/";
     private final String DOUBAN_URL = "https://movie.douban.com/subject/";
     private final String TOP_DOUBAN_URL = "https://movie.douban.com/top250?start=";
     private final String PROPERTY = "property";
