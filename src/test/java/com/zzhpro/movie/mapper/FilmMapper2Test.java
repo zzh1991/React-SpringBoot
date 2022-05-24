@@ -22,14 +22,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @MybatisPlusTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class FilmMapperTest2 {
+class FilmMapper2Test {
     @Autowired
     private FilmMapper filmMapper;
 
     @Transactional
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
-    public void getById() {
+    void getById() {
         Film film = filmMapper.selectById(340);
         assertThat(Objects.nonNull(film)).isTrue();
     }
