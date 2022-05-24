@@ -39,7 +39,14 @@ spring:
       filter:
         stat:
           log-slow-sql: true
-      enable: false
+
+        wall:
+          config:
+            variantCheck: false
+            noneBaseStatementAllow: true
+            commentAllow: true
+            multiStatementAllow: true
+      enable: true
 
   flyway:
     enabled: true

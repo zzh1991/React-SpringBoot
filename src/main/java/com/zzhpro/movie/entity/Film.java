@@ -1,6 +1,8 @@
 package com.zzhpro.movie.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zzhpro.movie.constant.MovieTypeEnum;
 import lombok.AllArgsConstructor;
@@ -37,6 +39,7 @@ public class Film implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId(type = IdType.AUTO)
     private Long id;
     private Long movieId;
     private String title;
