@@ -16,9 +16,6 @@
     <a href="https://github.com/zzh1991/React-SpringBoot/blob/master/.travis.yml">
       <img src="https://img.shields.io/travis/zzh1991/React-SpringBoot/master.svg">
     </a>
-    <a href="https://snyk.io/test/github/zzh1991/React-SpringBoot?targetFile=pom.xml">
-      <img src="https://snyk.io/test/github/zzh1991/React-SpringBoot/badge.svg?targetFile=pom.xml" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/zzh1991/React-SpringBoot?targetFile=pom.xml" style="max-width:100%;">
-    </a>
   </div>
 </div>
 
@@ -248,5 +245,5 @@ Please ⭐️ this repository if this project helped you!
 
 ## 📝 License
 
-Copyright © 2021 [zzh1991](https://github.com/zzh1991).<br />
+Copyright © 2022 [zzh1991](https://github.com/zzh1991).<br />
 This project is [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE) licensed.
