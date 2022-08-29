@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - master
-      - 'dependabot/**'
-      - '*'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
