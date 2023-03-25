@@ -117,6 +117,8 @@ public class MovieService {
             try {
                 boolean fetchStatus = future.get();
                 log.warn("update summary success: {}", fetchStatus);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             } catch (Exception e) {
                 log.error("get movie summary error", e);
             }

@@ -26,7 +26,7 @@ class FilmMapperTest {
                 .orderByDesc(Film::getMovieYear)
                 .orderByDesc(Film::getRating)
         );
-        assertThat(filmList.isEmpty()).isFalse();
+        assertThat(filmList).isNotEmpty();
     }
 
     @Transactional
@@ -37,6 +37,6 @@ class FilmMapperTest {
                 .eq(Film::getMovieTypeEnum, MovieTypeEnum.TOP)
                 .orderByDesc(Film::getRating)
         );
-        assertThat(filmList.isEmpty()).isFalse();
+        assertThat(filmList).isNotEmpty();
     }
 }

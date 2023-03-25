@@ -47,13 +47,13 @@ class MovieServiceTest {
     void getMoviesByMovieTypeEnum() {
         when(dataService.listFilmsByMovieTypeEnum(MovieTypeEnum.TOP)).thenReturn(FILM_LIST);
         List<Film> filmList = movieService.getMoviesByMovieTypeEnum(MovieTypeEnum.TOP);
-        assertThat(filmList.size()).isEqualTo(FILM_LIST.size());
+        assertThat(filmList).hasSameSizeAs(FILM_LIST);
     }
 
     @Test
     void getAllMovies() {
         when(dataService.listAllFilms()).thenReturn(FILM_LIST);
         List<Film> filmList = movieService.getAllMovies();
-        assertThat(filmList.size()).isEqualTo(FILM_LIST.size());
+        assertThat(filmList).hasSameSizeAs(FILM_LIST);
     }
 }

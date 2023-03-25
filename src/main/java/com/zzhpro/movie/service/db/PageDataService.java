@@ -49,10 +49,10 @@ public class PageDataService {
         Specification<Film> specification = null;
         if (!specificationList.isEmpty()) {
             specification = Specification.where(specificationList.get(0));
-        }
 
-        for (int i = 1; i < specificationList.size(); i++) {
-            specification = specification.or(specificationList.get(i));
+            for (int i = 1; i < specificationList.size(); i++) {
+                specification = specification.or(specificationList.get(i));
+            }
         }
 
         return filmRepository.findAll(specification, pageable);
