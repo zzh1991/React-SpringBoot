@@ -20,7 +20,7 @@
         <swagger.version>3.0.0</swagger.version>
         <mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
         <graphql-spring-boot-starter.version>11.1.0</graphql-spring-boot-starter.version>
-        <graphql-java-tools.version>11.1.2</graphql-java-tools.version>
+        <graphql-java-tools.version>13.0.3</graphql-java-tools.version>
         <jsoup.version>1.15.4</jsoup.version>
         <compileflow.version>1.1.0</compileflow.version>
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
