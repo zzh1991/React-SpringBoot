@@ -69,7 +69,7 @@ public class MovieService {
             return;
         }
         this.deleteOutDatedMovie(movieTypeEnum);
-        this.saveFilmList(filmList, movieTypeEnum);
+        this.saveFilmList(filmList);
     }
 
     private void deleteOutDatedMovie(MovieTypeEnum movieTypeEnum) {
@@ -79,10 +79,10 @@ public class MovieService {
         log.info("set old {} {} movies to normal movies", movieTypeEnum, filmList.size());
     }
 
-    private void saveFilmList(List<Film> movieList, MovieTypeEnum movieTypeEnum) {
+    private void saveFilmList(List<Film> movieList) {
         List<Film> filmList = movieList.stream()
                 .map(movie -> Film.transformMovieAndOldFilmToNewFilm(
-                        movie, movieTypeEnum, dataService.findByMovieId(movie.getMovieId())))
+                        movie, dataService.findByMovieId(movie.getMovieId())))
                 .collect(Collectors.toList());
         this.batchUpdateFilmList(filmList);
     }
@@ -106,7 +106,7 @@ public class MovieService {
                                 executorService)
                                 .thenApply(movieSubject -> {
                                     if (Objects.nonNull(movieSubject)) {
-                                        newFilmList.add(Film.transformMovieAndOldFilmToNewFilm(film, movieTypeEnum, movieSubject));
+                                        newFilmList.add(Film.transformMovieAndOldFilmToNewFilm(film, movieSubject));
                                         return true;
                                     }
                                     return false;

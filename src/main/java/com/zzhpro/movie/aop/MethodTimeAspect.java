@@ -1,6 +1,7 @@
 package com.zzhpro.movie.aop;
 
 import com.google.common.collect.Lists;
+import com.zzhpro.movie.util.ConstantUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.StopWatch;
 import org.aspectj.lang.JoinPoint;
@@ -34,7 +35,7 @@ public class MethodTimeAspect {
         watch.start();
         Object object = joinPoint.proceed();
         watch.stop();
-        log.info("{} {} cost {} ms",
+        log.info("method: {}, parameters: {} costs {} ms",
                 methodSignature.getMethod().getName(),
                 getParameterArray(joinPoint),
                 watch.getTime());
@@ -50,6 +51,6 @@ public class MethodTimeAspect {
         for (Object parameter : parameters) {
             parametersList.add(parameter.toString());
         }
-        return parametersList.toString();
+        return String.join(ConstantUtils.SEPARATOR, parametersList);
     }
 }

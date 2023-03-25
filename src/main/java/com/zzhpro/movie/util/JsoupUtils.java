@@ -14,6 +14,7 @@ import org.jsoup.select.Elements;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,11 @@ public final class JsoupUtils {
         try {
             Document document = Jsoup.parse(new URL(RECENT_URL), 30000);
             Element element = document.getElementById(NOWPLAYING);
+
+            if (Objects.isNull(element)) {
+                return filmList;
+            }
+
             Elements elements = element.getElementsByClass("list-item");
             elements.forEach(item -> filmList.add(Film.builder()
                     .movieId(Long.valueOf(item.attr("id")))
@@ -67,6 +73,9 @@ public final class JsoupUtils {
             try {
                 Document document = Jsoup.parse(new URL(TOP_DOUBAN_URL.concat(String.valueOf(i * gap))), 30000);
                 Element gridView = document.getElementById("content");
+                if (Objects.isNull(gridView)) {
+                    return filmList;
+                }
                 Elements liElements = gridView.getElementsByTag("li");
                 filmList.addAll(liElements.stream()
                         .map(item -> {
@@ -106,19 +115,27 @@ public final class JsoupUtils {
         }
         try {
             Document document = Jsoup.parse(new URL(url), 30000);
+            String summary = null;
+            String genres = null;
             Element summaryElement = document.getElementById("link-report");
-            Elements summaryElements = summaryElement.getElementsByTag("span");
+            if (Objects.nonNull(summaryElement)) {
+                Elements summaryElements = summaryElement.getElementsByTag("span");
+                summary = StringUtils.strip(summaryElements.get(0).text());
+            }
 
             Element infoElement = document.getElementById("info");
-            Elements spanElements = infoElement.getElementsByTag("span");
-            List<String> genreList = spanElements.stream()
-                    .filter(item -> "v:genre".equals(item.attr(PROPERTY)))
-                    .map(Element::text)
-                    .collect(Collectors.toList());
+            if (Objects.nonNull(infoElement)) {
+                Elements spanElements = infoElement.getElementsByTag("span");
+                List<String> genreList = spanElements.stream()
+                        .filter(item -> "v:genre".equals(item.attr(PROPERTY)))
+                        .map(Element::text)
+                        .collect(Collectors.toList());
+                genres = StringUtils.join(genreList, ConstantUtils.SEPARATOR);
+            }
 
             return Film.builder()
-                    .summary((StringUtils.strip(summaryElements.get(0).text())))
-                    .genres(StringUtils.join(genreList, ConstantUtils.SEPARATOR))
+                    .summary(summary)
+                    .genres(genres)
                     .build();
         } catch (Exception e) {
             log.error("failed to get detail from url: {}", url, e);
@@ -132,52 +149,66 @@ public final class JsoupUtils {
         }
         try {
             Document document = Jsoup.parse(new URL(url), 30000);
+            String summary = null;
+            String genres;
             Element summaryElement = document.getElementById("link-report");
-            Elements summaryElements = summaryElement.getElementsByTag("span");
-
-            Element infoElement = document.getElementById("info");
-            Elements spanElements = infoElement.getElementsByTag("span");
-            List<String> genreList = spanElements.stream()
-                    .filter(item -> "v:genre".equals(item.attr(PROPERTY)))
-                    .map(Element::text)
-                    .collect(Collectors.toList());
-
-            Elements aElements = infoElement.getElementsByTag("a");
-            List<String> directorList = aElements.stream()
-                    .filter(item -> "v:directedBy".equals(item.attr("rel")))
-                    .map(Element::text)
-                    .collect(Collectors.toList());
-
-            List<String> actorList = aElements.stream()
-                    .filter(item -> "v:starring".equals(item.attr("rel")))
-                    .map(Element::text)
-                    .limit(5)
-                    .collect(Collectors.toList());
-
-            Optional<Integer> movieYear = spanElements.stream()
-                    .filter(item -> "v:initialReleaseDate".equals(item.attr(PROPERTY)))
-                    .map(Element::text)
-                    .map(item -> Integer.parseInt(item.substring(0, 4)))
-                    .limit(1)
-                    .findFirst();
+            if (Objects.nonNull(summaryElement)) {
+                Elements summaryElements = summaryElement.getElementsByTag("span");
+                summary = StringUtils.strip(summaryElements.get(0).text());
+            }
 
             Element ratingElement = document.getElementById("interest_sectl");
-            Elements strongElements = ratingElement.getElementsByTag("strong");
-            Optional<Double> rating = strongElements.stream()
-                    .filter(item -> "v:average".equals(item.attr(PROPERTY)))
-                    .map(Element::text)
-                    .map(Double::parseDouble)
-                    .limit(1)
-                    .findFirst();
+            Optional<Double> rating = Optional.of(0d);
+            if (Objects.nonNull(ratingElement)) {
+                Elements strongElements = ratingElement.getElementsByTag("strong");
+                rating = strongElements.stream()
+                        .filter(item -> "v:average".equals(item.attr(PROPERTY)))
+                        .map(Element::text)
+                        .map(Double::parseDouble)
+                        .limit(1)
+                        .findFirst();
+            }
 
-            return Film.builder()
-                    .summary((StringUtils.strip(summaryElements.get(0).text())))
-                    .directors(StringUtils.join(directorList, ","))
-                    .genres(StringUtils.join(genreList, ConstantUtils.SEPARATOR))
-                    .casts(StringUtils.join(actorList, ","))
-                    .movieYear(movieYear.orElse(0))
+            Film film = Film.builder()
+                    .summary(summary)
                     .rating(rating.orElse(0d))
                     .build();
+
+            Element infoElement = document.getElementById("info");
+            if (Objects.nonNull(infoElement)) {
+                Elements spanElements = infoElement.getElementsByTag("span");
+                List<String> genreList = spanElements.stream()
+                        .filter(item -> "v:genre".equals(item.attr(PROPERTY)))
+                        .map(Element::text)
+                        .collect(Collectors.toList());
+                genres = StringUtils.join(genreList, ConstantUtils.SEPARATOR);
+
+                Elements aElements = infoElement.getElementsByTag("a");
+                List<String> directorList = aElements.stream()
+                        .filter(item -> "v:directedBy".equals(item.attr("rel")))
+                        .map(Element::text)
+                        .collect(Collectors.toList());
+
+                List<String> actorList = aElements.stream()
+                        .filter(item -> "v:starring".equals(item.attr("rel")))
+                        .map(Element::text)
+                        .limit(5)
+                        .collect(Collectors.toList());
+
+                Optional<Integer> movieYear = spanElements.stream()
+                        .filter(item -> "v:initialReleaseDate".equals(item.attr(PROPERTY)))
+                        .map(Element::text)
+                        .map(item -> Integer.parseInt(item.substring(0, 4)))
+                        .limit(1)
+                        .findFirst();
+
+                film.setGenres(genres);
+                film.setDirectors(StringUtils.join(directorList, ConstantUtils.SEPARATOR));
+                film.setCasts(StringUtils.join(actorList, ConstantUtils.SEPARATOR));
+                film.setMovieYear(movieYear.orElse(0));
+            }
+
+            return film;
         } catch (Exception e) {
             log.error("failed to get detail from url: {}", url, e);
             return null;

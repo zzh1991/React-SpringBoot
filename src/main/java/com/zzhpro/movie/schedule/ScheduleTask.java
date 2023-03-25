@@ -24,12 +24,12 @@ public class ScheduleTask {
     @Scheduled(cron = "0 0 22 * * ?", zone = ZONE)
     public void updateMovie() {
         movieService.syncMovies(MovieTypeEnum.RECENT);
-        log.info("update movie successfully");
+        log.info("update recent movies successfully");
     }
 
     @Scheduled(cron = "0 30 22 * * ?", zone = ZONE)
     public void updateTopMovie() {
         movieService.syncMovies(MovieTypeEnum.TOP);
-        log.info("update top movie successfully");
+        log.info("update top movies successfully");
     }
 }

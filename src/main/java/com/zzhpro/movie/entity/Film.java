@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -65,24 +66,31 @@ public class Film implements Serializable {
     @TableField("movie_type")
     private MovieTypeEnum movieTypeEnum;
 
-    public static Film transformMovieAndOldFilmToNewFilm(Film newFilm, MovieTypeEnum movieTypeEnum,
-                                                         Film oldFilm) {
+    public static Film transformMovieAndOldFilmToNewFilm(Film newFilm, Film oldFilm) {
         if (Objects.isNull(oldFilm)) {
             return newFilm;
         }
+
+        newFilm.setId(oldFilm.getId());
         newFilm.setGenres(oldFilm.getGenres());
         newFilm.setSummary(oldFilm.getSummary());
 
-        if (MovieTypeEnum.TOP.equals(movieTypeEnum)) {
-            newFilm.setDirectors(oldFilm.directors);
-            newFilm.setCasts(oldFilm.casts);
-            newFilm.setMovieYear(oldFilm.movieYear);
-            newFilm.setRating(oldFilm.rating);
+        if (StringUtils.isNotBlank(oldFilm.getDirectors())) {
+            newFilm.setDirectors(oldFilm.getDirectors());
         }
 
-        if (Objects.nonNull(oldFilm.getId())) {
-            newFilm.setId(oldFilm.getId());
+        if (StringUtils.isNotBlank(oldFilm.getCasts())) {
+            newFilm.setCasts(oldFilm.getCasts());
         }
+
+        if (oldFilm.getMovieYear() != 0) {
+            newFilm.setMovieYear(oldFilm.getMovieYear());
+        }
+
+        if (!Objects.equals(0d, oldFilm.getRating())) {
+            newFilm.setRating(oldFilm.getRating());
+        }
+
         return newFilm;
     }
 }
