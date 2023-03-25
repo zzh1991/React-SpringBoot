@@ -71,9 +71,12 @@ public class Film implements Serializable {
             return newFilm;
         }
 
-        newFilm.setId(oldFilm.getId());
         newFilm.setGenres(oldFilm.getGenres());
         newFilm.setSummary(oldFilm.getSummary());
+
+        if (Objects.nonNull(oldFilm.getId())) {
+            newFilm.setId(oldFilm.getId());
+        }
 
         if (StringUtils.isNotBlank(oldFilm.getDirectors())) {
             newFilm.setDirectors(oldFilm.getDirectors());
