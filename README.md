@@ -20,11 +20,15 @@
 </div>
 
 
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fzzh1991%2FReact-SpringBoot.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fzzh1991%2FReact-SpringBoot?ref=badge_large)
+
 ## Demo: [Movie Helper](http://movie.zzhpro.com)
 
 ### Desktop display
 
 ![Desktop](./pictures/recent-movie-2007.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fzzh1991%2FReact-SpringBoot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fzzh1991%2FReact-SpringBoot?ref=badge_shield)
 
 Recently, I improved the performance from 50 to 90.
 
