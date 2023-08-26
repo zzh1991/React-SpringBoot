@@ -22,6 +22,10 @@ import java.util.List;
 public class MovieController {
     private MovieService movieService;
 
+    /**
+     * get recent movies
+     * @return
+     */
     @GetMapping("movie/recent")
     public List<Film> getRecentMovie() {
         return movieService.getMoviesByMovieTypeEnum(MovieTypeEnum.RECENT);

@@ -10,14 +10,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.5</version>
+        <version>3.1.3</version>
         <relativePath/>
     </parent>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <guava.version>32.0.1-jre</guava.version>
-        <swagger.version>3.0.0</swagger.version>
         <mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
         <graphql-spring-boot-starter.version>11.1.0</graphql-spring-boot-starter.version>
         <graphql-java-tools.version>11.1.2</graphql-java-tools.version>
@@ -25,6 +24,7 @@
         <compileflow.version>1.1.0</compileflow.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <druid.version>1.2.18</druid.version>
+        <openapi.version>2.2.0</openapi.version>
 
         <graphql-java-extended-scalars.version>17.0</graphql-java-extended-scalars.version>
         <spring-cloud-commons.version>3.1.3</spring-cloud-commons.version>
@@ -37,6 +37,13 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${openapi.version}</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -74,12 +81,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>${swagger.version}</version>
         </dependency>
 
         <dependency>
