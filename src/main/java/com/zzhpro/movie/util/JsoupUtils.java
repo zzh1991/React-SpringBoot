@@ -117,7 +117,7 @@ public final class JsoupUtils {
             Document document = Jsoup.parse(new URL(url), 30000);
             String summary = null;
             String genres = null;
-            Element summaryElement = document.getElementById("link-report");
+            Element summaryElement = document.getElementById("link-report-intra");
             if (Objects.nonNull(summaryElement)) {
                 Elements summaryElements = summaryElement.getElementsByTag("span");
                 summary = StringUtils.strip(summaryElements.get(0).text());
@@ -151,7 +151,7 @@ public final class JsoupUtils {
             Document document = Jsoup.parse(new URL(url), 30000);
             String summary = null;
             String genres;
-            Element summaryElement = document.getElementById("link-report");
+            Element summaryElement = document.getElementById("link-report-intra");
             if (Objects.nonNull(summaryElement)) {
                 Elements summaryElements = summaryElement.getElementsByTag("span");
                 summary = StringUtils.strip(summaryElements.get(0).text());
