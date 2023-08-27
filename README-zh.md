@@ -12,6 +12,7 @@
     </p>
 </p>
 
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fzzh1991%2FReact-SpringBoot.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fzzh1991%2FReact-SpringBoot?ref=badge_large)
 
 ## Demo: [Movie Helper](http://movie.zzhpro.com)
 
@@ -47,6 +48,13 @@ git submodule update
 ```
 
 ## 🚀 使用
+
+### 支持 Java 17 和 Spring Boot 3
+
+```bash
+# 添加 VM options
+--add-opens java.base/java.lang.invoke=ALL-UNNAMED
+```
 
 ### 启动应用
 
@@ -242,5 +250,5 @@ mvn versions:use-latest-releases
 
 ## 📝 许可证
 
-Copyright © 2021 [zzh1991](https://github.com/zzh1991).<br />
+Copyright © 2023 [zzh1991](https://github.com/zzh1991).<br />
 本项目许可证为 [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE).

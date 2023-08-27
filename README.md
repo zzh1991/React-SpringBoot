@@ -55,6 +55,13 @@ git submodule update
 
 ## 🚀 Usage
 
+### Support Java 17 and Spring Boot 3
+
+```bash
+# add VM options
+--add-opens java.base/java.lang.invoke=ALL-UNNAMED
+```
+
 ### Start application
 
 #### configure database
@@ -249,5 +256,5 @@ Please ⭐️ this repository if this project helped you!
 
 ## 📝 License
 
-Copyright © 2022 [zzh1991](https://github.com/zzh1991).<br />
+Copyright © 2023 [zzh1991](https://github.com/zzh1991).<br />
 This project is [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE) licensed.
