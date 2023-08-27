@@ -2,8 +2,6 @@
 
 [简体中文](README-zh.md)
 
-![React-SpringBoot](https://socialify.git.ci/zzh1991/React-SpringBoot/image?description=1&descriptionEditable=(Movie%20Helper)%20Movie%20management%20and%20find%20valuable%20movies%20to%20watch&logo=https%3A%2F%2Fgithub.com%2Fzzh1991%2FReact-SpringBoot%2Fraw%2Fmaster%2Fsrc%2Fmain%2Fresources%2Fstatic%2Ffavicon.ico&owner=1&theme=Light)
-
 <div align="center">
   <div align="center">
     <img src="https://badges.toozhao.com/badges/01EH2EP6R07GDNK946RERW9D1B/green.svg" />
@@ -12,9 +10,6 @@
     </a>
     <a href="#">
       <img src="https://img.shields.io/github/languages/top/zzh1991/React-SpringBoot.svg">
-    </a>
-    <a href="https://github.com/zzh1991/React-SpringBoot/blob/master/.travis.yml">
-      <img src="https://img.shields.io/travis/zzh1991/React-SpringBoot/master.svg">
     </a>
   </div>
 </div>
@@ -28,7 +23,6 @@
 ### Desktop display
 
 ![Desktop](./pictures/recent-movie-2007.png)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fzzh1991%2FReact-SpringBoot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fzzh1991%2FReact-SpringBoot?ref=badge_shield)
 
 Recently, I improved the performance from 50 to 90.
 
