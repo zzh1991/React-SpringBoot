@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/mydb
-    password: postgres
-    username: postgres
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/mydb
+    password: ${POSTGRES_PASSWORD:postgres}
+    username: ${POSTGRES_USERNAME:postgres}
 
     druid:
       initial-size: 5
