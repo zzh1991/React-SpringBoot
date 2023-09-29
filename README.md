@@ -35,8 +35,12 @@ Recently, I improved the performance from 50 to 90.
 ## Git clone repo
 
 Back-end project: [React-SpringBoot](https://github.com/zzh1991/React-SpringBoot)
-
 Front-end project: [movie-helper-front](https://github.com/zzh1991/movie-helper-front)
+
+```bash
+# cd React-SpringBoot/
+git clone https://github.com/zzh1991/movie-helper-front.git
+```
 
 ## 🚀 Usage
 
@@ -91,13 +95,13 @@ spring:
 
 #### Configure Front
 
-- `cd front`
-- `yarn`: install dependency
+- `cd movie-helper-front`
+- `npm install`: install dependency
 - prepare front static files
   - dev mode
-    - `yarn start`
+    - `npm run dev`
   - Deploy mode
-    - `yarn deploy`
+    - `npm run deploy`
 - start the web app in IDE
 - open browser
   - `dev mode`: go to http://localhost:3000
@@ -106,12 +110,9 @@ spring:
 ### Update submodule for front end
 
 ```bash
-cd front
+cd movie-helper-front
 git fetch origin master
 git rebase origin/master
-
-# or
-git submodule update --remote front
 ```
 
 ## Java doc

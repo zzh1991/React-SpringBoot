@@ -31,8 +31,12 @@
 ## 克隆项目
 
 后端项目地址：[React-SpringBoot](https://github.com/zzh1991/React-SpringBoot)
-
 前端项目地址：[movie-helper-front](https://github.com/zzh1991/movie-helper-front)
+
+```bash
+# cd React-SpringBoot/
+git clone https://github.com/zzh1991/movie-helper-front.git
+```
 
 ## 🚀 使用
 
@@ -87,13 +91,13 @@ spring:
 
 #### 配置前端依赖
 
-- `cd front`：切换到前端文件夹
-- `yarn`: 安装前端依赖
+- `cd movie-helper-front`：切换到前端文件夹
+- `npm install`: 安装前端依赖
 - 启动前端
   - 开发模式
-    - `yarn start`
+    - `npm run start`
   - 生产部署模式
-    - `yarn deploy`
+    - `npm run deploy`
 - 在 IDE 中启动应用
 - 打开浏览器
   - 开发模式: go to http://localhost:3000
@@ -102,12 +106,9 @@ spring:
 ### 更新前端代码
 
 ```bash
-cd front
+cd movie-helper-front
 git fetch origin master
 git rebase origin/master
-
-# or
-git submodule update --remote front
 ```
 
 ## 生成 Java API 文档
