@@ -34,15 +34,6 @@
 
 前端项目地址：[movie-helper-front](https://github.com/zzh1991/movie-helper-front)
 
-```bash
-git clone --recursive git@github.com:zzh1991/React-SpringBoot.git
-
-# or
-git clone git@github.com:zzh1991/React-SpringBoot.git
-git submodule init
-git submodule update
-```
-
 ## 🚀 使用
 
 ### 支持 Java 17 和 Spring Boot 3

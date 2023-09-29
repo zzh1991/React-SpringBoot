@@ -38,15 +38,6 @@ Back-end project: [React-SpringBoot](https://github.com/zzh1991/React-SpringBoot
 
 Front-end project: [movie-helper-front](https://github.com/zzh1991/movie-helper-front)
 
-```bash
-git clone --recursive git@github.com:zzh1991/React-SpringBoot.git
-
-# or
-git clone git@github.com:zzh1991/React-SpringBoot.git
-git submodule init
-git submodule update
-```
-
 ## 🚀 Usage
 
 ### Support Java 17 and Spring Boot 3
