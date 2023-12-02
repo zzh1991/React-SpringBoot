@@ -14,9 +14,11 @@
   </div>
 </div>
 
-
-
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fzzh1991%2FReact-SpringBoot.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fzzh1991%2FReact-SpringBoot?ref=badge_large)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=zzh1991/React-SpringBoot&type=Date)](https://star-history.com/#zzh1991/React-SpringBoot&Date)
 
 ## Demo: [Movie Helper](http://movie.zzhpro.com)
 
