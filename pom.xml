@@ -27,7 +27,7 @@
         <openapi.version>2.2.0</openapi.version>
 
         <graphql-java-extended-scalars.version>21.0</graphql-java-extended-scalars.version>
-        <spring-cloud-commons.version>4.0.4</spring-cloud-commons.version>
+        <spring-cloud-commons.version>4.1.1</spring-cloud-commons.version>
         <!--   plugin version     -->
         <maven-lombok.version>1.18.20.0</maven-lombok.version>
 
