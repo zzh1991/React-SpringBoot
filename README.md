@@ -109,7 +109,7 @@ spring:
   - `dev mode`: go to http://localhost:3000
   - `deploy mode`: go to http://localhost:8080
 
-### Update submodule for front end
+### Update front end
 
 ```bash
 cd movie-helper-front
@@ -149,10 +149,10 @@ mvn javadoc:javadoc
 
 ### Backend
 
-- Spring Boot 2
+- Spring Boot 3
 - PostgresQL
 - Guava
-- Swagger2
+- Swagger
 - Flyway
 - Prometheus
 - GraphQL

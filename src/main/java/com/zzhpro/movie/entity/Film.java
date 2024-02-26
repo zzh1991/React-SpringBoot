@@ -102,4 +102,34 @@ public class Film implements Serializable {
 
         return newFilm;
     }
+
+    private void transformMovieAndOldFilmToNewFilm(Film oldFilm) {
+        if (Objects.isNull(oldFilm)) {
+            return;
+        }
+
+        genres = oldFilm.getGenres();
+
+        summary = oldFilm.getSummary();
+
+        if (Objects.nonNull(oldFilm.getId())) {
+            id = oldFilm.getId();
+        }
+
+        if (StringUtils.isNotBlank(oldFilm.getDirectors())) {
+            directors = oldFilm.getDirectors();
+        }
+
+        if (StringUtils.isNotBlank(oldFilm.getCasts())) {
+            casts = oldFilm.getCasts();
+        }
+
+        if (oldFilm.getMovieYear() != 0) {
+            movieYear = oldFilm.getMovieYear();
+        }
+
+        if (!Objects.equals(0d, oldFilm.getRating())) {
+            rating = oldFilm.getRating();
+        }
+    }
 }
