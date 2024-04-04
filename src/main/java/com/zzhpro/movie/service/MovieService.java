@@ -7,7 +7,6 @@ import com.zzhpro.movie.constant.MovieTypeEnum;
 import com.zzhpro.movie.entity.Film;
 import com.zzhpro.movie.service.db.DataService;
 import com.zzhpro.movie.util.JsoupUtils;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.threads.ThreadPoolExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +29,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MovieService {
     private static final ExecutorService executorService =
             new ThreadPoolExecutor(2, 2, 60, TimeUnit.SECONDS,
                     new LinkedBlockingQueue<>());
 
+    @Autowired
     private DataService dataService;
 
     public List<Film> getMoviesByMovieTypeEnum(MovieTypeEnum movieTypeEnum) {

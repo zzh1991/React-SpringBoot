@@ -3,7 +3,6 @@ package com.zzhpro.movie.controller;
 import com.zzhpro.movie.constant.MovieTypeEnum;
 import com.zzhpro.movie.entity.Film;
 import com.zzhpro.movie.service.MovieService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +17,8 @@ import java.util.List;
  */
 
 @RestController
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MovieController {
+    @Autowired
     private MovieService movieService;
 
     /**

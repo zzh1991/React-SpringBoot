@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import com.zzhpro.movie.constant.MovieTypeEnum;
 import com.zzhpro.movie.dao.FilmRepository;
 import com.zzhpro.movie.entity.Film;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,8 +22,8 @@ import java.util.Map;
 
 @Service
 @Slf4j
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PageDataService {
+    @Autowired
     private FilmRepository filmRepository;
 
     static Specification<Film> titleContains(String title) {
