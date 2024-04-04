@@ -3,6 +3,7 @@ package com.zzhpro.movie.controller;
 import com.zzhpro.movie.constant.MovieTypeEnum;
 import com.zzhpro.movie.entity.Film;
 import com.zzhpro.movie.service.db.PageDataService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("page/")
 public class PageMovieController {
-    @Autowired
     private PageDataService pageDataService;
 
     @GetMapping("{movieType}")

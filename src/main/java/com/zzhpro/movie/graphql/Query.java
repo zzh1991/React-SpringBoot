@@ -4,6 +4,7 @@ import com.zzhpro.movie.constant.MovieTypeEnum;
 import com.zzhpro.movie.entity.Film;
 import com.zzhpro.movie.service.db.DataService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +16,8 @@ import java.util.List;
  */
 
 @Component
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class Query implements GraphQLQueryResolver {
-
-    @Autowired
     private DataService dataService;
 
     public List<Film> getFilms() {

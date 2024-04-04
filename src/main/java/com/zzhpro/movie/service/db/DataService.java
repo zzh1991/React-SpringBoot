@@ -5,6 +5,7 @@ import com.zzhpro.movie.constant.MovieTypeEnum;
 import com.zzhpro.movie.dao.FilmRepository;
 import com.zzhpro.movie.entity.Film;
 import com.zzhpro.movie.mapper.FilmMapper;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,9 @@ import java.util.List;
 
 @Service
 @Slf4j
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class DataService {
-
-    @Autowired
     private FilmRepository filmRepository;
-
-    @Autowired
     private FilmMapper filmMapper;
 
     public Film findByMovieId(long movieId) {
