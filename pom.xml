@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>21</java.version>
-        <guava.version>33.1.0-jre</guava.version>
+        <guava.version>33.2.0-jre</guava.version>
         <mybatis-plus-boot-starter.version>3.5.5</mybatis-plus-boot-starter.version>
         <graphql-spring-boot-starter.version>11.1.0</graphql-spring-boot-starter.version>
         <graphql-java-tools.version>13.1.0</graphql-java-tools.version>
