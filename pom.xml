@@ -24,7 +24,7 @@
         <compileflow.version>1.1.0</compileflow.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <druid.version>1.2.18</druid.version>
-        <openapi.version>2.5.0</openapi.version>
+        <openapi.version>2.6.0</openapi.version>
 
         <graphql-java-extended-scalars.version>21.0</graphql-java-extended-scalars.version>
         <spring-cloud-commons.version>4.1.2</spring-cloud-commons.version>
