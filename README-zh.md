@@ -238,5 +238,5 @@ mvn versions:use-latest-releases
 
 ## 📝 许可证
 
-Copyright © 2023 [zzh1991](https://github.com/zzh1991).<br />
+Copyright © 2024 [zzh1991](https://github.com/zzh1991).<br />
 本项目许可证为 [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE).

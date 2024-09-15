@@ -244,5 +244,5 @@ Please ⭐️ this repository if this project helped you!
 
 ## 📝 License
 
-Copyright © 2023 [zzh1991](https://github.com/zzh1991).<br />
+Copyright © 2024 [zzh1991](https://github.com/zzh1991).<br />
 This project is [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE) licensed.
