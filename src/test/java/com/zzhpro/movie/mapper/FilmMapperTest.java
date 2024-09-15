@@ -3,11 +3,11 @@ package com.zzhpro.movie.mapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zzhpro.movie.constant.MovieTypeEnum;
 import com.zzhpro.movie.entity.Film;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
