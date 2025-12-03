@@ -149,7 +149,7 @@ mvn javadoc:javadoc
 
 ### Backend
 
-- Spring Boot 3
+- Spring Boot 4
 - PostgresQL
 - Guava
 - Swagger

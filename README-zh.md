@@ -143,8 +143,8 @@ mvn javadoc:javadoc
 
 ### 后端技术
 
-- Spring Boot 2.3
-- PostgresQL 12
+- Spring Boot 4
+- PostgresQL 16
 - Guava
 - Spring fox Swagger
 - Flyway 6
