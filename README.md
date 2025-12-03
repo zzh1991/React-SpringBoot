@@ -46,7 +46,7 @@ git clone https://github.com/zzh1991/movie-helper-front.git
 
 ## 🚀 Usage
 
-### Support Java 17 and Spring Boot 3
+### Support Java 21 and Spring Boot 4
 
 ```bash
 # add VM options

@@ -40,7 +40,7 @@ git clone https://github.com/zzh1991/movie-helper-front.git
 
 ## 🚀 使用
 
-### 支持 Java 17 和 Spring Boot 3
+### 支持 Java 21 和 Spring Boot 4
 
 ```bash
 # 添加 VM options
