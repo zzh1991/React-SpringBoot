@@ -22,7 +22,7 @@
         <compileflow.version>1.1.0</compileflow.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <druid.version>1.2.27</druid.version>
-        <openapi.version>2.6.0</openapi.version>
+        <openapi.version>3.0.0</openapi.version>
 
         <!--   sonar     -->
         <sonar.organization>zzh1991-github</sonar.organization>
