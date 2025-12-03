@@ -1,30 +1,28 @@
-package com.zzhpro.movie.graphql;
+package com.zzhpro.movie.controller;
 
 import com.zzhpro.movie.constant.MovieTypeEnum;
 import com.zzhpro.movie.entity.Film;
 import com.zzhpro.movie.service.db.DataService;
-import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-/**
- * @author zhihao zhang
- * @since 2019-04-14
- */
-
-@Component
+@Controller
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class Query implements GraphQLQueryResolver {
+public class GraphqlController {
     private DataService dataService;
 
-    public List<Film> getFilms() {
+    @QueryMapping
+    public List<Film> films() {
         return dataService.listAllFilms();
     }
 
-    public List<Film> getFilmsByMovieType(MovieTypeEnum movieTypeEnum) {
+    @QueryMapping
+    public List<Film> filmsByMovieType(@Argument MovieTypeEnum movieTypeEnum) {
         return dataService.findByMovieTypeEnum(movieTypeEnum);
     }
 }

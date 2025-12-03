@@ -19,6 +19,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -36,6 +37,7 @@ import java.util.Objects;
 @Table(name = "movie_list")
 @TableName("movie_list")
 public class Film implements Serializable {
+    @Serial
     private static final long serialVersionUID = -8398532270073465206L;
 
     @Id

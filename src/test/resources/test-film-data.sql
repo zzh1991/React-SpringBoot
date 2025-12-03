@@ -1,6 +1,6 @@
-delete from movie_list where id = 340;
+delete from movie_list where id = 50;
 insert into movie_list(id, movie_id, title, rating, movie_year, image_large, url, casts, directors, genres, summary, countries, viewed, star, update_time, movie_type)
-values (340,1292052,'肖申克的救赎',9.6,1994,
+values (50,1292052,'肖申克的救赎',9.6,1994,
         'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p480747492.jpg',
         'https://movie.douban.com/subject/1292052/',
         '蒂姆·罗宾斯,摩根·弗里曼,鲍勃·冈顿','弗兰克·德拉邦特'	,'犯罪,剧情',

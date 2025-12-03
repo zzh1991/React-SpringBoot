@@ -7,7 +7,7 @@ import com.zzhpro.movie.entity.Film;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +30,7 @@ class FilmMapper2Test {
     @Test
     @Sql(scripts = { "/test-film-data.sql" })
     void getById() {
-        Film film = filmMapper.selectById(340);
+        Film film = filmMapper.selectById(50);
         assertThat(Objects.nonNull(film)).isTrue();
     }
 

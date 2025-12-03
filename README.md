@@ -174,6 +174,23 @@ mvn javadoc:javadoc
 
 - http://localhost:8080/graphiql
 
+```bash
+query filmQuery {
+  filmsByMovieType(movieTypeEnum: TOP) {
+    title,
+    rating,
+    movieYear,
+    movieTypeEnum
+  },
+  films {
+    title,
+    rating,
+    movieYear,
+    movieTypeEnum
+  }
+}
+```
+
 ## Configuration
 
 ### Hot deploy for Intellij IDEA
