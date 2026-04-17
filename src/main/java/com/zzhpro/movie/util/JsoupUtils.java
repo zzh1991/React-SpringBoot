@@ -11,7 +11,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.net.URL;
+import java.net.URI;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -37,7 +38,7 @@ public final class JsoupUtils {
         LocalDateTime updateTime = LocalDateTime.now();
 
         try {
-            Document document = Jsoup.parse(new URL(RECENT_URL), 30000);
+            Document document = Jsoup.parse(URI.create(RECENT_URL).toURL(), 30000);
             Element element = document.getElementById(NOWPLAYING);
 
             if (Objects.isNull(element)) {
@@ -71,7 +72,7 @@ public final class JsoupUtils {
         List<Film> filmList = Lists.newArrayList();
         for (int i = 0; i < n; i++) {
             try {
-                Document document = Jsoup.parse(new URL(TOP_DOUBAN_URL.concat(String.valueOf(i * gap))), 30000);
+                Document document = Jsoup.parse(URI.create(TOP_DOUBAN_URL.concat(String.valueOf(i * gap))).toURL(), 30000);
                 Element gridView = document.getElementById("content");
                 if (Objects.isNull(gridView)) {
                     return filmList;
@@ -114,7 +115,7 @@ public final class JsoupUtils {
             return null;
         }
         try {
-            Document document = Jsoup.parse(new URL(url), 30000);
+            Document document = Jsoup.parse(URI.create(url).toURL(), 30000);
             String summary = null;
             String genres = null;
             Element summaryElement = document.getElementById("link-report-intra");
@@ -148,7 +149,7 @@ public final class JsoupUtils {
             return null;
         }
         try {
-            Document document = Jsoup.parse(new URL(url), 30000);
+            Document document = Jsoup.parse(URI.create(url).toURL(), 30000);
             String summary = null;
             String genres;
             Element summaryElement = document.getElementById("link-report-intra");

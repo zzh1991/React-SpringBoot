@@ -36,8 +36,8 @@ Recently, I improved the performance from 50 to 90.
 
 ## Git clone repo
 
-Back-end project: [React-SpringBoot](https://github.com/zzh1991/React-SpringBoot)
-Front-end project: [movie-helper-front](https://github.com/zzh1991/movie-helper-front)
+- Back-end project: [React-SpringBoot](https://github.com/zzh1991/React-SpringBoot)
+- Front-end project: [movie-helper-front](https://github.com/zzh1991/movie-helper-front)
 
 ```bash
 # cd React-SpringBoot/
@@ -46,7 +46,7 @@ git clone https://github.com/zzh1991/movie-helper-front.git
 
 ## 🚀 Usage
 
-### Support Java 21 and Spring Boot 4
+### Support Java 25 and Spring Boot 4
 
 ```bash
 # add VM options
@@ -261,5 +261,5 @@ Please ⭐️ this repository if this project helped you!
 
 ## 📝 License
 
-Copyright © 2024 [zzh1991](https://github.com/zzh1991).<br />
+Copyright © 2025 [zzh1991](https://github.com/zzh1991).<br />
 This project is [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE) licensed.

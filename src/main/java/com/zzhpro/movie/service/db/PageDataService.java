@@ -7,6 +7,8 @@ import com.zzhpro.movie.dao.FilmRepository;
 import com.zzhpro.movie.entity.Film;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author zhihao zhang
@@ -41,8 +44,12 @@ public class PageDataService {
     }
 
     public Page<Film> getFilmBySearchText(String searchText, Pageable pageable) {
+        if (StringUtils.isBlank(searchText)) {
+            return Page.empty();
+        }
+        String nonNullSearchText = Objects.requireNonNull(searchText);
         Map<String, String> filterMap = ImmutableMap
-                .of("title", searchText, "summary", searchText);
+                .of("title", nonNullSearchText, "summary", nonNullSearchText);
         List<Specification<Film>> specificationList = Lists.newArrayList();
         filterMap.forEach((key, value) ->
                 specificationList.add((film, cq, cb) -> cb.like(film.get(key), "%" + value + "%")));

@@ -1,6 +1,5 @@
 package com.zzhpro.movie.service;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.zzhpro.movie.aop.MethodTime;
 import com.zzhpro.movie.constant.MovieTypeEnum;
@@ -9,6 +8,7 @@ import com.zzhpro.movie.service.db.DataService;
 import com.zzhpro.movie.util.JsoupUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.threads.ThreadPoolExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,7 +100,7 @@ public class MovieService {
         List<Film> newFilmList = Lists.newArrayList();
         List<CompletableFuture<Boolean>> completableFuture =
                 filmList.stream()
-                        .filter(film -> Strings.isNullOrEmpty(film.getSummary()))
+                        .filter(film -> StringUtils.isBlank(film.getSummary()))
                         .map(film -> CompletableFuture.supplyAsync(() -> JsoupUtils
                                         .getFilmDetailByMovieTypeAndUrl(movieTypeEnum, film.getUrl()),
                                 executorService)

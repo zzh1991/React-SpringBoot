@@ -30,8 +30,8 @@
 
 ## 克隆项目
 
-后端项目地址：[React-SpringBoot](https://github.com/zzh1991/React-SpringBoot)
-前端项目地址：[movie-helper-front](https://github.com/zzh1991/movie-helper-front)
+- 后端项目地址：[React-SpringBoot](https://github.com/zzh1991/React-SpringBoot)
+- 前端项目地址：[movie-helper-front](https://github.com/zzh1991/movie-helper-front)
 
 ```bash
 # cd React-SpringBoot/
@@ -40,7 +40,7 @@ git clone https://github.com/zzh1991/movie-helper-front.git
 
 ## 🚀 使用
 
-### 支持 Java 21 和 Spring Boot 4
+### 支持 Java 25 和 Spring Boot 4
 
 ```bash
 # 添加 VM options
@@ -183,6 +183,7 @@ query filmQuery {
     movieTypeEnum
   }
 }
+```
 
 ## 配置
 
@@ -254,5 +255,5 @@ mvn versions:use-latest-releases
 
 ## 📝 许可证
 
-Copyright © 2024 [zzh1991](https://github.com/zzh1991).<br />
+Copyright © 2025 [zzh1991](https://github.com/zzh1991).<br />
 本项目许可证为 [MIT](https://github.com/zzh1991/React-SpringBoot/blob/master/LICENSE).
