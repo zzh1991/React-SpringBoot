@@ -77,6 +77,11 @@ spring:
     baseline-on-migrate: true
     validate-on-migrate: false
     locations: classpath:db/migration/mysql
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.MySQLDialect
 ```
 
 > remove postgres dependency and add mysql dependency in pom.xml

@@ -115,33 +115,81 @@ public final class JsoupUtils {
             return null;
         }
         try {
-            Document document = Jsoup.parse(URI.create(url).toURL(), 30000);
-            String summary = null;
+            // Use mobile version to bypass PoW verification
+            Document document = Jsoup.connect(toMobileUrl(url))
+                    .userAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15")
+                    .timeout(30000)
+                    .get();
+
+            String summary = extractSummaryFromMobile(document);
+            Double rating = extractRatingFromMobile(document);
             String genres = null;
-            Element summaryElement = document.getElementById("link-report-intra");
-            if (Objects.nonNull(summaryElement)) {
-                Elements summaryElements = summaryElement.getElementsByTag("span");
-                summary = StringUtils.strip(summaryElements.get(0).text());
+
+            // Try to get genres from mobile page
+            Element subMeta = document.selectFirst(".sub-meta");
+            if (subMeta != null) {
+                String metaText = subMeta.text();
+                // Format: "美国 / 剧情 / 科幻 / 惊悚 / 2026-03-18(中国台湾)上映 / 片长156分钟"
+                String[] parts = metaText.split(" / ");
+                List<String> genreList = Lists.newArrayList();
+                for (String part : parts) {
+                    part = part.trim();
+                    // Check if it's a genre (not country, date, or duration)
+                    if (!part.isEmpty() && !part.contains("上映") && !part.contains("片长") &&
+                        !part.matches("\\d{4}.*") && !part.equals("美国") && !part.equals("中国") &&
+                        !part.equals("英国") && !part.equals("日本") && !part.equals("韩国")) {
+                        genreList.add(part);
+                    }
+                }
+                if (!genreList.isEmpty()) {
+                    genres = StringUtils.join(genreList, ConstantUtils.SEPARATOR);
+                }
             }
 
-            Element infoElement = document.getElementById("info");
-            if (Objects.nonNull(infoElement)) {
-                Elements spanElements = infoElement.getElementsByTag("span");
-                List<String> genreList = spanElements.stream()
-                        .filter(item -> "v:genre".equals(item.attr(PROPERTY)))
-                        .map(Element::text)
-                        .collect(Collectors.toList());
-                genres = StringUtils.join(genreList, ConstantUtils.SEPARATOR);
-            }
-
-            return Film.builder()
+            Film film = Film.builder()
                     .summary(summary)
+                    .rating(rating != null ? rating : 0d)
                     .genres(genres)
                     .build();
+
+            return film;
         } catch (Exception e) {
             log.error("failed to get detail from url: {}", url, e);
             return null;
         }
+    }
+
+    private String toMobileUrl(String desktopUrl) {
+        return desktopUrl.replace("https://movie.douban.com/subject/", "https://m.douban.com/movie/subject/");
+    }
+
+    private String extractSummaryFromMobile(Document doc) {
+        // Method 1: Try section with 剧情简介
+        for (Element section : doc.select("section")) {
+            Element h2 = section.selectFirst("h2");
+            if (h2 != null && h2.text().contains("剧情简介")) {
+                Element p = section.selectFirst("p");
+                if (p != null) {
+                    return p.html()
+                            .replace("<br/>", "\n")
+                            .replace("<br>", "\n")
+                            .strip();
+                }
+            }
+        }
+        return null;
+    }
+
+    private Double extractRatingFromMobile(Document doc) {
+        Element ratingMeta = doc.selectFirst("meta[itemprop=ratingValue]");
+        if (ratingMeta != null) {
+            try {
+                return Double.parseDouble(ratingMeta.attr("content"));
+            } catch (NumberFormatException e) {
+                log.warn("Failed to parse rating");
+            }
+        }
+        return null;
     }
 
     private Film getTopFilmDetailFromUrl(String url) {
@@ -149,7 +197,7 @@ public final class JsoupUtils {
             return null;
         }
         try {
-            Document document = Jsoup.parse(URI.create(url).toURL(), 30000);
+            Document document = Jsoup.connect(url).timeout(30000).get();
             String summary = null;
             String genres;
             Element summaryElement = document.getElementById("link-report-intra");

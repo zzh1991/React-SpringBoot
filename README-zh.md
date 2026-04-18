@@ -71,6 +71,11 @@ spring:
     baseline-on-migrate: true
     validate-on-migrate: false
     locations: classpath:db/migration/mysql
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.MySQLDialect
 ```
 
 > 在 pom.xml 文件中删除 postgres 依赖，并添加 mysql 依赖
