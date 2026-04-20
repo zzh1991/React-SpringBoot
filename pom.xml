@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>25</java.version>
-        <guava.version>33.2.1-jre</guava.version>
+        <guava.version>33.5.0-jre</guava.version>
         <mybatis-plus-boot-starter.version>3.5.15</mybatis-plus-boot-starter.version>
         <jsoup.version>1.17.2</jsoup.version>
         <compileflow.version>1.1.0</compileflow.version>
